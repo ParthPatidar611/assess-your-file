@@ -142,6 +142,8 @@ export interface FilingPreparationAssistance {
 }
 
 import type { DocumentProcessingReport } from "./pdfExtractor";
+import { type FactLedger, type ContradictionItem, buildDeterministicFactLedger } from "./factLedger";
+import { type GeneratedLegalDraft, buildMatterSpecificDraft } from "./legalDrafting";
 
 export interface NormalisedAssessment {
     assessment_title: string;
@@ -163,6 +165,13 @@ export interface NormalisedAssessment {
     precautions_and_recommendations: PrecautionsAndRecommendations;
     legal_options: LegalOption[];
     filing_assistance: FilingPreparationAssistance;
+
+    // Accuracy and Document Intelligence additions
+    fact_ledger?: FactLedger;
+    factLedger?: FactLedger;
+    contradictions?: ContradictionItem[];
+    drafting_studio?: GeneratedLegalDraft;
+    draftingStudio?: GeneratedLegalDraft;
 }
 
 export interface RetrievedPrecedent {
@@ -1591,6 +1600,9 @@ export function runDeterministicAssessment(
         "Consult a qualified advocate before taking any legal action or relying on this report."
     );
 
+    const factLedger = buildDeterministicFactLedger(material, material.documentReport);
+    const draftingStudio = buildMatterSpecificDraft("initial_legal_notice", material, factLedger);
+
     return {
         identifiedLegalIssues: legalIssues,
         identifiedSearchQueries: searchQueries,
@@ -1614,6 +1626,10 @@ export function runDeterministicAssessment(
             precautions_and_recommendations: precautions,
             legal_options: legalOptions,
             filing_assistance: filingAssistance,
+
+            fact_ledger: factLedger,
+            contradictions: factLedger.contradictions,
+            drafting_studio: draftingStudio,
         },
         precedentRetrievalFailed,
     };

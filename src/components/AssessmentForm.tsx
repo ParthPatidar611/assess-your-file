@@ -293,9 +293,9 @@ export default function AssessmentForm({
           </div>
         )}
 
-        {/* Privacy & OCR Disclaimer */}
+        {/* Multimodal Ingestion Notice */}
         <div className="mt-4 p-3.5 bg-[#F7F7F5] border border-[#EEEEEC] text-[11px] leading-relaxed text-[#686868]">
-          <span className="font-semibold text-[#151515]">Document Notice:</span> Uploaded PDF documents are processed in-memory for factual synthesis and precedent matching. Scanned image-only PDFs without digital text will be noted accordingly.
+          <span className="font-semibold text-[#151515]">Multimodal Document Intelligence:</span> Uploaded PDF documents are processed in-memory through our hybrid extraction pipeline. Digital text, scanned printed pages, and photographed handwritten records are classified per-page, transcribed with source provenance, and organized into an evidentiary ledger.
         </div>
       </div>
 
