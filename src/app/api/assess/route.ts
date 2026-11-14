@@ -158,7 +158,7 @@ async function generateWithRetry(
             const response = await ai.models.generateContent({
                 model,
                 contents,
-                config: { ...config, abortSignal: AbortSignal.timeout(28000) },
+                config: { ...config, abortSignal: AbortSignal.timeout(18000) },
             });
             return response;
         } catch (err: unknown) {
@@ -238,23 +238,50 @@ Rules: 2-3 search_queries, 5-10 understood_facts, 4-8 legal_issues. Do NOT inven
 async function genTimeline(ai: GoogleGenAI, model: string, cm: CaseMaterial, issues: string[]): Promise<TimelineEvent[]> {
     const prompt = `${caseCtx(cm, issues)}
 
-Extract ALL dates, deadlines and events from the submitted facts as a chronological timeline.
-Return ONLY valid JSON:
-{ "case_timeline": [{ "date": "Date string", "description": "What happened", "source": "Submitted facts", "isConfirmed": true, "dateType": "confirmed" }] }
-dateType must be one of: "confirmed", "approximate", "unknown". Only extract from submitted facts.`;
-    const resp = await generateWithRetry(ai, model, prompt, { responseMimeType: "application/json", temperature: 0.1, maxOutputTokens: 1024 });
+TASK: Extract a comprehensive chronological timeline of ALL factual dates, deadlines, milestones, notices, agreements, disputes, or events mentioned in the case facts or attached document text.
+
+INSTRUCTIONS:
+1. Examine all dates, years, months, intervals, and chronological markers (e.g. "15/04/2023", "October 2023", "2022", "30 days post-notice", "dated 12.08.2024").
+2. For each event, provide a concise, factual description of what occurred.
+3. If exact date (day/month/year) is specified, set dateType: "confirmed" and isConfirmed: true.
+4. If month/year or relative timeframe is mentioned, set dateType: "approximate" and isConfirmed: false.
+5. If sequence is clear but exact date is unspecified, set dateType: "unknown" and state the event chronologically.
+6. Set source to "User Submitted Facts" or "Uploaded Document" depending on where the event was identified.
+7. Extract 3 to 10 chronological events.
+
+Return ONLY valid JSON in this exact structure:
+{
+  "case_timeline": [
+    {
+      "date": "15/04/2023",
+      "description": "Factual description of event",
+      "source": "Submitted facts",
+      "isConfirmed": true,
+      "dateType": "confirmed"
+    }
+  ]
+}`;
+    const resp = await generateWithRetry(ai, model, prompt, { responseMimeType: "application/json", temperature: 0.1, maxOutputTokens: 1536 });
     const raw = parseGeminiJSON(resp.text, "timeline section");
-    return readObjectArray(raw.case_timeline).map((item) => {
+    const rawList = Array.isArray(raw)
+        ? raw
+        : readObjectArray(raw.case_timeline || raw.timeline || raw.events);
+
+    return rawList.map((item) => {
         const dt = readString(item.dateType);
+        const dateStr = readString(item.date || item.event_date || item.time, "Date not specified");
+        const descStr = readString(item.description || item.event || item.details);
+        const isPrecise = dt === "confirmed" || item.isConfirmed === true || /\d{1,2}[/.-]\d{1,2}/.test(dateStr);
         return {
-            date: readString(item.date, "Date not specified"),
-            description: readString(item.description),
+            date: dateStr,
+            description: descStr,
             source: readString(item.source, "Submitted facts"),
-            isConfirmed: item.isConfirmed === true,
+            isConfirmed: isPrecise,
             dateType: (["confirmed","approximate","unknown"] as const).includes(dt as "confirmed"|"approximate"|"unknown")
-                ? (dt as TimelineEvent["dateType"]) : "unknown",
+                ? (dt as TimelineEvent["dateType"])
+                : (isPrecise ? "confirmed" : "approximate"),
         };
-    });
+    }).filter((evt) => evt.description.length > 0 || evt.date !== "Date not specified");
 }
 
 async function genStrengthsWeaknesses(ai: GoogleGenAI, model: string, cm: CaseMaterial, issues: string[]) {
@@ -501,8 +528,16 @@ async function runSectionLevelAssessment(
         console.warn(`[assess] Section ${name} using deterministic fallback.`);
     }
 
-    // A - Overview
-    await trySection("overview", (m) => genOverview(ai, m, caseMaterial), (r) => {
+    // Precedent retrieval starts immediately using initial targeted queries
+    const initialQueries = searchPlan.search_queries.length > 0
+        ? searchPlan.search_queries
+        : (deterministicResult.identifiedSearchQueries.length > 0
+            ? deterministicResult.identifiedSearchQueries
+            : deterministicResult.identifiedLegalIssues);
+    const precedentSearchPromise = searchPrecedents(initialQueries.slice(0, 3), caseMaterial.caseType);
+
+    // KICK OFF ALL INDEPENDENT SECTIONS CONCURRENTLY
+    const overviewPromise = trySection("overview", (m) => genOverview(ai, m, caseMaterial), (r) => {
         assessment_title = r.assessment_title;
         executive_summary = r.executive_summary;
         understood_facts = r.understood_facts;
@@ -511,47 +546,67 @@ async function runSectionLevelAssessment(
         searchPlan = r.searchPlan;
     });
 
-    // Precedent retrieval using best-available search plan
-    const rawQ = searchPlan.search_queries.length > 0 ? searchPlan.search_queries : searchPlan.legal_issues;
-    const searchQueries = Array.from(new Set<string>(rawQ)).slice(0, 3);
-    if (searchQueries.length > 0) {
-        const sr = await searchPrecedents(searchQueries, caseMaterial.caseType);
-        if (sr.precedents.length > 0 || !sr.failed) {
-            precedents = sr.precedents;
-            precedentRetrievalFailed = sr.failed;
+    const timelinePromise = trySection("timeline", (m) => genTimeline(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
+        if (r && r.length > 0) {
+            timeline = r;
+        } else {
+            console.warn("[assess] AI timeline returned 0 items, preserving deterministic timeline");
         }
-    }
-    const precedentMap = new Map<string, RetrievedPrecedent>(precedents.map((p) => [p.case_id, p]));
+    });
 
-    // B - Timeline
-    await trySection("timeline", (m) => genTimeline(ai, m, caseMaterial, legal_issues), (r) => { timeline = r; });
-
-    // C - Strengths & Weaknesses
-    await trySection("strengths", (m) => genStrengthsWeaknesses(ai, m, caseMaterial, legal_issues), (r) => {
+    const strengthsPromise = trySection("strengths", (m) => genStrengthsWeaknesses(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
         strengths = r.strengths;
         weaknesses = r.weaknesses;
         missing_evidence = r.missing_evidence;
         recommended_next_steps = r.recommended_next_steps;
+        provenance.weaknesses = provenance.strengths;
     });
-    provenance.weaknesses = provenance.strengths;
 
-    // D - Precedent Analysis
-    await trySection("precedents", (m) => genPrecedentAnalysis(ai, m, caseMaterial, legal_issues, precedents, precedentMap), (r) => { precedentAnalysis = r; });
+    const outcomePromise = trySection("outcome", (m) => genOutcome(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
+        outcomeAssessment = r;
+    });
 
-    // E - Outcome
-    await trySection("outcome", (m) => genOutcome(ai, m, caseMaterial, legal_issues), (r) => { outcomeAssessment = r; });
+    const durationPromise = trySection("duration", (m) => genDuration(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
+        expectedDuration = r;
+    });
 
-    // F - Duration
-    await trySection("duration", (m) => genDuration(ai, m, caseMaterial, legal_issues), (r) => { expectedDuration = r; });
+    const precautionsPromise = trySection("precautions", (m) => genPrecautions(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
+        precautions = r;
+    });
 
-    // G - Precautions
-    await trySection("precautions", (m) => genPrecautions(ai, m, caseMaterial, legal_issues), (r) => { precautions = r; });
+    const optionsPromise = trySection("options", (m) => genOptions(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
+        legalOptions = r;
+    });
 
-    // H - Options
-    await trySection("options", (m) => genOptions(ai, m, caseMaterial, legal_issues), (r) => { legalOptions = r; });
+    const filingPromise = trySection("filing", (m) => genFiling(ai, m, caseMaterial, deterministicResult.identifiedLegalIssues), (r) => {
+        filingAssistance = r;
+    });
 
-    // I - Filing
-    await trySection("filing", (m) => genFiling(ai, m, caseMaterial, legal_issues), (r) => { filingAssistance = r; });
+    // Execute overview, timeline, strengths, outcome, duration, precautions, options, filing & precedent search in parallel!
+    const [_, precedentSearchResult] = await Promise.all([
+        Promise.allSettled([
+            overviewPromise,
+            timelinePromise,
+            strengthsPromise,
+            outcomePromise,
+            durationPromise,
+            precautionsPromise,
+            optionsPromise,
+            filingPromise,
+        ]),
+        precedentSearchPromise,
+    ]);
+
+    if (precedentSearchResult.precedents.length > 0 || !precedentSearchResult.failed) {
+        precedents = precedentSearchResult.precedents;
+        precedentRetrievalFailed = precedentSearchResult.failed;
+    }
+    const precedentMap = new Map<string, RetrievedPrecedent>(precedents.map((p) => [p.case_id, p]));
+
+    // Now run Precedent Analysis with the retrieved precedents
+    await trySection("precedents", (m) => genPrecedentAnalysis(ai, m, caseMaterial, legal_issues, precedents, precedentMap), (r) => {
+        precedentAnalysis = r;
+    });
 
     let analysisMode: AnalysisMode;
     let usedModel: string | null;
@@ -579,7 +634,8 @@ async function runSectionLevelAssessment(
             legal_options: legalOptions, filing_assistance: filingAssistance,
         },
         analysisMode, usedModel, precedents, precedentRetrievalFailed,
-        identifiedLegalIssues: legal_issues, identifiedSearchQueries: searchQueries,
+        identifiedLegalIssues: legal_issues,
+        identifiedSearchQueries: searchPlan.search_queries.length > 0 ? searchPlan.search_queries : initialQueries,
         sectionProvenance: provenance,
     };
 }
@@ -723,9 +779,21 @@ export async function POST(request: Request) {
             documentProcessing: documentReport || assessment?.document_processing,
             identifiedSearchQueries,
             identifiedLegalIssues,
-            retrievedPrecedents,
-            assessment,
-            disclaimer,
+            assessment: {
+                ...assessment,
+                timeline: assessment.case_timeline,
+                case_timeline: assessment.case_timeline,
+                outcomeAssessment: assessment.outcome_assessment,
+                outcome_assessment: assessment.outcome_assessment,
+                expectedDuration: assessment.expected_duration,
+                expected_duration: assessment.expected_duration,
+                precautionsAndRecommendations: assessment.precautions_and_recommendations,
+                precautions_and_recommendations: assessment.precautions_and_recommendations,
+                legalOptions: assessment.legal_options,
+                legal_options: assessment.legal_options,
+                filingAssistance: assessment.filing_assistance,
+                filing_assistance: assessment.filing_assistance,
+            },
         });
     } catch (error: unknown) {
         console.error("[assess] Unhandled error:", error);

@@ -155,11 +155,17 @@ export interface AssessmentReport {
   limitations?: string;
   document_processing?: DocumentProcessingReport;
   timeline?: TimelineEvent[];
+  case_timeline?: TimelineEvent[];
   outcomeAssessment?: OutcomeAssessment;
+  outcome_assessment?: OutcomeAssessment;
   expectedDuration?: ExpectedCaseDuration;
+  expected_duration?: ExpectedCaseDuration;
   precautionsAndRecommendations?: PrecautionsAndRecommendations;
+  precautions_and_recommendations?: PrecautionsAndRecommendations;
   legalOptions?: LegalOption[];
+  legal_options?: LegalOption[];
   filingAssistance?: FilingPreparationAssistance;
+  filing_assistance?: FilingPreparationAssistance;
 }
 
 export interface RetrievedPrecedent {

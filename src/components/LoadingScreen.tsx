@@ -16,7 +16,7 @@ export default function LoadingScreen() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStage((prev) => (prev < STAGES.length - 1 ? prev + 1 : prev));
-    }, 4500);
+    }, 1800);
 
     return () => clearInterval(interval);
   }, []);
@@ -87,7 +87,8 @@ export default function LoadingScreen() {
                 </div>
 
                 {isCurrent && (
-                  <span className="shrink-0 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-[#F2D21A] text-[#151515]">
+                  <span className="shrink-0 flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-[#F2D21A] text-[#151515]">
+                    <span className="w-1.5 h-1.5 bg-[#151515] rounded-full animate-ping" />
                     In Progress
                   </span>
                 )}
@@ -105,7 +106,7 @@ export default function LoadingScreen() {
       {/* Subtle Progress Bar */}
       <div className="mt-8 pt-6 border-t border-[#EEEEEC] flex items-center justify-between text-[11px] text-[#8E8E8A]">
         <span>Processing via 3-Level Fallback Engine</span>
-        <span>Estimated duration: 25-45 seconds</span>
+        <span>Estimated duration: 5-15 seconds</span>
       </div>
     </div>
   );

@@ -24,12 +24,12 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
   const isDeterministic = analysisMode === "deterministic_fallback";
   const isFallbackAI = analysisMode === "ai_fallback";
 
-  const timelineEvents = assessment.timeline || [];
-  const outcome = assessment.outcomeAssessment;
-  const duration = assessment.expectedDuration;
-  const precautions = assessment.precautionsAndRecommendations;
-  const legalOptions = assessment.legalOptions || [];
-  const filing = assessment.filingAssistance;
+  const timelineEvents = assessment.timeline || assessment.case_timeline || [];
+  const outcome = assessment.outcomeAssessment || assessment.outcome_assessment;
+  const duration = assessment.expectedDuration || assessment.expected_duration;
+  const precautions = assessment.precautionsAndRecommendations || assessment.precautions_and_recommendations;
+  const legalOptions = assessment.legalOptions || assessment.legal_options || [];
+  const filing = assessment.filingAssistance || assessment.filing_assistance;
   const precedentsAnalyzed = assessment.precedent_analysis || [];
 
   return (

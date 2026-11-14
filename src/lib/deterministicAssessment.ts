@@ -893,14 +893,16 @@ export function buildDeterministicTimeline(material: CaseMaterial): TimelineEven
     }
 
     const dateRegexes = [
-        // DD/MM/YYYY or DD-MM-YYYY
-        /\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b/g,
+        // DD/MM/YYYY or DD-MM-YYYY or DD.MM.YYYY
+        /\b(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4})\b/g,
         // 12th January 2024 / 12 Jan 2024
         /\b(\d{1,2}(?:st|nd|rd|th)?\s+(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*[\s,]+\d{2,4})\b/gi,
         // January 12, 2024
         /\b((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?[\s,]+\d{2,4})\b/gi,
-        // in/dated January 2024
-        /\b(?:in|dated|around|since)\s+((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})\b/gi,
+        // Month Year (e.g. March 2023, Jan 2024)
+        /\b((?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*[\s,]+(?:20\d{2}|19\d{2}))\b/gi,
+        // in/dated/around/since 2024 or Month 2024
+        /\b(?:in|dated|around|since|from|by|on)\s+((?:(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+)?(?:20\d{2}|19\d{2}))\b/gi,
     ];
 
     const seenDates = new Set<string>();
