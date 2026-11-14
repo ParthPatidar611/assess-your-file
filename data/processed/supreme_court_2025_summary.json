@@ -1,0 +1,13 @@
+{
+  "archive_pdf_count": 897,
+  "matched_records": 897,
+  "successfully_extracted": 897,
+  "empty_text": 0,
+  "extraction_errors": 0,
+  "unmatched_pdfs": 0,
+  "total_characters": 43345049,
+  "source_archive": "data/aws/supreme_court/archives/2025_english.tar",
+  "source_metadata": "data/aws/supreme_court/metadata/2025.parquet",
+  "output_file": "data/processed/supreme_court_2025.jsonl",
+  "unmatched_files": []
+}

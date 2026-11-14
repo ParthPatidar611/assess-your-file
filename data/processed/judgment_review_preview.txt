@@ -1,0 +1,941 @@
+
+=====================================================================================
+COMMERCIAL_CONTRACTS
+=====================================================================================
+Candidates found: 186
+
+1. M/S TECHNO PRINTS versus CHHATTISGARH TEXTBOOK CORPORATION & ANR.
+Case ID: 2025 INSC 236
+Citation: [2025] 3 S.C.R. 208
+Date: 11-02-2025
+Judge: J.B. PARDIWALA, R MAHADEVAN
+Disposal: Disposed off
+Domain score: 71
+PDF: 2025_3_208_233_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_208_233_EN.pdf
+Matching terms:
+  - tender (count: 32, source: judgment_text)
+  - agreement (count: 12, source: judgment_text)
+  - breach of contract (count: 4, source: judgment_text)
+  - contract (count: 19, source: judgment_text)
+  - damages (count: 3, source: judgment_text)
+  - contractual (count: 4, source: judgment_text)
+  - work order (count: 7, source: judgment_text)
+  - bank guarantee (count: 7, source: judgment_text)
+Judgment excerpt:
+van, JJ.] Issue for Consideration Whether the respondents-Corporation justified in calling upon the  appellant-contractor to show cause as to why they should not be  blacklisted for a period of three years on alleged violation of the  clauses of the tender; and whether the appeal should  be entertained  arising from a challenge to the show cause notice. Headnotes† Tender – Tender agreement – Breach of contract – Blacklisting –  Power of the Authority to blacklist – Scope – Show cause  notice – Issuance of – Appellant was assigned a contract  by the respondent no.1 – Issuance of show cause notice by  respondent no.1 to the appellant to show cause as to why it  should not be blacklisted for a period of three years and the  security deposit/EMD be forfeited for violation of the clauses of  the tender agreement – Writ petition by the appellant – Rejected  by the Single Judge of the High Cour
+
+2. CONSOLIDATED CONSTRUCTION CONSORTIUM LIMITED versus SOFTWARE TECHNOLOGY PARKS OF INDIA
+Case ID: 2025 INSC 574
+Citation: [2025] 4 S.C.R. 1846
+Date: 28-04-2025
+Judge: ABHAY S. OKA
+Disposal: Dismissed
+Domain score: 63
+PDF: 2025_4_1846_1864_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_1846_1864_EN.pdf
+Matching terms:
+  - construction contract (count: 1, source: judgment_text)
+  - liquidated damages (count: 45, source: judgment_text)
+  - contractual (count: 4, source: judgment_text)
+  - agreement (count: 14, source: judgment_text)
+  - contract (count: 73, source: judgment_text)
+  - breach of contract (count: 5, source: judgment_text)
+  - tender (count: 1, source: judgment_text)
+  - damages (count: 4, source: judgment_text)
+Judgment excerpt:
+tware Technology Parks of India (Civil Appeal No. 5383 of 2024) 28 April 2025 [Abhay S. Oka and Ujjal Bhuyan,* JJ.] Issue for Consideration Issue arose as regards the correctness of the order passed by  the Division Bench of High Court upholding the arbitral award. Headnotes† Arbitration and Conciliation Act, 1996 – ss.34 and 37 –  Application for setting aside arbitral awards – Dispute  between the parties regarding delay in completion of the  construction contract – Respondent-contracting authority  deducted liquidated damages from the contractual dues of  the appellant-contractor, along with other deduction and paid  balance amount to appellant – Initiation of arbitral proceedings  by the appellant challenging deduction of liquidated damages –  Arbitral award by the arbitrator upholding the deduction of  liquidated damages – Petition u/s.34 by the appellant to set  aside the arbitral 
+
+3. K.R. SURESH versus R. POORNIMA & ORS.
+Case ID: 2025 INSC 617
+Citation: [2025] 6 S.C.R. 22
+Date: 01-05-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 58
+PDF: 2025_6_22_63_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_6_22_63_EN.pdf
+Matching terms:
+  - specific performance (count: 26, source: judgment_text)
+  - contract (count: 122, source: judgment_text)
+  - agreement (count: 48, source: judgment_text)
+  - breach of contract (count: 8, source: judgment_text)
+  - contractual (count: 4, source: judgment_text)
+  - damages (count: 2, source: judgment_text)
+  - liquidated damages (count: 2, source: judgment_text)
+Judgment excerpt:
+Civil Appeal No. 5822 of 2025) 02 May 2025 [J.B. Pardiwala* and R. Mahadevan, JJ.] Issue for Consideration Issue arose as regards the correctness of the order passed by  the courts below dismissing the suit instituted by the appellant- purchaser for specific performance of contract; and whether the  appellant entitled to the refund of the amount purportedly paid as  advance money. Headnotes† Specific Relief Act, 1963 – s.22 – Specific performance  of contract – Refund of advance money – Agreement for   sale-ATS between the parties pertaining to suit property for  a sale consideration – Appellant-purchaser issued cheques  towards the advance amount – Agreement stipulated  that balance amount to be paid within four months, and  in the event of failure, the advance amount would be  forfeited, and upon failure on part of respondents-owners,  double the advance amount to be paid to appellant 
+
+4. K.S. MANJUNATH AND OTHERS versus MOORASAVIRAPPA @ MUTTANNA CHENNAPPA BATIL, SINCE DECEASED BY HIS LRS AND OTHER
+Case ID: 2025 INSC 1298
+Citation: [2025] 12 S.C.R. 43
+Date: 10-11-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 53
+PDF: 2025_12_43_122_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_12_43_122_EN.pdf
+Matching terms:
+  - specific performance (count: 85, source: judgment_text)
+  - agreement (count: 204, source: judgment_text)
+  - contract (count: 195, source: judgment_text)
+  - damages (count: 4, source: judgment_text)
+  - breach of contract (count: 3, source: judgment_text)
+  - tender (count: 3, source: judgment_text)
+  - contractual (count: 5, source: judgment_text)
+Judgment excerpt:
+hadevan, JJ.] Issue for Consideration Whether the High Court committed any error in passing the  impugned judgment whereby it allowed the appeals filed by the  vendees and set aside the decree passed by the Trial Court, while  granting the relief of specific performance of Agreement to Sell  executed by the Original Vendors in favour of the Original Vendees  and holding the Appellants-Subsequent Purchasers not to be the  bona fide purchasers of the subject land for value without notice. Headnotes† Specific Relief Act, 1963 – Unilateral termination of the  agreement to sell by one party – Impermissible, except where  the agreement itself is determinable in nature in terms of s.14 –  Original vendors executed an unregistered Agreement to Sell  (ATS) in favour of the original vendees in respect of 354 Acres  of the Subject Land – However, later, they sent a Notice of  Termination to the ori
+
+5. M/S JINDAL STEEL AND POWER LTD. & ANR. versus M/S BANSAL INFRA PROJECTS PVT. LTD. & ORS.
+Case ID: 2025 INSC 640
+Citation: [2025] 5 S.C.R. 1263
+Date: 07-05-2025
+Judge: J.B. PARDIWALA
+Disposal: Disposed off
+Domain score: 52
+PDF: 2025_5_1263_1278_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_5_1263_1278_EN.pdf
+Matching terms:
+  - work order (count: 12, source: judgment_text)
+  - bank guarantee (count: 57, source: judgment_text)
+  - contract (count: 7, source: judgment_text)
+  - contractual (count: 2, source: judgment_text)
+  - commercial courts act (count: 5, source: judgment_text)
+Judgment excerpt:
+[2025] 5 S.C.R. 1263 : 2025 INSC 640 M/s Jindal Steel and Power Ltd. & Anr.  v.  M/s Bansal Infra Projects Pvt. Ltd. & Ors. (Civil Appeal No. 6413 of 2025) 07 May 2025 [J.B. Pardiwala and R.Mahadevan,* JJ.] Issue for Consideration Appellants issued work order to 1st respondent for construction of  flats and paid advance. Bank guarantee equivalent to the advance  money was furnished by 1st respondent to secure the amount. When  the work got delayed and disputes arose between the parties,  the appellants requested refund of debit balance, failing which  the bank guarantee was to be encashed. The 1 st respondent filed  petition under Section 9 of the Arbitration and Conciliation Act,  1996, before the Commercial Court, along with applications under  Order XXXIX Rules 1 and 2 and Order XXXIX Rule 3 CPC, so as  to restrain the appellants from proceeding with encashment of the  bank guarantee
+
+6. JHARKHAND URJA UTPADAN NIGAM LTD. & ANR. versus M/S BHARAT HEAVY ELECTRICALS LIMITED
+Case ID: 2025 INSC 533
+Citation: [2025] 4 S.C.R. 1646
+Date: 15-04-2025
+Judge: J.B. PARDIWALA, R MAHADEVAN
+Disposal: Dismissed
+Domain score: 42
+PDF: 2025_4_1646_1661_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_1646_1661_EN.pdf
+Matching terms:
+  - commercial courts act (count: 13, source: judgment_text)
+  - agreement (count: 2, source: judgment_text)
+  - commercial dispute (count: 4, source: judgment_text)
+Judgment excerpt:
+or Consideration The High Court rejected the Interim Application No. 11269 of 2024  filed by the petitioner herein u/s.5 of the Limitation Act, 1963 and  thereby declined to condone the delay of 301 days in filing the  main appeal u/s.13(1-A) of the Commercial Courts Act, 2015. Headnotes† Commercial Courts Act, 2015 – ss.13(1-A), 16 – Code of Civil  Procedure, 1908 – Order XX Rule 1 – Limitation Act, 1963 –  s.5 – Respondent instituted a civil suit against the Petitioner for  recovery of a sum of money along with interest on the basis of  the award passed by the MSME Council – There was a delay of  301 days in filing the statutory appeal – An application u/s.5 of  the Limitation Act was filed by the Petitioner – The High Court  declined to condone the delay – Before the Supreme Court, the  petitioner contended the pronouncement of the judgment in  the open court in accordance with the am
+
+7. M/S DHANBAD FUELS PRIVATE LIMITED versus UNION OF INDIA & ANR
+Case ID: 2025 INSC 696
+Citation: [2025] 6 S.C.R. 431
+Date: 14-05-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 40
+PDF: 2025_6_431_470_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_6_431_470_EN.pdf
+Matching terms:
+  - commercial courts act (count: 8, source: judgment_text)
+  - commercial dispute (count: 8, source: judgment_text)
+Judgment excerpt:
+31 : 2025 INSC 696 M/s Dhanbad Fuels Private Limited  v.  Union of India & Anr. (Civil Appeal No. 6846 of 2025) 15 May 2025 [J.B. Pardiwala* and R. Mahadevan, JJ.] Issue for Consideration Issue arose whether, due to non-compliance with s.12A of the  Commercial Courts Act, 2015, a suit should be dismissed u/Ord.  VII r.11 CPC, or whether it should be kept in abeyance, directing  the parties to first explore the possibility of settlement by instituting  mediation; and whether the High Court erred in passing the  impugned order, keeping the suit in abeyance and sending the  parties to mediation as per the PIMS Rules and the 2020 SOP. Headnotes† Commercial Courts Act, 2015 – s.12A – Pre-institution mediation  and settlement – Pre-institution mediation, if mandatory –  Prospective effect to declaration in Patil Automation’s case –  Money suit by respondent Union of India in commercial court  
+
+8. HINDUSTAN PETROLEUM CORPORATION LTD. versus BCL SECURE PREMISES PVT. LTD.
+Case ID: 2025 INSC 1401
+Citation: [2025] 12 S.C.R. 455
+Date: 09-12-2025
+Judge: J.B. PARDIWALA
+Disposal: Appeal(s) allowed
+Domain score: 39
+PDF: 2025_12_455_478_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_12_455_478_EN.pdf
+Matching terms:
+  - tender (count: 12, source: judgment_text)
+  - purchase order (count: 8, source: judgment_text)
+  - contract (count: 44, source: judgment_text)
+  - agreement (count: 42, source: judgment_text)
+  - bank guarantee (count: 1, source: judgment_text)
+  - contractual (count: 6, source: judgment_text)
+Judgment excerpt:
+ Corporation Ltd.  v.  BCL Secure Premises Pvt. Ltd. (Civil Appeal No. 14647 of 2025) 09 December 2025 [J.B. Pardiwala and K.V. Viswanathan,* JJ.] Issue for Consideration Issue arose whether the High Court, was justified in referring  the parties to arbitration by allowing the petition u/s.11(4) of the  Arbitration and Conciliation Act, 1996. Headnotes† Arbitration and Conciliation Act, 1996 – Appointment of  arbitrators – Appellant-Corporation floated a tender and  issued a purchase order in favour of the contractor-successful  tenderer – Tender prohibited sub-letting, sub-contracting  without the prior consent of the owner obtained in writing –  Appellant issued notice to the contractor with regard to  non-functioning and unsatisfactory performance – Later, the  respondent informed the appellant that they were working  as sub-vendor of the contractor and were entitled to receive  94% o
+
+=====================================================================================
+ARBITRATION
+=====================================================================================
+Candidates found: 125
+
+1. ASF BUILDTECH PRIVATE LIMITED versus SHAPOORJI PALLONJI AND COMPANY PRIVATE LIMITED
+Case ID: 2025 INSC 616
+Citation: [2025] 5 S.C.R. 1565
+Date: 02-05-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 147
+PDF: 2025_5_1565_1730_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_5_1565_1730_EN.pdf
+Matching terms:
+  - arbitral tribunal (count: 302, source: judgment_text)
+  - arbitration agreement (count: 443, source: judgment_text)
+  - arbitration (count: 529, source: judgment_text)
+  - arbitration and conciliation act (count: 23, source: judgment_text)
+  - section 11 (count: 118, source: judgment_text)
+  - international commercial arbitration (count: 5, source: judgment_text)
+  - arbitrator (count: 144, source: judgment_text)
+  - arbitral award (count: 8, source: judgment_text)
+Judgment excerpt:
+[2025] 5 S.C.R. 1565 : 2025 INSC 616 ASF Buildtech Private Limited  v.  Shapoorji Pallonji and Company Private Limited  (Civil Appeal No. 5823 of 2025) 02 May 2025 [J.B. Pardiwala* and R. Mahadevan, JJ.] Issue for Consideration Whether an arbitral tribunal has the authority or power to implead  or join a non-signatory to the arbitration agreement as a party to  the arbitration proceedings. Headnotes† Arbitration and Conciliation Act, 1996 – Whether an arbitral  tribunal has the authority or power to implead or join a  non-signatory to the arbitration agreement as a party to the  arbitration proceedings: Held: Arbitral Tribunal has the authority and power to implead  Non-Signatories to the arbitration agreement on its own accord.  [Paras 109-168] Arbitration and Conciliation Act, 1996 – Whether the Arbitral  Tribunal have the power to implead a non-signatory to the  Arbitration
+
+2. ADAVYA PROJECTS PVT. LTD. versus M/S VISHAL STRUCTURALS PVT. LTD. & ORS
+Case ID: 2025 INSC 507
+Citation: [2025] 5 S.C.R. 243
+Date: 16-04-2025
+Judge: PAMIDIGHANTAM SRI NARASIMHA
+Disposal: Appeal(s) allowed
+Domain score: 135
+PDF: 2025_5_243_274_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_5_243_274_EN.pdf
+Matching terms:
+  - section 11 (count: 46, source: judgment_text)
+  - arbitral tribunal (count: 93, source: judgment_text)
+  - arbitration (count: 122, source: judgment_text)
+  - arbitration and conciliation act (count: 11, source: judgment_text)
+  - arbitration agreement (count: 82, source: judgment_text)
+  - arbitrator (count: 15, source: judgment_text)
+  - appointment of arbitrator (count: 7, source: judgment_text)
+  - international commercial arbitration (count: 4, source: judgment_text)
+Judgment excerpt:
+ Adavya Projects Pvt. Ltd.  v.  M/s Vishal Structurals Pvt. Ltd. & Ors. (Civil Appeal No. 5297 of 2025) 17 April 2025 [Pamidighantam Sri Narasimha* and Manoj Misra, JJ.] Issue for Consideration Whether service of a Section 21 notice and joinder in a Section 11  application are prerequisites to implead a person/entity as a party  to the arbitral proceedings; What is the source of jurisdiction of an  arbitral tribunal over a person/entity who is sought to be impleaded  as a party to the arbitral proceedings; As a corollary, what is the  relevant inquiry that the arbitral tribunal must undertake when  determining its own jurisdiction under Section 16 of the Arbitration  and Conciliation Act, 1996. Headnotes† Arbitration and Conciliation Act, 1996 – ss.11, 21 – Service of a  s.21 notice and joinder in a s.11 application, if prerequisites to  implead a person/entity as a party to the arbitral
+
+3. GAYATRI BALASAMY versus M/S ISG NOVASOFT TECHNOLOGIES LIMITED
+Case ID: 2025 INSC 605
+Citation: [2025] 4 S.C.R. 2080
+Date: 30-04-2025
+Judge: SANJIV KHANNA
+Disposal: Disposed off
+Domain score: 135
+PDF: 2025_4_2080_2236_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_2080_2236_EN.pdf
+Matching terms:
+  - arbitration and conciliation act (count: 34, source: judgment_text)
+  - arbitral award (count: 161, source: judgment_text)
+  - international commercial arbitration (count: 12, source: judgment_text)
+  - arbitrator (count: 59, source: judgment_text)
+  - arbitral tribunal (count: 143, source: judgment_text)
+  - arbitration (count: 264, source: judgment_text)
+  - arbitration agreement (count: 40, source: judgment_text)
+  - section 34 (count: 281, source: judgment_text)
+Judgment excerpt:
+ 6178-6179 of 2025) 30 April 2025 [Sanjiv Khanna,* CJI, B.R. Gavai, Sanjay Kumar,   K.V. Viswanathan* and Augustine George Masih, JJ.] Issue for Consideration In ‡M. Hakeem and Anr.’s case, this Court held that while exercising  powers u/s.34 of the Arbitration and Conciliation Act, 1996, a Court  hearing the petition had no power to “modify” the Award, whereas  other benches of two judges and three judges of this Court have  either modified or accepted modification of the arbitral awards. In  view of the divergent and contrasting judicial opinions as regards  the power of the court u/s.34 to modify an arbitral award, the  matter has been placed before the Constitution Bench to decide  the questions referred.  The questions referred are: whether the powers of the Court   u/ss.34 and 37 of the 1996 Act include the power to modify an  arbitral award; whether such power can be exercised onl
+
+4. OFFICE FOR ALTERNATIVE ARCHITECTURE versus IRCON INFRASTRUCTURE AND SERVICES LTD.
+Case ID: 2025 INSC 665
+Citation: [2025] 6 S.C.R. 395
+Date: 12-05-2025
+Judge: PAMIDIGHANTAM SRI NARASIMHA
+Disposal: Appeal(s) allowed
+Domain score: 114
+PDF: 2025_6_395_401_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_6_395_401_EN.pdf
+Matching terms:
+  - arbitration (count: 13, source: judgment_text)
+  - arbitration agreement (count: 12, source: judgment_text)
+  - arbitration and conciliation act (count: 4, source: judgment_text)
+  - arbitrator (count: 23, source: judgment_text)
+  - arbitral tribunal (count: 8, source: judgment_text)
+  - section 11 (count: 7, source: judgment_text)
+  - international commercial arbitration (count: 6, source: judgment_text)
+  - appointment of arbitrator (count: 2, source: judgment_text)
+Judgment excerpt:
+ 665 Office for Alternative Architecture  v.  IRCON Infrastructure and Services Ltd. (Civil Appeal No. 6620 of 2025) 13 May 2025 [Pamidighantam Sri Narasimha and Manoj Misra,* JJ.] Issue for Consideration Whether while exercising power u/s.11 of the Arbitration and  Conciliation Act, 1996, the Court has to confine its consideration as  to the existence of an arbitration agreement between the parties;  If so, whether it would be permissible, while exercising jurisdiction  u/s.11, to hold that some of the claims raised are non-arbitrable  or fall within excepted category. Headnotes† Arbitration and Conciliation Act, 1996 – s.11 – In a nutshell,  the case of the appellant, inter alia, is that while exercising  power u/s.11 of the 1996 Act, the Court has to only examine  whether the arbitration agreement exists or not and if it exists,  an Arbitrator is to be appointed who, thereafter, would
+
+5. M/S GAYATRI PROJECT LIMITED  versus MADHYA PRADESH ROAD DEVELOPMENT CORPORATION LIMITED
+Case ID: 2025 INSC 698
+Citation: [2025] 5 S.C.R. 2534
+Date: 15-05-2025
+Judge: J.B. PARDIWALA
+Disposal: Disposed off
+Domain score: 112
+PDF: 2025_5_2534_2592_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_5_2534_2592_EN.pdf
+Matching terms:
+  - arbitral award (count: 8, source: judgment_text)
+  - arbitration (count: 185, source: judgment_text)
+  - arbitral tribunal (count: 64, source: judgment_text)
+  - arbitration and conciliation act (count: 15, source: judgment_text)
+  - arbitration agreement (count: 5, source: judgment_text)
+  - arbitrator (count: 25, source: judgment_text)
+  - section 34 (count: 85, source: judgment_text)
+  - section 11 (count: 5, source: judgment_text)
+Judgment excerpt:
+[2025] 5 S.C.R. 2534 : 2025 INSC 698 M/s Gayatri Project Limited   v.   Madhya Pradesh Road Development Corporation Limited (Civil Appeal No. 6856 of 2025) 15 May 2025 [J.B. Pardiwala* and R. Mahadevan, JJ.] Issue for Consideration 1. Whether an arbitral award rendered under the Arbitration  and Conciliation Act, 1996 (hereinafter “Act, 1996”), where  the arbitration proceedings ought to have been governed  by the M.P. Madhyastham Adhikaran Adhiniyam, 1983  (hereinafter “MP Act, 1983”), can be set aside solely on the  ground of lack of jurisdiction, even when no such plea was  raised before the arbitral tribunal in terms of Section 16(2)  of the Act, 1996? 2. Whether the decision of this Court in M.P. Road Development  Authority & Anr v. L.G. Chaudhary Engineers & Contractors   reported in (2018) 10 SCC 826 can be said to be per incuriam  for not considering the Court’s ruling in Lio
+
+6. DISORTHO S.A.S.  versus MERIL LIFE SCIENCES PRIVATE LIMITED
+Case ID: 2025 INSC 352
+Citation: [2025] 3 S.C.R. 1555
+Date: 18-03-2025
+Judge: SANJIV KHANNA
+Disposal: Case Allowed
+Domain score: 104
+PDF: 2025_3_1555_1578_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_1555_1578_EN.pdf
+Matching terms:
+  - arbitration (count: 147, source: judgment_text)
+  - arbitration agreement (count: 82, source: judgment_text)
+  - arbitration and conciliation act (count: 7, source: judgment_text)
+  - seat of arbitration (count: 19, source: judgment_text)
+  - section 11 (count: 5, source: judgment_text)
+  - arbitrator (count: 11, source: judgment_text)
+  - international commercial arbitration (count: 1, source: judgment_text)
+  - arbitral tribunal (count: 3, source: judgment_text)
+Judgment excerpt:
+[2025] 3 S.C.R. 1555 : 2025 INSC 352 Disortho S.A.S.   v.  Meril Life Sciences Private Limited (Arbitration Petition No. 48 of 2023) 18 March 2025 [Sanjiv Khanna,* CJI, Sanjay Kumar and   K.V. Viswanathan, JJ.] Issue for Consideration Law governing the arbitration agreement in the present case. Headnotes† Arbitration and Conciliation Act, 1996 – s.11(6) – International  Commercial Arbitration – Petitioner is a company incorporated  in Bogota, Colombia – Respondent is a company incorporated  in Gujarat, India – International Exclusive Distributor Agreement  executed between parties for distribution of medical products  in Colombia – Disputes emerged – Petition u/s.11(6) of the  Arbitration and Conciliation Act, 1996, for appointment of a
+
+7. AC CHOKSHI SHARE BROKER PRIVATE LIMITED versus JATIN PRATAP DESAI & ANR.
+Case ID: 2025 INSC 174
+Citation: [2025] 2 S.C.R. 1545
+Date: 10-02-2025
+Judge: PAMIDIGHANTAM SRI NARASIMHA
+Disposal: Appeal(s) allowed
+Domain score: 102
+PDF: 2025_2_1545_1568_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_2_1545_1568_EN.pdf
+Matching terms:
+  - arbitration (count: 60, source: judgment_text)
+  - arbitral award (count: 26, source: judgment_text)
+  - arbitral tribunal (count: 54, source: judgment_text)
+  - arbitrator (count: 3, source: judgment_text)
+  - arbitration and conciliation act (count: 4, source: judgment_text)
+  - section 34 (count: 16, source: judgment_text)
+  - arbitration agreement (count: 7, source: judgment_text)
+Judgment excerpt:
+rivate Limited  v.   Jatin Pratap Desai & Anr. (Civil Appeal No. 2227 of 2025) 10 February 2025 [Pamidighantam Sri Narasimha* and Sandeep Mehta, JJ.] Issue for Consideration If a wife owes a stock market debt, can the registered stock broker  invoke arbitration against her husband under BSE Bye-Laws,  1957 and hold him jointly and severally liable for debt based on  an oral agreement. Headnotes† Arbitration – On husband’s oral instructions the registered  stock broker transferred former’s credit balance to wife’s  account to offset her losses – 2001 market crash – Debit  balance in wife’s account increased exponentially – Stock  broker invoked arbitration under BSE bye-laws to recover the  amount – Arbitral Award held wife and husband jointly and  severally liable – Upheld by Single Judge of High Court u/s.34  of A&C Act – Division Bench set aside Award re husband u/s.37  of A&C Act – Im
+
+8. BGM AND M-RPL-JMCT (JV) versus EASTERN COALFIELDS LIMITED
+Case ID: 2025 INSC 874
+Citation: [2025] 7 S.C.R. 1275
+Date: 18-07-2025
+Judge: PAMIDIGHANTAM SRI NARASIMHA
+Disposal: Dismissed
+Domain score: 99
+PDF: 2025_7_1275_1294_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_7_1275_1294_EN.pdf
+Matching terms:
+  - arbitration agreement (count: 106, source: judgment_text)
+  - arbitral tribunal (count: 30, source: judgment_text)
+  - arbitration (count: 120, source: judgment_text)
+  - arbitration and conciliation act (count: 6, source: judgment_text)
+  - arbitrator (count: 12, source: judgment_text)
+  - section 11 (count: 16, source: judgment_text)
+  - arbitral award (count: 3, source: judgment_text)
+Judgment excerpt:
+ S.C.R. 1275 : 2025 INSC 874 BGM and M-RPL-JMCT (JV)  v.  Eastern Coalfields Limited (Civil Appeal No. 9795 of 2025) 18 July 2025 [Pamidighantam Sri Narasimha and Manoj Misra,* JJ.] Issue for Consideration (i) Whether the question of existence of an arbitration agreement  should be left for the arbitral tribunal to decide; (ii) whether clause  13 of the General Terms and Conditions of the contract and relied  upon by the appellant would constitute an arbitration agreement  between the parties as contemplated u/s.7 of the Arbitration and  Conciliation Act, 1996; (iii) whether clause 32 of Instructions to  Bidders negates the existence of an arbitration agreement. Headnotes† Arbitration and Conciliation Act, 1996 – Sub-section (6-A)  of s.11 – Existence of arbitration agreement – The appellant  and the respondent entered into a contract relating to  transportation/handling of goods – Dispu
+
+=====================================================================================
+CORPORATE_INSOLVENCY
+=====================================================================================
+Candidates found: 31
+
+1. PIRAMAL CAPITAL AND HOUSING FINANCE LIMITED (FORMERLY KNOWN AS DEWAN HOUSING FINANCE CORPORATION LIMITED)  versus 63 MOONS TECHNOLOGIES LIMITED & OTHERS
+Case ID: 2025 INSC 421
+Citation: [2025] 4 S.C.R. 344
+Date: 31-03-2025
+Judge: BELA M. TRIVEDI
+Disposal: Disposed off
+Domain score: 124
+PDF: 2025_4_344_435_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_344_435_EN.pdf
+Matching terms:
+  - resolution plan (count: 101, source: judgment_text)
+  - insolvency and bankruptcy code (count: 11, source: judgment_text)
+  - insolvency (count: 58, source: judgment_text)
+  - liquidation (count: 28, source: judgment_text)
+  - corporate debtor (count: 39, source: judgment_text)
+  - committee of creditors (count: 17, source: judgment_text)
+  - resolution professional (count: 56, source: judgment_text)
+  - financial creditor (count: 2, source: judgment_text)
+Judgment excerpt:
+mited (Formerly  Known as Dewan Housing Finance Corporation Limited)   v.  63 Moons Technologies Limited & Others (Civil Appeal No(s). 1632-1634 of 2022) 01 April 2025 [Bela M. Trivedi* and Satish Chandra Sharma, JJ.] Issue for Consideration Whether Resolution Plan-RP approved by Committee of   Creditors-CoC and NCLT was in contravention of provisions of  any law requiring NCLAT to exercise its jurisdiction u/s.61 of the  Insolvency and Bankruptcy Code, 2016; whether the NCLAT should  have entertained the appeals filed by the respondents-63 Moons  u/s.61 of the Code and tinkered with the RP approved by the CoC  and the NCLT; whether NCLAT was correct in dismissing appeals  by FD Holders challenging the distribution mechanism whereby full  amount was not reimbursed; and whether ex-promoters/directors  have a right to participate in meetings of CoC, when Board of  Directors has been supers
+
+2. INDEPENDENT SUGAR CORPORATION LTD. versus GIRISH SRIRAM JUNEJA & ORS.
+Case ID: 2025 INSC 124
+Citation: [2025] 1 S.C.R. 1782
+Date: 29-01-2025
+Judge: HRISHIKESH ROY
+Disposal: Disposed off
+Domain score: 124
+PDF: 2025_1_1782_1908_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_1_1782_1908_EN.pdf
+Matching terms:
+  - resolution plan (count: 251, source: judgment_text)
+  - committee of creditors (count: 35, source: judgment_text)
+  - insolvency (count: 53, source: judgment_text)
+  - insolvency and bankruptcy code (count: 13, source: judgment_text)
+  - corporate debtor (count: 58, source: judgment_text)
+  - resolution professional (count: 33, source: judgment_text)
+  - financial creditor (count: 3, source: judgment_text)
+  - liquidation (count: 12, source: judgment_text)
+Judgment excerpt:
+ of 2023) 29 January 2025 [Hrishikesh Roy,* Sudhanshu Dhulia and  S.V.N. Bhatti,* JJ.] Issue for Consideration Whether the approval of a proposed combination by the Competition  Commission of India (CCI) must mandatorily precede the approval  of the Resolution Plan, by the Committee of Creditors (CoC), as  stipulated under the proviso to Section 31(4) of The Insolvency  and Bankruptcy Code, 2016. Headnotes† Insolvency and Bankruptcy Code, 2016 – s.31(4) proviso – If  mandatory or directory – Corporate Insolvency Resolution  Process of ‘HNGIL’, the Corporate Debtor/Target Company with  a 60% market share of the glass packaging industry in India –  Proposed combination between ‘HNGIL’ and ‘AGI Greenpac’,  the Successful Resolution Applicant and second largest  company in the field of glass packaging and manufacturing  in India, after HNGIL – Entire process from submission of  AGI Greenpac’
+
+3. ELECTROSTEEL STEEL LIMITED (NOW M/S ESL STEEL LIMITED) versus ISPAT CARRIER PRIVATE LIMITED
+Case ID: 2025 INSC 525
+Citation: [2025] 4 S.C.R. 1373
+Date: 21-04-2025
+Judge: ABHAY S. OKA
+Disposal: Appeal(s) allowed
+Domain score: 112
+PDF: 2025_4_1373_1397_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_1373_1397_EN.pdf
+Matching terms:
+  - resolution plan (count: 115, source: judgment_text)
+  - insolvency (count: 20, source: judgment_text)
+  - resolution professional (count: 18, source: judgment_text)
+  - committee of creditors (count: 15, source: judgment_text)
+  - insolvency and bankruptcy code (count: 5, source: judgment_text)
+  - operational creditor (count: 1, source: judgment_text)
+  - corporate debtor (count: 13, source: judgment_text)
+  - liquidation (count: 5, source: judgment_text)
+Judgment excerpt:
+ 1373 : 2025 INSC 525 Electrosteel Steel Limited  (Now M/s ESL Steel Limited)  v.  Ispat Carrier Private Limited (Civil Appeal No. 2896 of 2024) 21 April 2025 [Abhay S. Oka and Ujjal Bhuyan,* JJ.] Issue for Consideration Whether upon approval of the resolution plan by the NCLT, the claim  of the respondent being outside the purview of the resolution plan  stood extinguished; whether the arbitral award dated 06.07.2018  was capable of being executed. Headnotes† Code of Civil Procedure, 1908 – s.47 – Arbitration and  Conciliation Act, 1996 – s.34 – Insolvency and Bankruptcy  Code, 2016 – s.31 – Micro, Small and Medium Enterprises  Development Act, 2006 – Respondent filed claim petitions  against the appellant before the Facilitation Council under  the provisions of MSME Act – On 07.06.2017, arbitral  proceedings commenced – On 27.06.2017, financial creditors  of appellant invoked s.7 of IB
+
+4. MOHAMMED ENTERPRISES (TANZANIA) LTD. versus FAROOQ ALI KHAN & ORS.
+Case ID: 2025 INSC 25
+Citation: [2025] 1 S.C.R. 177
+Date: 02-01-2025
+Judge: PAMIDIGHANTAM SRI NARASIMHA, MANOJ MISRA
+Disposal: Appeal(s) allowed
+Domain score: 100
+PDF: 2025_1_177_183_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_1_177_183_EN.pdf
+Matching terms:
+  - insolvency and bankruptcy code (count: 8, source: judgment_text)
+  - insolvency (count: 7, source: judgment_text)
+  - resolution plan (count: 11, source: judgment_text)
+  - committee of creditors (count: 5, source: judgment_text)
+  - resolution professional (count: 3, source: judgment_text)
+  - corporate debtor (count: 6, source: judgment_text)
+  - financial creditor (count: 1, source: judgment_text)
+Judgment excerpt:
+es (Tanzania) Ltd.  v.  Farooq Ali Khan & Ors. (Civil Appeal No. 48 of 2025)  03 January 2025 [Pamidighantam Sri Narasimha and Manoj Misra, JJ.] Issue for Consideration Whether the High Court was justified in interdicting CIRP  proceedings under the Insolvency and Bankruptcy Code. Headnotes† Insolvency and Bankruptcy Code, 2016 – s.60(5)(c) – The High  Court exercised the power of judicial review and interdicted  Corporate Insolvency Resolution Process – Correctness: Held: The jurisdiction and power of the Adjudicating Authority  under Section 60(5)(c) has already been reiterated by this Court  in its various decisions – In the instant case, it is important to  note that CIRP proceedings commenced on 26.10.2018, six  years ago, and the resolution plan of the appellant was approved  in 2020, four years back – The importance of concluding the  CIRP proceedings was highlighted by this Court
+
+5. M/S JSW STEEL LIMITED versus PRATISHTHA THAKUR HARITWAL & ORS.
+Case ID: 2025 INSC 401
+Citation: [2025] 3 S.C.R. 1200
+Date: 27-03-2025
+Judge: BHUSHAN RAMKRISHNA GAVAI
+Disposal: Disposed off
+Domain score: 97
+PDF: 2025_3_1200_1216_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_1200_1216_EN.pdf
+Matching terms:
+  - insolvency and bankruptcy code (count: 5, source: judgment_text)
+  - insolvency (count: 6, source: judgment_text)
+  - resolution plan (count: 38, source: judgment_text)
+  - corporate debtor (count: 8, source: judgment_text)
+  - committee of creditors (count: 3, source: judgment_text)
+  - liquidation (count: 1, source: judgment_text)
+  - resolution professional (count: 4, source: judgment_text)
+Judgment excerpt:
+set Reconstruction  Company Limited and Others [2021] 13 SCR 737; After the said  judgment was brought to the notice of the respondents/authorities,  whether the respondents/authorities could have proceeded with  the recovery proceedings. Headnotes† Insolvency and Bankruptcy Code, 2016 – Contempt of Courts  Act, 1971 – s.2(b) – Insolvency proceedings were initiated  against an erstwhile company – The petitioner-company was  declared as the Successful Resolution Applicant – Resolution  Plan was submitted – The NCLT approved the Resolution Plan –  Pursuant thereto, the management of the erstwhile company  was taken over by the petitioner company – Thereafter, various  demand notices were raised upon the petitioner company for  recovery of Sales Tax, Central Tax and Entry Tax – Petitioner- company contended that the act of the respondents in  initiating proceedings for the dues which are no
+
+6. AMIT NEHRA & ANR. versus PAWAN KUMAR GARG & ORS.
+Case ID: 2025 INSC 1086
+Citation: [2025] 9 S.C.R. 627
+Date: 09-09-2025
+Judge: SANJAY KUMAR
+Disposal: Appeal(s) allowed
+Domain score: 90
+PDF: 2025_9_627_639_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_9_627_639_EN.pdf
+Matching terms:
+  - corporate debtor (count: 11, source: judgment_text)
+  - resolution plan (count: 29, source: judgment_text)
+  - insolvency and bankruptcy code (count: 2, source: judgment_text)
+  - resolution professional (count: 29, source: judgment_text)
+  - committee of creditors (count: 5, source: judgment_text)
+  - insolvency (count: 5, source: judgment_text)
+Judgment excerpt:
+r.  v.  Pawan Kumar Garg & Ors. (Civil Appeal No. 4296 of 2025) 09 September 2025 [Sanjay Kumar and Satish Chandra Sharma,* JJ.] Issue for Consideration Whether the appellants, being allottees of an apartment in a project  developed by the erstwhile Corporate Debtor and having admittedly  paid a sum of Rs.57,56,684/- out of the total consideration of  Rs.60,06,368/-, are to be treated as belated claimants entitled only  to refund of 50% of their principal deposit under Clause 18.4(xi),  or whether, their claim having been duly verified and incorporated  in the list of creditors, they are entitled to possession in terms of  Clause 18.4(vi)(a) of the Resolution Plan. Headnotes† Insolvency and Bankruptcy Code, 2016 – s.62 – The appellants,  aggrieved by the failure to deliver possession of their allotted  apartment despite substantial consideration being paid, filed  an application before t
+
+7. VAIBHAV GOEL & ANR. versus DEPUTY COMMISSIONER OF INCOME TAX & ANR.
+Case ID: 2025 INSC 375
+Citation: [2025] 3 S.C.R. 841
+Date: 20-03-2025
+Judge: ABHAY S. OKA
+Disposal: Appeal(s) allowed
+Domain score: 89
+PDF: 2025_3_841_849_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_841_849_EN.pdf
+Matching terms:
+  - resolution plan (count: 44, source: judgment_text)
+  - insolvency and bankruptcy code (count: 3, source: judgment_text)
+  - corporate debtor (count: 7, source: judgment_text)
+  - resolution professional (count: 4, source: judgment_text)
+  - committee of creditors (count: 4, source: judgment_text)
+  - insolvency (count: 2, source: judgment_text)
+Judgment excerpt:
+Civil Appeal No. 49 of 2022) 20 March 2025 [Abhay S. Oka* and Ujjal Bhuyan, JJ.] Issue for Consideration Matter pertains to the validity of the income tax dues of the corporate  debtor owed to the Central Government, when not a part of the  approved Resolution Plan. Headnotes† Insolvency and Bankruptcy Code, 2016 – s.31(1) – Legal  effect of approval of a Resolution Plan – After approval of  resolution plan, issuance of demand notices by the Income  Tax Department for assessment years 2012-13 and 2013-14 in  respect of the Corporate Debtor-CD, however no claim about  the demands submitted before the Resolution Professional –  Application by the second respondent-Monitoring Professional  challenging the demands – NCLT dismissed the application  without assigning reasons and imposed costs – Said order  upheld by the NCLAT – Correctness:  Held: All the dues including the statutory dues owed
+
+8. MANSI BRAR FERNANDES versus SHUBHA SHARMA AND ANR.
+Case ID: 2025 INSC 1110
+Citation: [2025] 10 S.C.R. 169
+Date: 12-09-2025
+Judge: J.B. PARDIWALA
+Disposal: Disposed off
+Domain score: 89
+PDF: 2025_10_169_211_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_10_169_211_EN.pdf
+Matching terms:
+  - insolvency and bankruptcy code (count: 17, source: judgment_text)
+  - corporate debtor (count: 30, source: judgment_text)
+  - insolvency (count: 33, source: judgment_text)
+  - liquidation (count: 4, source: judgment_text)
+  - financial creditor (count: 8, source: judgment_text)
+  - committee of creditors (count: 1, source: judgment_text)
+  - resolution professional (count: 3, source: judgment_text)
+Judgment excerpt:
+as to disentitle them from initiating proceedings u/s.7  of the IBC; whether the Ordinance/Amendment Act introducing  threshold requirements for filing of s.7 IBC applications by allottees  was applicable to the facts of the present case. Headnotes† Insolvency and Bankruptcy Code, 2016 – s.7 – NCLAT set  aside the NCLT’s order and reversed the admission of the  application filed u/s.7 by the appellants, holding that they  were “speculative investors” and not genuine homebuyers/ financial creditors – Appellants, if fall within the category  of “speculative investors” disentitling them from initiating  proceedings u/s.7: Held: 1.1 Yes – In C.A No. 3826 of 2020, the MoU executed  reveals that possession was never contemplated – The agreement  stipulated a buyback whereby Rs.35 lakhs invested would be  returned with an additional Rs.65 lakhs as premium within 12  months – Though four apartme
+
+=====================================================================================
+CONSUMER_DISPUTES
+=====================================================================================
+Candidates found: 34
+
+1. THE CHIEF MANAGER, CENTRAL BANK OF INDIA & ORS. versus M/S AD BUREAU ADVERTISING PVT. LTD & ANR.
+Case ID: 2025 INSC 288
+Citation: [2025] 2 S.C.R. 1445
+Date: 28-02-2025
+Judge: SUDHANSHU DHULIA
+Disposal: Disposed off
+Domain score: 53
+PDF: 2025_2_1445_1455_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_2_1445_1455_EN.pdf
+Matching terms:
+  - consumer (count: 30, source: judgment_text)
+  - consumer protection act (count: 3, source: judgment_text)
+  - deficiency in service (count: 4, source: judgment_text)
+  - unfair trade practice (count: 2, source: judgment_text)
+Judgment excerpt:
+Bureau Advertising Pvt. Ltd & Anr. (Civil Appeal No. 7438 of 2023) 28 February 2025 [Sudhanshu Dhulia* and Prashant Kumar Mishra, JJ.] Issue for Consideration Issue arose as to whether the borrower of a project loan, falls within  the definition of ‘Consumer’ under the provisions of the Consumer  Protection Act, 1986. Headnotes† Consumer Protection Act, 1986 – s.2 (1)(d)(ii) – Definition  of ‘Consumer’ – Borrower of project loan, if falls within the  definition of ‘Consumer’ – Maintainability of the consumer  complaint – Respondent-advertising and branding company  defaulted on a project loan availed from the appellant-Bank  for engaging in the post production of a movie – Initiation of  proceedings, One Time Settlement between the parties and  thereafter, issuance of No-Dues Certificate to the respondent  and full-satisfaction memo filed before the DRT – However, the  Bank incorrectly r
+
+2. SARANGA ANILKUMAR AGGARWAL versus BHAVESH DHIRAJLAL SHETH & ORS.
+Case ID: 2025 INSC 314
+Citation: [2025] 3 S.C.R. 325
+Date: 03-03-2025
+Judge: VIKRAM NATH
+Disposal: Dismissed
+Domain score: 51
+PDF: 2025_3_325_340_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_325_340_EN.pdf
+Matching terms:
+  - consumer protection act (count: 5, source: judgment_text)
+  - consumer (count: 44, source: judgment_text)
+  - consumer dispute (count: 2, source: judgment_text)
+  - deficiency in service (count: 3, source: judgment_text)
+Judgment excerpt:
+ Ors. (Civil Appeal No. 4048 of 2024) 04 March 2025 [Vikram Nath* and Prasanna B. Varale, JJ.] Issue for Consideration Whether the execution of penalty orders passed by the NCDRC  can be stayed under the interim moratorium provisions of s.96 of  the Insolvency and Bankruptcy Code, 2016. Headnotes† Consumer Protection Act, 1986 – s.27 – Insolvency and  Bankruptcy Code, 2016 – s.96 – The NCDRC imposed multiple  penalties on the appellant for failing to deliver possession of  residential units to home-buyers as per the agreed timeline –  The appellant sought a stay on the penalty proceedings  before the NCDRC, contending that an application u/s.95 of  the IBC has been filed against them, triggering an interim  moratorium u/s.96 of the IBC – The NCDRC vide the impugned  order dated 07.02.2024 rejected this application, holding that  consumer claims and the penalty imposed did not fall within
+
+3. GODREJ PROJECTS DEVELOPMENT LIMITED versus ANIL KARLEKAR & ORS.
+Case ID: 2025 INSC 143
+Citation: [2025] 2 S.C.R. 343
+Date: 02-02-2025
+Judge: BHUSHAN RAMKRISHNA GAVAI
+Disposal: Case Partly allowed
+Domain score: 48
+PDF: 2025_2_343_362_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_2_343_362_EN.pdf
+Matching terms:
+  - consumer (count: 20, source: judgment_text)
+  - consumer protection act (count: 10, source: judgment_text)
+  - unfair trade practice (count: 8, source: judgment_text)
+Judgment excerpt:
+[2025] 2 S.C.R. 343 : 2025 INSC 143 Godrej Projects Development Limited  v.  Anil Karlekar & Ors. (Civil Appeal No. 3334 of 2023) 03 February 2025 [B.R. Gavai* and S.V.N. Bhatti, JJ.] Issue for Consideration Whether the National Consumer Disputes Redressal Commission  (NCDRC) was justified in disposing of the consumer complaint filed  by the respondents no. 1 and 2 thereby directing the appellant to  deduct only 10% of the Basic Sale Price (BSP) towards cancellation  of the complainants’ apartment and refund the balance amount  along with simple interest @ 6% p.a. from the date of each payment  till the date of refund. Headnotes† Consumer Protection Act, 1986 – s.2(1)(r) – Consumer  Protection Act, 2019 – s.2(46) – Complainants booked an  apartment with appellant and submitted application money –  Apartment Buyer Agreement was entered into between the  parties – Afte
+
+4. M/S POLY MEDICURE LTD. versus M/S BRILLIO TECHNOLOGIES PVT. LTD
+Case ID: 2025 INSC 1314
+Citation: [2025] 12 S.C.R. 189
+Date: 13-11-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 43
+PDF: 2025_12_189_205_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_12_189_205_EN.pdf
+Matching terms:
+  - consumer (count: 47, source: judgment_text)
+  - consumer protection act (count: 7, source: judgment_text)
+  - deficiency in service (count: 3, source: judgment_text)
+Judgment excerpt:
+td.  v.  M/s Brillio Technologies Pvt. Ltd (Civil Appeal No. 6349 of 2024) 13 November 2025 [J.B. Pardiwala and Manoj Misra,* JJ.] Issue for Consideration Whether in respect of the goods purchased/services availed, the  appellant would qualify as a “consumer” as defined in s.2(1)(d) of  the Consumer Protection Act, 1986. Headnotes† Consumer Protection Act, 1986 – s.2(1)(d) – “consumer” –  When not – Complainant-appellant (Company) filed complaint  before the State Commission claiming deficiency in service  stating that it purchased a software from the respondent but  the software did not function properly; sought refund of the  entire amount paid to the respondent – State Commission held  that the complaint was not maintainable as the complainant  was not a “consumer” as per s.2(1)(d) since purchase of  the software license was for a commercial purpose – Order  affirmed by National Commi
+
+5. M/S CITICORP FINANCE (INDIA) LIMITED versus SNEHASIS NANDA
+Case ID: 2025 INSC 371
+Citation: [2025] 3 S.C.R. 866
+Date: 20-03-2025
+Judge: SUDHANSHU DHULIA
+Disposal: Appeal(s) allowed
+Domain score: 41
+PDF: 2025_3_866_889_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_866_889_EN.pdf
+Matching terms:
+  - consumer (count: 51, source: judgment_text)
+  - consumer protection act (count: 12, source: judgment_text)
+  - consumer dispute (count: 2, source: judgment_text)
+  - deficiency in service (count: 1, source: judgment_text)
+Judgment excerpt:
+rp Finance (India) Limited  v.  Snehasis Nanda (Civil Appeal No. 14157 of 2024) 20 March 2025 [Sudhanshu Dhulia and Ahsanuddin Amanullah,* JJ.] Issue for Consideration Whether on facts, the complainant-respondent would come under  the definition of ‘consumer’ in terms of the Consumer Protection Act,  1986; whether any liability rested on the appellant to disburse the  entire amount of Rs.31,00,000/- i.e., the remaining consideration  amount for sale of the flat payable to the complainant-respondent  by the borrower; whether borrower should have been joined in  proceedings before the NCDRC. Headnotes† Consumer Protection Act, 1986 – s.2(1)(d) – Respondent- complainant took a housing loan of Rs.17,64,644/- from  ICICI Bank and purchased a flat – Respondent and the  borrower entered into an Agreement for the sale of the flat for  Rs.32,00,000/-, Rs.1 Lakh paid by borrower – Appellant and  t
+
+6. SANKAR PADAM THAPA versus VIJAYKUMAR DINESHCHANDRA AGARWAL
+Case ID: 2025 INSC 1210
+Citation: [2025] 11 S.C.R. 197
+Date: 09-10-2025
+Judge: AHSANUDDIN AMANULLAH
+Disposal: Appeal(s) allowed
+Domain score: 36
+PDF: 2025_11_197_225_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_11_197_225_EN.pdf
+Matching terms:
+  - consumer protection act (count: 4, source: judgment_text)
+  - consumer (count: 6, source: judgment_text)
+  - consumer dispute (count: 2, source: judgment_text)
+Judgment excerpt:
+nsibility in conducting the day-to-day business of  the Trust. For the first proposition, learned counsel placed reliance  on the decision of this Court in Pratibha Pratisthan v Manager,  Canara Bank, (2017) 3 SCC 712,  where, in the context of the  Consumer Protection Act, 1986 (hereinafter referred to as the  ‘Consumer Protection Act’), it was held that a Trust is not a person  and therefore, could not be a consumer.  10. Next, in support of his argument that a Trust is not capable of being  sued or suing in a court of law, learned counsel drew the attention  of this Court to the decision of the Kerala High Court in K P Shibu v  State of Kerala, 2019 SCC OnLine Ker 7585 , holding that in the  context of the NI Act, it is the Trustees who can maintain and defend  a suit to protect the Trust property, and the Trust itself cannot sue or  be sued in a court of law, therefore, a Trust is no
+
+7. JHARKHAND URJA UTPADAN NIGAM LTD. & ANR. versus M/S BHARAT HEAVY ELECTRICALS LIMITED
+Case ID: 2025 INSC 533
+Citation: [2025] 4 S.C.R. 1646
+Date: 15-04-2025
+Judge: J.B. PARDIWALA, R MAHADEVAN
+Disposal: Dismissed
+Domain score: 28
+PDF: 2025_4_1646_1661_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_1646_1661_EN.pdf
+Matching terms:
+  - consumer commission (count: 1, source: judgment_text)
+  - consumer (count: 9, source: judgment_text)
+  - consumer protection act (count: 3, source: judgment_text)
+Judgment excerpt:
+or Consideration The High Court rejected the Interim Application No. 11269 of 2024  filed by the petitioner herein u/s.5 of the Limitation Act, 1963 and  thereby declined to condone the delay of 301 days in filing the  main appeal u/s.13(1-A) of the Commercial Courts Act, 2015. Headnotes† Commercial Courts Act, 2015 – ss.13(1-A), 16 – Code of Civil  Procedure, 1908 – Order XX Rule 1 – Limitation Act, 1963 –  s.5 – Respondent instituted a civil suit against the Petitioner for  recovery of a sum of money along with interest on the basis of  the award passed by the MSME Council – There was a delay of  301 days in filing the statutory appeal – An application u/s.5 of  the Limitation Act was filed by the Petitioner – The High Court  declined to condone the delay – Before the Supreme Court, the  petitioner contended the pronouncement of the judgment in  the open court in accordance with the am
+
+8. DEEP NURSING HOME AND ANOTHER versus MANMEET SINGH MATTEWAL AND OTHERS
+Case ID: 2025 INSC 1094
+Citation: [2025] 10 S.C.R. 26
+Date: 09-09-2025
+Judge: SANJAY KUMAR
+Disposal: Appeal(s) allowed
+Domain score: 28
+PDF: 2025_10_26_43_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_10_26_43_EN.pdf
+Matching terms:
+  - deficiency in service (count: 4, source: judgment_text)
+  - consumer (count: 5, source: judgment_text)
+Judgment excerpt:
+] Issue for Consideration Validity of the finding that appellant no.2-doctor, the Obstetrician/ Gynaecologist who conducted the delivery of newborn child, which  resulted in death of both woman and newborn child, is guilty of  medical negligence and deficiency in service. Headnotes† Medical Negligence – Death of a wife-C and newborn child  of respondent no.1 – Allegation of medical negligence – The  SCDRC found appellant no.1-Nursing home and appellant  no.2-doctor medically negligent on the ground that they did  not exercise due care and caution in treating C but held that  there was no fault on their part insofar as the death of the  newborn child was concerned – The SCDRC directed them  to pay ₹20,26,000/- to the complainants (respondent nos.1  and 2) – In appeal, the NCDRC came to the conclusion that  no liability would attach to Nursing Home and pinned the  entire responsibility of 
+
+=====================================================================================
+PROPERTY_DISPUTES
+=====================================================================================
+Candidates found: 139
+
+1. RAMESH MISHRIMAL JAIN versus AVINASH VISHWANATH PATNE & ANR.
+Case ID: 2025 INSC 213
+Citation: [2025] 2 S.C.R. 670
+Date: 13-02-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 51
+PDF: 2025_2_670_686_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_2_670_686_EN.pdf
+Matching terms:
+  - specific performance (count: 6, source: judgment_text)
+  - sale deed (count: 16, source: judgment_text)
+  - transfer of property act (count: 3, source: judgment_text)
+  - eviction (count: 3, source: judgment_text)
+  - tenant (count: 10, source: judgment_text)
+  - landlord (count: 2, source: judgment_text)
+Judgment excerpt:
+NSC 213 Ramesh Mishrimal Jain  v.  Avinash Vishwanath Patne & Anr. (Civil Appeal No. 2549 of 2025) 14 February 2025 [J.B. Pardiwala and R. Mahadevan,* JJ.] Issue for Consideration Whether the appellant is liable to pay stamp duty and penalty on  the agreement to sell dated 03.09.2003 allegedly executed between  the appellant and the mother of respondent no.1 in respect of the  suit property.  Headnotes† Bombay Stamp Act, 1958 – Explanation I to Article 25 –  Appellant filed suit for specific performance of the agreement  to sell dated 03.09.2003 – Respondents filed an application  u/s.34 of the 1958 Act for impounding the document – Trial  Court allowed the said application, impounded the sale  agreement dated 03.09.2003 and directed the document to  be sent to the Registrar of Stamps for recovery of the stamp  duty and penalty on it as per law – Appellant challenged the  same by filing 
+
+2. H. ANJANAPPA & ORS.  versus A. PRABHAKAR & ORS.
+Case ID: 2025 INSC 121
+Citation: [2025] 1 S.C.R. 1755
+Date: 29-01-2025
+Judge: J.B. PARDIWALA
+Disposal: Appeal(s) allowed
+Domain score: 48
+PDF: 2025_1_1755_1781_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_1_1755_1781_EN.pdf
+Matching terms:
+  - transfer of property act (count: 8, source: judgment_text)
+  - specific performance (count: 8, source: judgment_text)
+  - sale deed (count: 5, source: judgment_text)
+  - property dispute (count: 1, source: judgment_text)
+Judgment excerpt:
+n re Markham  Markham v. Markham (1881) 16 Ch D 1; In re Padstow Total Loss  and Collision Assurance Association (1882) 20 Ch.D 137; Attorney  General v. Marquis of Ailesbury (1885) 16 QBD 408 – relied on. List of Acts Code of Civil Procedure, 1908; Transfer of Property Act, 1882. List of Keywords Transferee pendente lite; Lis pendens purchaser; Third party;  Bona-fide purchaser; Necessary and proper party; Impleadment;  Leave to appeal; Specific performance of contract; Subsequent  purchaser; Agreement to sell; Sale consideration; Power of attorney;  Section 52 Transfer of Property Act, 1882; Code of Civil Procedure,  1908; Order XXII Rule 10; Order I Rule 10; Section 146; Aggrieved  person; Person aggrieved. Case Arising From CIVIL APPELLATE JURISDICTION: Civil Appeal No(s). 1180-1181  of 2025 From the Judgment and Order dated 16.11.2022 of the High Court  of Karnataka at Bengaluru in 
+
+3. THE CORRESPONDENCE, RBANMS EDUCATIONAL INSTITUTION versus B. GUNASHEKAR & ANOTHER
+Case ID: 2025 INSC 490
+Citation: [2025] 5 S.C.R. 94
+Date: 15-04-2025
+Judge: J.B. PARDIWALA
+Disposal: Appeal(s) allowed
+Domain score: 46
+PDF: 2025_5_94_127_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_5_94_127_EN.pdf
+Matching terms:
+  - transfer of property act (count: 16, source: judgment_text)
+  - eviction (count: 1, source: judgment_text)
+  - sale deed (count: 7, source: judgment_text)
+  - specific performance (count: 4, source: judgment_text)
+Judgment excerpt:
+I r.11 – Rejection of  plaint – Appellant Institute in possession of suit property since  1905 – Respondents filed suit seeking permanent injunction  restraining appellant from creating any third-party interest  over the property based on an alleged agreement to sell  executed by respondents with a third party – Respondents paid  Rs.75,00,000/- in cash as advance – Appellant filed application  u/Ord.VII r.11 seeking rejection of plaint – Both the trial court  and the High Court rejected the same – Correctness: Held: Agreement for sale does not confer any right to the purchaser  to file a suit against a third party who is either the owner or in  possession, or who claims to be the owner and to be in possession –  Respondents’ claim suffered from multiple fatal defects – No privity  between the respondents and the appellant – Suit at the instance  of the respondents not maintainable and on
+
+4. VINOD INFRA DEVELOPERS LTD. versus MAHAVEER LUNIA & ORS.
+Case ID: 2025 INSC 772
+Citation: [2025] 7 S.C.R. 190
+Date: 22-05-2025
+Judge: J.B. PARDIWALA
+Disposal: 
+Domain score: 44
+PDF: 2025_7_190_215_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_7_190_215_EN.pdf
+Matching terms:
+  - transfer of property act (count: 10, source: judgment_text)
+  - specific performance (count: 14, source: judgment_text)
+  - sale deed (count: 8, source: judgment_text)
+Judgment excerpt:
+d R. Mahadevan,* JJ.] Issue for Consideration Whether the High Court erred in rejecting the plaint filed by the  appellant u/Or.VII, r.11, CPC, 1908. Headnotes† Code of Civil Procedure, 1908 – Or.VII, r.11 – Registration Act,  1908 – ss.17, 49, 23 – Transfer of Property Act, 1882 – s.54 –  Appellant-company (owner of the subject property) filed suit  for declaratory reliefs alleging that despite the revocation of  the agreement to sell and the power of attorney authorising  Respondent No.1 to sell the subject property, Respondent  No.1 executed the impugned sale deeds in respect of the  subject property – Respondents filed application u/Or.VII,r.11,  dismissed by Trial Court – High Court allowed the application  and rejected the plaint in its entirety – Interference with:  Held: A plaint cannot be rejected in its entirety merely because  one of the prayers or reliefs sought is legally un
+
+5. RAMESH CHAND (D) THR. LRS. versus SURESH CHAND AND ANR.
+Case ID: 2025 INSC 1059
+Citation: [2025] 9 S.C.R. 339
+Date: 01-09-2025
+Judge: ARAVIND KUMAR
+Disposal: Appeal(s) allowed
+Domain score: 43
+PDF: 2025_9_339_361_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_9_339_361_EN.pdf
+Matching terms:
+  - transfer of property act (count: 10, source: judgment_text)
+  - sale deed (count: 21, source: judgment_text)
+  - specific performance (count: 3, source: judgment_text)
+  - eviction (count: 1, source: judgment_text)
+Judgment excerpt:
+[2025] 9 S.C.R. 339 : 2025 INSC 1059 Ramesh Chand (D) Thr. Lrs.  v.  Suresh Chand and Anr. (Civil Appeal No. 6377 of 2012) 01 September 2025 [Aravind Kumar* and Sandeep Mehta, JJ.] Issue for Consideration I) Whether the impugned documents, i.e., Agreement to Sell,  General Power of Attorney, Receipt of Consideration and the  registered Will, allegedly entered into by K, father of the appellant/ defendant no.1 and respondent no.1/plaintiff in favour of the plaintiff  would confer a valid title over the suit property; II) Whether the  plaintiff can claim any benefit u/s.53A of TP Act, which deals with  Part Performance. Headnotes† Transfer of Property Act, 1882 – s.54 – Succession Act, 1925 –  s.63 – Evidence Act, 1872 – s.68 – Respondent no.1/plaintiff  filed suit no. 613/1997 for possession, mesne profit, declaration,  mandatory injunction against the appellant/defendant no. 1 and  r
+
+6. THE MUNICIPAL CORPORATION OF GREATER MUMBAI & ORS. versus CENTURY TEXTILES AND INDUSTRIES LIMITED & ORS.
+Case ID: 2025 INSC 36
+Citation: [2025] 1 S.C.R. 313
+Date: 06-01-2025
+Judge: VIKRAM NATH
+Disposal: Appeal(s) allowed
+Domain score: 40
+PDF: 2025_1_313_361_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_1_313_361_EN.pdf
+Matching terms:
+  - lease deed (count: 25, source: judgment_text)
+  - specific performance (count: 3, source: judgment_text)
+  - eviction (count: 1, source: judgment_text)
+  - transfer of property act (count: 2, source: judgment_text)
+  - land acquisition (count: 1, source: judgment_text)
+  - sale deed (count: 1, source: judgment_text)
+Judgment excerpt:
+ndent No.1 then filed  writ petition in 2016 – High Court allowed the same directing  the appellant to execute formal conveyance of plot in favour  of the respondent No.1 – Sustainability:  Held : Not sustainable – Terms and conditions of the lease  agreement reveal no stipulation that on the expiry of the lease,  after completion of 28 years, the appellants would be bound to  convey the said land to respondent no.1 – Neither the Board  Resolution nor the lease deed and neither the statutory framework  in force imposed any obligation upon the appellant to execute  a conveyance in favour of the respondent no.1 – High Court  misinterpreted the same to be a condition incorporated in the lease  deed for conveyance, on expiration of 28 years – Harmonious  and contextual interpretation of ss.48(a) and 51(2) of the 1925  Act, as well as the clear absence of any covenant to that effect  in the l
+
+7. THE COSMOS CO. OPERATIVE BANK LTD. versus CENTRAL BANK OF INDIA & ORS.
+Case ID: 2025 INSC 243
+Citation: [2025] 2 S.C.R. 1091
+Date: 04-02-2025
+Judge: J.B. PARDIWALA
+Disposal: Appeal(s) allowed
+Domain score: 40
+PDF: 2025_2_1091_1141_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_2_1091_1141_EN.pdf
+Matching terms:
+  - transfer of property act (count: 13, source: judgment_text)
+  - specific performance (count: 4, source: judgment_text)
+  - tenant (count: 6, source: judgment_text)
+  - landlord (count: 1, source: judgment_text)
+  - sale deed (count: 1, source: judgment_text)
+Judgment excerpt:
+  nomenclature of ‘charge’ in terms of Section 100 of the Transfer  of Property Act, 1882 (TPA); Who holds a valid mortgage over the  property—the Appellant (Cosmos Co. Operative Bank Ltd.) or the  Respondent No.1 (Central Bank of India). Headnotes† Transfer of Property Act, 1882 – Sections 58, 100 – Equitable  mortgage – Equitable mortgages are recognized in India as  a ‘charge’ under Section 100 of the TPA – Charge created by  equitable mortgage will be enforceable against third parties as  far as possible in terms of the procedure applicable to a simple  mortgage, except against bona fide transferees without notice –  Equitable mortgages can be enforced in equity but remain a  right in personam, not in rem, unless properly registered: Held: Equitable mortgages are recognized in India as a ‘charge’  under Section 100 of TPA – Concept of equitable mortgage is a  creation of the doctrine
+
+8. K.S. MANJUNATH AND OTHERS versus MOORASAVIRAPPA @ MUTTANNA CHENNAPPA BATIL, SINCE DECEASED BY HIS LRS AND OTHER
+Case ID: 2025 INSC 1298
+Citation: [2025] 12 S.C.R. 43
+Date: 10-11-2025
+Judge: J.B. PARDIWALA
+Disposal: Dismissed
+Domain score: 36
+PDF: 2025_12_43_122_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_12_43_122_EN.pdf
+Matching terms:
+  - specific performance (count: 85, source: judgment_text)
+  - sale deed (count: 52, source: judgment_text)
+  - lease deed (count: 2, source: judgment_text)
+  - transfer of property act (count: 1, source: judgment_text)
+  - tenant (count: 1, source: judgment_text)
+Judgment excerpt:
+hadevan, JJ.] Issue for Consideration Whether the High Court committed any error in passing the  impugned judgment whereby it allowed the appeals filed by the  vendees and set aside the decree passed by the Trial Court, while  granting the relief of specific performance of Agreement to Sell  executed by the Original Vendors in favour of the Original Vendees  and holding the Appellants-Subsequent Purchasers not to be the  bona fide purchasers of the subject land for value without notice. Headnotes† Specific Relief Act, 1963 – Unilateral termination of the  agreement to sell by one party – Impermissible, except where  the agreement itself is determinable in nature in terms of s.14 –  Original vendors executed an unregistered Agreement to Sell  (ATS) in favour of the original vendees in respect of 354 Acres  of the Subject Land – However, later, they sent a Notice of  Termination to the ori
+
+=====================================================================================
+EMPLOYMENT_LABOUR
+=====================================================================================
+Candidates found: 86
+
+1. MAHARASHTRA STATE ROAD TRANSPORT CORPORATION versus MAHADEO KRISHNA NAIK
+Case ID: 2025 INSC 218
+Citation: [2025] 3 S.C.R. 100
+Date: 13-02-2025
+Judge: DIPANKAR DATTA
+Disposal: Disposed off
+Domain score: 87
+PDF: 2025_3_100_127_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_3_100_127_EN.pdf
+Matching terms:
+  - back wages (count: 51, source: judgment_text)
+  - service law (count: 2, source: judgment_text)
+  - labour (count: 37, source: judgment_text)
+  - dismissal (count: 10, source: judgment_text)
+  - employment (count: 12, source: judgment_text)
+  - termination of service (count: 5, source: judgment_text)
+  - reinstatement (count: 23, source: judgment_text)
+  - industrial disputes act (count: 3, source: judgment_text)
+Judgment excerpt:
+ion is guilty of suggestio falsi by not  disclosing what it had pleaded before the MACT and suppresio veri  by suppressing the award; whether the High Court was justified in  exercising review jurisdiction; and whether the respondent is entitled  to back wages for the period for which he remained out of service.  Headnotes† Service law – Removal from service – Suggestio falsi and  suppresio veri – Relevance of proceedings of the MACT in  proceedings before the labour court – Respondent working as  bus driver with the appellant-Corporation – Lorry coming from  the opposite direction collided with a bus of the Corporation,  driven by respondent, resulting in a fatal accident – Disciplinary  action against respondent and was dismissed from service –  Dismissal upheld by the Labour court – Writ petition by the  respondent – Dismissed by the High Court – During pendency,  proceedings for comp
+
+2. SHRIPAL & ANR. versus NAGAR NIGAM, GHAZIABAD
+Case ID: 2025 INSC 144
+Citation: [2025] 1 S.C.R. 1427
+Date: 31-01-2025
+Judge: VIKRAM NATH
+Disposal: Disposed off
+Domain score: 75
+PDF: 2025_1_1427_1441_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_1_1427_1441_EN.pdf
+Matching terms:
+  - industrial disputes act (count: 12, source: judgment_text)
+  - reinstatement (count: 13, source: judgment_text)
+  - back wages (count: 11, source: judgment_text)
+  - labour (count: 20, source: judgment_text)
+  - employment (count: 8, source: judgment_text)
+  - industrial dispute (count: 3, source: judgment_text)
+  - dismissal (count: 3, source: judgment_text)
+  - workman (count: 9, source: judgment_text)
+Judgment excerpt:
+abad (Civil Appeal No. 8157 of 2024) 31 January 2025 [Vikram Nath* and Prasanna B. Varale, JJ.] Issue for Consideration Whether the services of the appellant-workmen (gardeners) were  terminated without complying with Sections 6E and 6N of the U.P.  Industrial Disputes Act, 1947. Appellants, if entitled to reinstatement  with back wages as also regularization of their services. Headnotes† U.P. Industrial Disputes Act, 1947 – ss.6E, 6N – Non-compliance  with: Held: The pattern of direct oversight and wage disbursement  negates the stand of the Respondent-Employer that the Appellant- Workmen were “contractor’s personnel” – Appellants were pressing  for regularization and proper wages through pending conciliation  proceedings, however, the Employer proceeded to discontinue  their services, without issuing prior notice or granting retrenchment  compensation – Discontinuation of the Appellant
+
+3. UCO BANK & ANR. versus VIJAY KUMAR HANDA
+Case ID: 2025 INSC 442
+Citation: [2025] 5 S.C.R. 389
+Date: 02-04-2025
+Judge: ABHAY S. OKA
+Disposal: Dismissed
+Domain score: 58
+PDF: 2025_5_389_400_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_5_389_400_EN.pdf
+Matching terms:
+  - industrial disputes act (count: 8, source: judgment_text)
+  - labour (count: 12, source: judgment_text)
+  - back wages (count: 4, source: judgment_text)
+  - employment (count: 5, source: judgment_text)
+  - dismissal (count: 10, source: judgment_text)
+  - service law (count: 1, source: judgment_text)
+  - reinstatement (count: 2, source: judgment_text)
+  - industrial dispute (count: 1, source: judgment_text)
+Judgment excerpt:
+[Abhay S. Oka and Ujjal Bhuyan,* JJ.] Issue for Consideration The appellant-Bank dismissed the respondent from the services.  Whether the respondent was entitled to receive the terminal benefits  for the period of service he had rendered. Headnotes† Industrial Disputes Act, 1947 – Industrial Disputes (Central)  Rules, 1957 – Bipartite Settlement dated 19.10.1966 – Clause  19.5(c) – UCO Bank (Employees’) Pension Regulations,  1995 – Respondent was serving as a Clerk in the appellant  Bank – Respondent was dismissed from the services on  the charges of indulging in riotous, disorderly and indecent  behaviour within the premises of the Bank – Appellate Authority  modified the penalty to the terminal benefits for the period  of service respondent had rendered – However, the Labour  Court directed respondent to be reinstated in service with 75  percent back wages and other benefits – Appellan
+
+4. SARITA CHOUDHARY versus HIGH COURT OF MADHYA PRADESH & ANOTHER
+Case ID: 2025 INSC 289
+Citation: [2025] 2 S.C.R. 1456
+Date: 28-02-2025
+Judge: B.V. NAGARATHNA
+Disposal: Appeal(s) allowed
+Domain score: 55
+PDF: 2025_2_1456_1533_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_2_1456_1533_EN.pdf
+Matching terms:
+  - service law (count: 1, source: judgment_text)
+  - reinstatement (count: 10, source: judgment_text)
+  - back wages (count: 6, source: judgment_text)
+  - service rules (count: 2, source: judgment_text)
+  - employment (count: 9, source: judgment_text)
+  - termination of service (count: 5, source: judgment_text)
+  - dismissal (count: 5, source: judgment_text)
+  - labour (count: 1, source: judgment_text)
+Judgment excerpt:
+rse orders, if  any – Petitioners reinstated in their service with all consequential  benefits – Constitution of India – Art. 311 – Madhya Pradesh  Judicial Service (Recruitment and Conditions of Service) Rules,  1994 – r.11(c). [Paras 16, 16.1, 18] Service law – Probation – Services of a probationer – When,  non-stigmatic termination: Held: Services of a probationer could result either in a confirmation  in the post or ended by way of termination simpliciter – However, if  a probationer is terminated from service owing to a misconduct as  a punishment, the termination would cause a stigma on him – If a  probationer is unsuitable for a job and has been terminated then  such a case is non-stigmatic as it is a termination simpliciter – Thus,  the performance of a probationer has to be considered in order  to ascertain whether it has been satisfactory or unsatisfactory – If  the performance
+
+5. THE GENERAL MANAGER (P) CANARA BANK versus GANGANARASIMHAIAH
+Case ID: 2025 INSC 1088
+Citation: [2025] 9 S.C.R. 703
+Date: 09-09-2025
+Judge: J.K. MAHESHWARI
+Disposal: Disposed off
+Domain score: 53
+PDF: 2025_9_703_743_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_9_703_743_EN.pdf
+Matching terms:
+  - workman (count: 12, source: judgment_text)
+  - reinstatement (count: 6, source: judgment_text)
+  - back wages (count: 9, source: judgment_text)
+  - industrial disputes act (count: 3, source: judgment_text)
+  - labour (count: 2, source: judgment_text)
+  - dismissal (count: 8, source: judgment_text)
+Judgment excerpt:
+oi,* JJ.] Issue for Consideration Issue arose whether the Division Bench of the High Court was  justified in affirming the award passed by the Industrial Tribunal by  setting aside the punishment of compulsory retirement imposed  upon the respondent-workman and directing his reinstatement into  the original post with continuity of service without back wages. Headnotes† Industrial Disputes Act, 1947 – s.11A – Powers of the labour  court, tribunals – Allegations against the respondent-duftery- cum-cash posted in the Bank that he benefitted on account  of misconduct/irregular loan sanction – In the preliminary  enquiry respondent admitted that certain loans were availed  by coercing the manager and without obtaining any sanction  from the Controlling Officer and accepted making unauthorized  entries in the bank accounts, thereby tampering with the  official records – Charges stood proved in
+
+6. HARINAGAR SUGAR MILLS LTD. (BISCUIT DIVISION) & ANR. versus STATE OF MAHARASHTRA & ORS.
+Case ID: 2025 INSC 801
+Citation: [2025] 7 S.C.R. 427
+Date: 04-06-2025
+Judge: SANJAY KAROL
+Disposal: Appeal(s) allowed
+Domain score: 43
+PDF: 2025_7_427_462_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_7_427_462_EN.pdf
+Matching terms:
+  - industrial disputes act (count: 12, source: judgment_text)
+  - industrial dispute (count: 4, source: judgment_text)
+  - labour (count: 18, source: judgment_text)
+  - workman (count: 1, source: judgment_text)
+  - employment (count: 1, source: judgment_text)
+Judgment excerpt:
+t by the Deputy Secretary of  State Government can be construed to be an order - Connectedly,  whether the appellants would be entitled to the relief of deemed  closure, as on 27.10.2019 by virtue of the deeming fiction present  in s. 25-O(3) of the Industrial Disputes Act, 1947; (ii) What would be  the meaning of the phrase ‘appropriate Government’ and whether  in the facts of this case, it was the appropriate Government acting  in the matter of the closure - if not what is the effect in law, thereof. Headnotes† Industrial Disputes Act, 1947 – s.25-O(1), 25-O(3) – Industrial  Dispute (Maharashtra) Rules, 1957 – r.82-B(1) – Appellant-HSML  was engaged in biscuit manufacturing exclusively for BIL under  Job Work Agreements (JWA) – JWA was terminated by BIL –  Resultantly, applications for closure of business were made  to the competent authorities on 26.08.2019 – By a letter dated  25.09.
+
+7. CH. JOSEPH versus THE TELANGANA STATE ROAD TRANSPORT CORPORATION & OTHER
+Case ID: 2025 INSC 920
+Citation: [2025] 8 S.C.R. 320
+Date: 31-07-2025
+Judge: J.K. MAHESHWARI
+Disposal: Appeal(s) allowed
+Domain score: 36
+PDF: 2025_8_320_344_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_8_320_344_EN.pdf
+Matching terms:
+  - employment (count: 53, source: judgment_text)
+  - industrial disputes act (count: 12, source: judgment_text)
+  - labour (count: 3, source: judgment_text)
+  - industrial dispute (count: 1, source: judgment_text)
+  - service law (count: 1, source: judgment_text)
+  - reinstatement (count: 1, source: judgment_text)
+Judgment excerpt:
+Corporation & Other (Civil Appeal No. 9986 of 2025) 01 August 2025 [J.K. Maheshwari and Aravind Kumar,* JJ.] Issue for Consideration i) Whether the retirement of the appellant on medical grounds  due to colour blindness, without offering alternative employment,  is legally sustainable in light of applicable service regulations and  binding settlements; ii) whether Clause 14 of the Memorandum of  Settlement dated 17.12.1979, executed u/s.12(3) of the Industrial  Disputes Act, 1947, remains valid, binding, and enforceable  despite the subsequent 1986 settlement and internal administrative  circulars; iii) whether the respondents complied with their duty to  make a bona fide assessment of alternative employment options  for the appellant, as required by law, policy, and principles of  natural justice; iv) whether the reliance placed by the High Court  on B.S. Reddy was legally tenable in th
+
+8. NARESH KUMAR SINHA versus STATE OF BIHAR & ORS.
+Case ID: 2025 INSC 814
+Citation: [2025] 4 S.C.R. 2742
+Date: 02-04-2025
+Judge: J.K. MAHESHWARI
+Disposal: Appeal(s) allowed
+Domain score: 28
+PDF: 2025_4_2742_2752_EN.pdf
+Source: https://indian-supreme-court-judgments.s3.amazonaws.com/data/pdf/year=2025/english/2025_4_2742_2752_EN.pdf
+Matching terms:
+  - service law (count: 2, source: judgment_text)
+  - back wages (count: 3, source: judgment_text)
+  - termination of service (count: 2, source: judgment_text)
+  - reinstatement (count: 2, source: judgment_text)
+  - dismissal (count: 1, source: judgment_text)
+Judgment excerpt:
+of Bihar & Ors. (Civil Appeal No. 4661 of 2025) 02 April 2025 [J.K. Maheshwari* and Aravind Kumar, JJ.] Issue for Consideration Whether the High Court erred in declining to interfere in the order  terminating the service of the appellant. Headnotes† Service Law – Termination from service – When not justified –  Appellant-Clerk was terminated from service alleging that the  appointment order was issued by an incompetent authority  Deputy Director, Human Resources Development Department  (DDHRD) and was illegal; and that the appellant had forged  the appointment order – Termination upheld by High Court –  Interference with: Held: Order of termination is untenable on fact and record – The  reasoning that the appointment order was issued by DDHRD is  incorrect as the appointment order was issued by Government of  Bihar, Human Resource Development Department, and signed  by Additional Directo
+
+=====================================================================================
+REVIEW PREVIEW COMPLETE
+Total corpus records: 897
+=====================================================================================

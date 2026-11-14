@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-charcoal-black: #151515;
+  --color-deep-charcoal: #1D1D1D;
+  --color-white: #FFFFFF;
+  --color-workspace: #F7F7F5;
+  --color-light-grey: #EEEEEC;
+  --color-border: #D5D5D2;
+  --color-border-dark: #2A2A2A;
+  --color-text-secondary: #686868;
+  --color-text-primary: #171717;
+  --color-yellow-accent: #F2D21A;
+  --color-yellow-hover: #DFC115;
+  --background: var(--color-workspace);
+  --foreground: var(--color-text-primary);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-charcoal: var(--color-charcoal-black);
+  --color-deep-charcoal: var(--color-deep-charcoal);
+  --color-workspace: var(--color-workspace);
+  --color-border-light: var(--color-border);
+  --color-accent-yellow: var(--color-yellow-accent);
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-workspace);
+  color: var(--color-text-primary);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sharp focus ring for accessibility */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus-visible {
+  outline: 2px solid var(--color-charcoal-black);
+  outline-offset: 1px;
+}
+
+/* Custom scrollbars for clean editorial tables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F1EF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4C4C0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9D9D98;
+}
+
+/* Print styles for executive legal reports */
+@media print {
+  aside,
+  header button,
+  .no-print {
+    display: none !important;
+  }
+
+  body,
+  main {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .print-page-break {
+    page-break-before: always;
+  }
 }

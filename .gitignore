@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python
+.venv/
+__pycache__/
+*.py[cod]
+
+# large datasets (raw archives & bulk corpora)
+/data/aws/
+/data/raw/
+/data/processed/supreme_court_2025.jsonl
+/data/processed/supreme_court_2025_all_scored.csv

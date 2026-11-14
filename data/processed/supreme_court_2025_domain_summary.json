@@ -1,0 +1,41 @@
+{
+  "source": "AWS Indian Supreme Court Judgments",
+  "source_year": 2025,
+  "total_extracted_records": 897,
+  "shortlisted_unique_records": 192,
+  "minimum_screening_score": 6,
+  "maximum_per_domain": 40,
+  "domains": {
+    "commercial_contracts": {
+      "records_above_minimum_score": 186,
+      "shortlisted": 40,
+      "minimum_score": 6
+    },
+    "arbitration": {
+      "records_above_minimum_score": 125,
+      "shortlisted": 40,
+      "minimum_score": 6
+    },
+    "corporate_insolvency": {
+      "records_above_minimum_score": 31,
+      "shortlisted": 31,
+      "minimum_score": 6
+    },
+    "consumer_disputes": {
+      "records_above_minimum_score": 34,
+      "shortlisted": 34,
+      "minimum_score": 6
+    },
+    "property_disputes": {
+      "records_above_minimum_score": 139,
+      "shortlisted": 40,
+      "minimum_score": 6
+    },
+    "employment_labour": {
+      "records_above_minimum_score": 86,
+      "shortlisted": 40,
+      "minimum_score": 6
+    }
+  },
+  "review_required": true
+}
