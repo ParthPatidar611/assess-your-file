@@ -147,22 +147,24 @@ async function generateWithRetry(
     ai: GoogleGenAI,
     model: string,
     contents: string,
-    config: { responseMimeType: string; temperature: number; maxOutputTokens?: number }
-): Promise<{ text: string | undefined }> {
+    config: { responseMimeType: string; temperature: number; maxOutputTokens?: number },
+    timeoutMs = 9000
+): Promise<{ text: string | undefined; finishReason?: string }> {
     const MAX_RETRIES = 1;
     let lastError: unknown;
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
         if (attempt > 0) {
-            const delay = 1000 * Math.pow(2, attempt - 1) + Math.floor(Math.random() * 500);
+            const delay = 400 * Math.pow(2, attempt - 1);
             await new Promise((r) => setTimeout(r, delay));
         }
         try {
             const response = await ai.models.generateContent({
                 model,
                 contents,
-                config: { ...config, abortSignal: AbortSignal.timeout(18000) },
+                config: { ...config, abortSignal: AbortSignal.timeout(timeoutMs) },
             });
-            return response;
+            const cand = response.candidates?.[0];
+            return { text: response.text, finishReason: cand?.finishReason };
         } catch (err: unknown) {
             lastError = err;
             if (!isRetryableError(err)) throw err;
@@ -171,6 +173,37 @@ async function generateWithRetry(
         }
     }
     throw lastError;
+}
+
+interface AssessmentDiagnosticLog {
+    assessmentId: string;
+    route: string;
+    httpStatus: number;
+    durationMs: number;
+    analysisMode: string;
+    model: string | null;
+    failingSections: string[];
+    fallbackUsed: boolean;
+    errorCategory: string;
+}
+
+function logAssessmentDiagnostic(diag: AssessmentDiagnosticLog): void {
+    console.info(
+        JSON.stringify({
+            level: "INFO",
+            tag: "ASSESSMENT_DIAGNOSTIC",
+            timestamp: new Date().toISOString(),
+            assessmentId: diag.assessmentId,
+            route: diag.route,
+            httpStatus: diag.httpStatus,
+            durationMs: diag.durationMs,
+            analysisMode: diag.analysisMode,
+            model: diag.model,
+            failingSections: diag.failingSections,
+            fallbackUsed: diag.fallbackUsed,
+            errorCategory: diag.errorCategory,
+        })
+    );
 }
 
 import { searchPrecedentsWithFallback } from "@/lib/precedentStore";
@@ -490,6 +523,8 @@ async function runSectionLevelAssessment(
     identifiedLegalIssues: string[];
     identifiedSearchQueries: string[];
     sectionProvenance: SectionProvenance;
+    failingSections: string[];
+    fallbackUsed: boolean;
 }> {
     const provenance: SectionProvenance = {
         overview: "deterministic", timeline: "deterministic", strengths: "deterministic",
@@ -521,6 +556,7 @@ async function runSectionLevelAssessment(
     let aiSucceeded = 0;
     let primarySucceeded = false;
     let fallbackUsed = false;
+    const failingSections: string[] = [];
 
     async function trySection<T>(
         name: keyof SectionProvenance,
@@ -535,6 +571,7 @@ async function runSectionLevelAssessment(
             primarySucceeded = true;
             return;
         } catch (e) {
+            failingSections.push(`${name}:primary`);
             console.warn(`[assess] Section ${name} primary failed:`, e instanceof Error ? e.message.slice(0, 80) : e);
         }
         try {
@@ -545,8 +582,10 @@ async function runSectionLevelAssessment(
             fallbackUsed = true;
             return;
         } catch (e) {
+            failingSections.push(`${name}:fallback`);
             console.warn(`[assess] Section ${name} fallback failed:`, e instanceof Error ? e.message.slice(0, 80) : e);
         }
+        failingSections.push(`${name}:deterministic`);
         console.warn(`[assess] Section ${name} using deterministic fallback.`);
     }
 
@@ -607,31 +646,38 @@ async function runSectionLevelAssessment(
         filingAssistance = r;
     });
 
-    // Execute overview, timeline, strengths, outcome, duration, precautions, options, filing & precedent search in parallel!
-    const [_, precedentSearchResult] = await Promise.all([
-        Promise.allSettled([
-            overviewPromise,
-            timelinePromise,
-            strengthsPromise,
-            outcomePromise,
-            durationPromise,
-            precautionsPromise,
-            optionsPromise,
-            filingPromise,
-        ]),
-        precedentSearchPromise,
+    const precedentsPromise = (async () => {
+        try {
+            const spResult = await precedentSearchPromise;
+            if (spResult.precedents.length > 0 || !spResult.failed) {
+                precedents = spResult.precedents;
+                precedentRetrievalFailed = spResult.failed;
+            }
+            const precedentMap = new Map<string, RetrievedPrecedent>(precedents.map((p) => [p.case_id, p]));
+            await trySection(
+                "precedents",
+                (m) => genPrecedentAnalysis(ai, m, caseMaterial, initialQueries, precedents, precedentMap),
+                (r) => {
+                    precedentAnalysis = r;
+                }
+            );
+        } catch (pErr) {
+            console.warn("[assess] Precedent analysis pipeline failed, keeping deterministic:", pErr);
+        }
+    })();
+
+    // Execute ALL 9 sections and precedent search concurrently!
+    await Promise.allSettled([
+        overviewPromise,
+        timelinePromise,
+        strengthsPromise,
+        outcomePromise,
+        durationPromise,
+        precautionsPromise,
+        optionsPromise,
+        filingPromise,
+        precedentsPromise,
     ]);
-
-    if (precedentSearchResult.precedents.length > 0 || !precedentSearchResult.failed) {
-        precedents = precedentSearchResult.precedents;
-        precedentRetrievalFailed = precedentSearchResult.failed;
-    }
-    const precedentMap = new Map<string, RetrievedPrecedent>(precedents.map((p) => [p.case_id, p]));
-
-    // Now run Precedent Analysis with the retrieved precedents
-    await trySection("precedents", (m) => genPrecedentAnalysis(ai, m, caseMaterial, legal_issues, precedents, precedentMap), (r) => {
-        precedentAnalysis = r;
-    });
 
     let analysisMode: AnalysisMode;
     let usedModel: string | null;
@@ -667,10 +713,14 @@ async function runSectionLevelAssessment(
         identifiedLegalIssues: legal_issues,
         identifiedSearchQueries: searchPlan.search_queries.length > 0 ? searchPlan.search_queries : initialQueries,
         sectionProvenance: provenance,
+        failingSections,
+        fallbackUsed,
     };
 }
 
 export async function POST(request: Request) {
+    const startTime = Date.now();
+    const assessmentId = `asm_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
     const forceDeterministic = process.env.FORCE_DETERMINISTIC === "true";
 
     try {
@@ -688,7 +738,30 @@ export async function POST(request: Request) {
             try {
                 formData = await request.formData();
             } catch {
-                return NextResponse.json({ success: false, message: "Invalid multipart form submission." }, { status: 400 });
+                logAssessmentDiagnostic({
+                    assessmentId,
+                    route: "/api/assess",
+                    httpStatus: 400,
+                    durationMs: Date.now() - startTime,
+                    analysisMode: "none",
+                    model: null,
+                    failingSections: [],
+                    fallbackUsed: false,
+                    errorCategory: "INVALID_MULTIPART_FORM",
+                });
+                return NextResponse.json(
+                    {
+                        success: false,
+                        message: "Invalid multipart form submission.",
+                        error: {
+                            code: "INVALID_REQUEST_PAYLOAD",
+                            message: "The multipart form data could not be parsed.",
+                            details: "Ensure file boundaries and form fields are properly encoded.",
+                            retryable: false,
+                        },
+                    },
+                    { status: 400, headers: { "Content-Type": "application/json" } }
+                );
             }
             caseType = readString(formData.get("caseType"), "Not specified");
             title = readString(formData.get("title"));
@@ -715,9 +788,46 @@ export async function POST(request: Request) {
             try {
                 body = await request.json();
             } catch {
-                return NextResponse.json({ success: false, message: "Invalid JSON request body." }, { status: 400 });
+                logAssessmentDiagnostic({
+                    assessmentId,
+                    route: "/api/assess",
+                    httpStatus: 400,
+                    durationMs: Date.now() - startTime,
+                    analysisMode: "none",
+                    model: null,
+                    failingSections: [],
+                    fallbackUsed: false,
+                    errorCategory: "INVALID_JSON_BODY",
+                });
+                return NextResponse.json(
+                    {
+                        success: false,
+                        message: "Invalid JSON request body.",
+                        error: {
+                            code: "INVALID_REQUEST_PAYLOAD",
+                            message: "The request payload must be valid JSON.",
+                            details: "Syntax error parsing request body as JSON.",
+                            retryable: false,
+                        },
+                    },
+                    { status: 400, headers: { "Content-Type": "application/json" } }
+                );
             }
-            if (!isRecord(body)) return NextResponse.json({ success: false, message: "Invalid case submission." }, { status: 400 });
+            if (!isRecord(body)) {
+                return NextResponse.json(
+                    {
+                        success: false,
+                        message: "Invalid case submission.",
+                        error: {
+                            code: "INVALID_REQUEST_PAYLOAD",
+                            message: "The submitted body must be a JSON object.",
+                            details: "Expected an object containing title, facts and caseType.",
+                            retryable: false,
+                        },
+                    },
+                    { status: 400, headers: { "Content-Type": "application/json" } }
+                );
+            }
             caseType = readString(body.caseType || body.category, "Not specified");
             title = readString(body.title);
             facts = readString(body.facts);
@@ -728,11 +838,58 @@ export async function POST(request: Request) {
             else if (isRecord(body.documentReport)) documentReport = body.documentReport as unknown as DocumentProcessingReport;
         }
 
-        if (title.length > 300 || facts.length < 30) {
-            return NextResponse.json({ success: false, message: "Please provide a case title and at least 30 characters describing the matter." }, { status: 400 });
+        if (!title.trim() || facts.trim().length < 30) {
+            logAssessmentDiagnostic({
+                assessmentId,
+                route: "/api/assess",
+                httpStatus: 400,
+                durationMs: Date.now() - startTime,
+                analysisMode: "none",
+                model: null,
+                failingSections: [],
+                fallbackUsed: false,
+                errorCategory: "VALIDATION_INSUFFICIENT_INPUT",
+            });
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Please provide a matter title and at least 30 characters describing the case facts.",
+                    error: {
+                        code: "INVALID_REQUEST_PAYLOAD",
+                        message: "Please provide a case title and at least 30 characters describing the matter.",
+                        details: "Title must be non-empty and case description must contain at least 30 characters.",
+                        retryable: false,
+                    },
+                },
+                { status: 400, headers: { "Content-Type": "application/json" } }
+            );
         }
-        if (facts.length > 15000 || documentText.length > 35000) {
-            return NextResponse.json({ success: false, message: "The submitted text exceeds the prototype limit." }, { status: 400 });
+
+        if (title.length > 300 || facts.length > 15000 || documentText.length > 35000) {
+            logAssessmentDiagnostic({
+                assessmentId,
+                route: "/api/assess",
+                httpStatus: 400,
+                durationMs: Date.now() - startTime,
+                analysisMode: "none",
+                model: null,
+                failingSections: [],
+                fallbackUsed: false,
+                errorCategory: "VALIDATION_PAYLOAD_TOO_LARGE",
+            });
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "The submitted text exceeds the prototype limit.",
+                    error: {
+                        code: "PAYLOAD_TOO_LARGE",
+                        message: "The submitted text exceeds the system limit.",
+                        details: "Title must be under 300 chars, facts under 15,000 chars, and document text under 35,000 chars.",
+                        retryable: false,
+                    },
+                },
+                { status: 400, headers: { "Content-Type": "application/json" } }
+            );
         }
 
         const caseMaterial: CaseMaterial = { caseType, title, facts, desiredOutcome, jurisdiction, documentText, documentReport };
@@ -762,6 +919,8 @@ export async function POST(request: Request) {
         let assessment: NormalisedAssessment = deterministicResult.assessment;
         let precedentRetrievalFailed = deterministicResult.precedentRetrievalFailed;
         let sectionProvenance: SectionProvenance | undefined;
+        let failingSections: string[] = [];
+        let fallbackUsed = false;
 
         if (ai && geminiAvailable) {
             try {
@@ -774,6 +933,9 @@ export async function POST(request: Request) {
                 assessment = result.assessment;
                 precedentRetrievalFailed = result.precedentRetrievalFailed;
                 sectionProvenance = result.sectionProvenance;
+                failingSections = result.failingSections;
+                fallbackUsed = result.fallbackUsed;
+
                 if (analysisMode === "ai_fallback") {
                     fallbackReason = `Some sections used the secondary model (${FALLBACK_MODEL}). All successfully generated AI sections have been preserved.`;
                 } else if (analysisMode === "deterministic_fallback") {
@@ -781,6 +943,7 @@ export async function POST(request: Request) {
                 }
             } catch (err) {
                 console.error("[assess] Section orchestrator failed:", err);
+                failingSections.push("all_sections:orchestrator_exception");
                 fallbackReason = "AI service was unavailable. Report generated using the deterministic rules engine.";
             }
         } else if (forceDeterministic) {
@@ -800,50 +963,120 @@ export async function POST(request: Request) {
         const effectiveFactLedger = assessment.fact_ledger || assessment.factLedger || deterministicResult.assessment.fact_ledger;
         const effectiveDraftingStudio = assessment.drafting_studio || assessment.draftingStudio || deterministicResult.assessment.drafting_studio;
 
-        return NextResponse.json({
-            success: true,
-            message: "Preliminary legal assessment generated successfully.",
+        const durationMs = Date.now() - startTime;
+
+        logAssessmentDiagnostic({
+            assessmentId,
+            route: "/api/assess",
+            httpStatus: 200,
+            durationMs,
+            analysisMode,
+            model: usedModel,
+            failingSections,
+            fallbackUsed: fallbackUsed || analysisMode === "ai_fallback",
+            errorCategory: "none",
+        });
+
+        const assessmentData = {
+            ...assessment,
+            timeline: assessment.case_timeline,
+            case_timeline: assessment.case_timeline,
+            outcomeAssessment: assessment.outcome_assessment,
+            outcome_assessment: assessment.outcome_assessment,
+            expectedDuration: assessment.expected_duration,
+            expected_duration: assessment.expected_duration,
+            precautionsAndRecommendations: assessment.precautions_and_recommendations,
+            precautions_and_recommendations: assessment.precautions_and_recommendations,
+            legalOptions: assessment.legal_options,
+            legal_options: assessment.legal_options,
+            filingAssistance: assessment.filing_assistance,
+            filing_assistance: assessment.filing_assistance,
+            factLedger: effectiveFactLedger,
+            fact_ledger: effectiveFactLedger,
+            contradictions: effectiveFactLedger?.contradictions || [],
+            draftingStudio: effectiveDraftingStudio,
+            drafting_studio: effectiveDraftingStudio,
+        };
+
+        const generationMetadata = {
+            assessmentId,
             analysisMode,
             provider: analysisMode === "deterministic_fallback" && aiSectionCount === 0 ? "rules_engine" : "google_gemini",
             model: usedModel,
             fallbackReason,
             sectionProvenance,
-            case: { title, caseType, jurisdiction, desiredOutcome },
-            documentProcessing: documentReport || assessment?.document_processing,
-            identifiedSearchQueries,
-            identifiedLegalIssues,
-            retrievedPrecedents,
-            factLedger: effectiveFactLedger,
-            contradictions: effectiveFactLedger?.contradictions || [],
-            draftingStudio: effectiveDraftingStudio,
-            assessment: {
-                ...assessment,
-                timeline: assessment.case_timeline,
-                case_timeline: assessment.case_timeline,
-                outcomeAssessment: assessment.outcome_assessment,
-                outcome_assessment: assessment.outcome_assessment,
-                expectedDuration: assessment.expected_duration,
-                expected_duration: assessment.expected_duration,
-                precautionsAndRecommendations: assessment.precautions_and_recommendations,
-                precautions_and_recommendations: assessment.precautions_and_recommendations,
-                legalOptions: assessment.legal_options,
-                legal_options: assessment.legal_options,
-                filingAssistance: assessment.filing_assistance,
-                filing_assistance: assessment.filing_assistance,
+            durationMs,
+        };
+
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Preliminary legal assessment generated successfully.",
+                data: {
+                    assessment: assessmentData,
+                    generationMetadata,
+                    case: { title, caseType, jurisdiction, desiredOutcome },
+                    documentProcessing: documentReport || assessment?.document_processing,
+                    identifiedSearchQueries,
+                    identifiedLegalIssues,
+                    retrievedPrecedents,
+                    factLedger: effectiveFactLedger,
+                    contradictions: effectiveFactLedger?.contradictions || [],
+                    draftingStudio: effectiveDraftingStudio,
+                },
+                // Top-level fields preserved for complete backward compatibility
+                analysisMode,
+                provider: analysisMode === "deterministic_fallback" && aiSectionCount === 0 ? "rules_engine" : "google_gemini",
+                model: usedModel,
+                fallbackReason,
+                sectionProvenance,
+                case: { title, caseType, jurisdiction, desiredOutcome },
+                documentProcessing: documentReport || assessment?.document_processing,
+                identifiedSearchQueries,
+                identifiedLegalIssues,
+                retrievedPrecedents,
                 factLedger: effectiveFactLedger,
-                fact_ledger: effectiveFactLedger,
                 contradictions: effectiveFactLedger?.contradictions || [],
                 draftingStudio: effectiveDraftingStudio,
-                drafting_studio: effectiveDraftingStudio,
+                assessment: assessmentData,
+                disclaimer,
+                lawyerReviewRequired: true,
             },
-            disclaimer,
-            lawyerReviewRequired: true,
-        });
+            {
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+            }
+        );
     } catch (error: unknown) {
-        console.error("[assess] Unhandled error:", error);
+        const durationMs = Date.now() - startTime;
+        console.error(`[assess] [${assessmentId}] Unhandled exception:`, error);
+        logAssessmentDiagnostic({
+            assessmentId,
+            route: "/api/assess",
+            httpStatus: 500,
+            durationMs,
+            analysisMode: "error",
+            model: null,
+            failingSections: ["unhandled_exception"],
+            fallbackUsed: false,
+            errorCategory: error instanceof Error ? error.name : "ServerException",
+        });
+
         return NextResponse.json(
-            { success: false, message: "Unable to generate the assessment.", error: error instanceof Error ? error.message : "Unknown server error." },
-            { status: 500 }
+            {
+                success: false,
+                message: "Unable to generate the preliminary legal assessment due to an internal server error.",
+                error: {
+                    code: "ASSESSMENT_GENERATION_FAILED",
+                    message: "The assessment could not be generated.",
+                    details: error instanceof Error ? error.message.slice(0, 150) : "Internal server exception",
+                    retryable: true,
+                },
+            },
+            {
+                status: 500,
+                headers: { "Content-Type": "application/json" },
+            }
         );
     }
 }

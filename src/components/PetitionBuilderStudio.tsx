@@ -233,8 +233,14 @@ export default function PetitionBuilderStudio({
           factLedger,
         }),
       });
-      const data = await response.json();
-      if (data.success && Array.isArray(data.counterpartyArguments)) {
+      const text = await response.text();
+      let data: { success?: boolean; counterpartyArguments?: unknown } | null = null;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = null;
+      }
+      if (data && data.success && Array.isArray(data.counterpartyArguments)) {
         setCounterpartyArguments(data.counterpartyArguments);
       }
     } catch (err) {

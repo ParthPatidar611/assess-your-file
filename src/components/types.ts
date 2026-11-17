@@ -372,9 +372,34 @@ export interface RetrievedPrecedent {
 
 export interface AssessmentResponse {
   success: boolean;
+  data?: {
+    assessment: AssessmentReport;
+    generationMetadata?: {
+      assessmentId?: string;
+      analysisMode?: string;
+      provider?: string;
+      model?: string | null;
+      fallbackReason?: string | null;
+      sectionProvenance?: Record<string, string>;
+      durationMs?: number;
+    };
+    case?: {
+      title: string;
+      caseType: string;
+      jurisdiction: string;
+      desiredOutcome: string;
+    };
+    documentProcessing?: DocumentProcessingReport;
+    identifiedSearchQueries?: string[];
+    identifiedLegalIssues?: string[];
+    retrievedPrecedents?: RetrievedPrecedent[];
+    factLedger?: FactLedger;
+    contradictions?: ContradictionItem[];
+    draftingStudio?: GeneratedLegalDraft;
+  };
   analysisMode: "ai_primary" | "ai_fallback" | "deterministic_fallback";
   provider?: string;
-  model?: string;
+  model?: string | null;
   fallbackReason?: string | null;
   case: {
     title: string;
@@ -393,7 +418,14 @@ export interface AssessmentResponse {
   disclaimer: string;
   lawyerReviewRequired: boolean;
   message?: string;
-  error?: string;
+  error?:
+    | string
+    | {
+        code: string;
+        message: string;
+        details?: string;
+        retryable?: boolean;
+      };
 }
 
 // ============================================================================

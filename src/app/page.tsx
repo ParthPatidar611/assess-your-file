@@ -118,6 +118,92 @@ export default function Home() {
     setFiles((prev) => prev.filter((_, i) => i !== index));
     setFileValidationErrors([]);
   };
+ 
+  interface SafeParsedResponse<T> {
+    ok: boolean;
+    status: number;
+    data: T | null;
+    errorMessage: string | null;
+    errorCode?: string;
+    isRetryable?: boolean;
+  }
+
+  async function safeParseApiResponse<T>(response: Response): Promise<SafeParsedResponse<T>> {
+    const status = response.status;
+    const contentType = response.headers.get("content-type") || "";
+
+    let rawText = "";
+    try {
+      rawText = await response.text();
+    } catch {
+      return {
+        ok: false,
+        status,
+        data: null,
+        errorMessage: `Network error: Unable to read response from server (HTTP ${status || "unknown"}). Your entered case details have been preserved. Please retry.`,
+        isRetryable: true,
+      };
+    }
+
+    const trimmed = rawText.trim();
+    const seemsLikeJson =
+      contentType.includes("application/json") ||
+      (trimmed.startsWith("{") && trimmed.endsWith("}")) ||
+      (trimmed.startsWith("[") && trimmed.endsWith("]"));
+
+    if (seemsLikeJson && trimmed.length > 0) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (typeof parsed === "object" && parsed !== null) {
+          if (!response.ok || (parsed as { success?: boolean }).success === false) {
+            const errObj = (parsed as { error?: { message?: string; code?: string; retryable?: boolean } | string }).error;
+            const msg =
+              (typeof errObj === "object" && errObj?.message) ||
+              (parsed as { message?: string }).message ||
+              (typeof errObj === "string" ? errObj : null) ||
+              `Assessment request failed with server status ${status}.`;
+
+            return {
+              ok: false,
+              status,
+              data: parsed as T,
+              errorMessage: msg,
+              errorCode: typeof errObj === "object" ? errObj?.code : undefined,
+              isRetryable: typeof errObj === "object" ? Boolean(errObj?.retryable) : status >= 500,
+            };
+          }
+
+          return {
+            ok: true,
+            status,
+            data: parsed as T,
+            errorMessage: null,
+          };
+        }
+      } catch {
+        // Fall through to controlled non-JSON error handling below
+      }
+    }
+
+    // Handle plain-text, HTML error pages (Next.js/Vercel 500/504), empty responses
+    let friendlyMessage = `Assessment generation failed. Our server encountered an unexpected error (HTTP ${status}). Your entered case details have been preserved. Please retry.`;
+
+    if (status === 504 || status === 408 || trimmed.toLowerCase().includes("timeout")) {
+      friendlyMessage = `The assessment request timed out (HTTP ${status}). High server load was detected. Your entered case details have been preserved. Please retry.`;
+    } else if (trimmed.startsWith("An error occurred") || contentType.includes("text/html")) {
+      friendlyMessage = `Assessment generation failed due to a temporary server error (HTTP ${status}). Your entered case details have been preserved. Please retry.`;
+    } else if (trimmed.length > 0 && trimmed.length < 200 && !trimmed.includes("<html") && !trimmed.includes("<!DOCTYPE")) {
+      friendlyMessage = `${trimmed} (HTTP ${status})`;
+    }
+
+    return {
+      ok: false,
+      status,
+      data: null,
+      errorMessage: friendlyMessage,
+      isRetryable: true,
+    };
+  }
 
   // Submission handler
   const handleSubmitAssessment = async () => {
@@ -141,20 +227,25 @@ export default function Home() {
         body: formData,
       });
 
-      const data = await response.json();
+      const parsed = await safeParseApiResponse<AssessmentResponse>(response);
 
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || data.error || "Failed to generate preliminary assessment.");
+      if (!parsed.ok || !parsed.data || !parsed.data.success) {
+        throw new Error(
+          parsed.errorMessage || "Failed to generate preliminary assessment."
+        );
       }
 
-      const assessmentResponse = data as AssessmentResponse;
+      const assessmentResponse = parsed.data;
       setResult(assessmentResponse);
       saveToHistory(assessmentResponse);
       setWorkflowStep("report");
     } catch (err) {
       setErrorMessage(
-        err instanceof Error ? err.message : "An unexpected server error occurred during assessment."
+        err instanceof Error
+          ? err.message
+          : "An unexpected server error occurred during assessment. Your entered case details have been preserved. Please retry."
       );
+      // Preserve user on review screen so all state remains intact
       setWorkflowStep("review");
     }
   };
