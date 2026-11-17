@@ -14,6 +14,8 @@ import type {
 } from "./types";
 import { buildMatterSpecificDraft } from "@/lib/legalDrafting";
 import type { GeneratedLegalDraft } from "@/lib/legalDrafting";
+import PetitionBuilderStudio from "./PetitionBuilderStudio";
+import UserManualViewer from "./UserManualViewer";
 
 interface ReportViewProps {
   result: AssessmentResponse;
@@ -105,6 +107,8 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
   const [activeDraftMode, setActiveDraftMode] = useState<DraftingMode>("initial_legal_notice");
   const [confirmedFields, setConfirmedFields] = useState<Record<string, string>>({});
   const [copiedDraft, setCopiedDraft] = useState(false);
+  const [isStudioOpen, setIsStudioOpen] = useState(false);
+  const [isManualOpen, setIsManualOpen] = useState(false);
 
   const {
     case: caseMeta,
@@ -212,10 +216,23 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => setIsStudioOpen(true)}
+              className="px-4 py-2 bg-[#151515] hover:bg-[#333333] text-white border border-[#151515] text-xs font-bold uppercase tracking-wider transition cursor-pointer flex items-center gap-2 shadow-xs"
+            >
+              <span className="w-2 h-2 bg-[#F2D21A]" />
+              <span>Draft Formal Petition →</span>
+            </button>
+            <button
+              onClick={() => setIsManualOpen(true)}
+              className="px-3.5 py-2 bg-white hover:bg-[#EEEEEC] text-[#151515] border border-[#D5D5D2] text-xs font-semibold uppercase tracking-wider transition cursor-pointer"
+            >
+              User Manual 📖
+            </button>
             <button
               onClick={onPrint || (() => window.print())}
-              className="px-4 py-2 bg-white hover:bg-[#EEEEEC] text-[#151515] border border-[#151515] text-xs font-semibold uppercase tracking-wider transition cursor-pointer"
+              className="px-3.5 py-2 bg-white hover:bg-[#EEEEEC] text-[#151515] border border-[#151515] text-xs font-semibold uppercase tracking-wider transition cursor-pointer"
             >
               Print / Export ⎙
             </button>
@@ -1253,6 +1270,31 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
           )}
         </div>
 
+        {/* PROMINENT PETITION BUILDER STUDIO LAUNCH BANNER */}
+        <div className="mb-6 p-5 bg-[#151515] text-white border border-[#2D2D2D] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 bg-[#F2D21A]" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#F2D21A]">
+                Advanced Interactive Pleading Engine (Stages A - F)
+              </span>
+            </div>
+            <h4 className="text-base font-bold text-white">
+              Event-Wise Petition Builder & Annexure Management
+            </h4>
+            <p className="text-xs text-[#A0A09C] mt-0.5 max-w-xl">
+              Synthesize chronological events with the 5 required fields, review anticipated counterparty defenses, and number annexures deterministically.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsStudioOpen(true)}
+            className="px-5 py-2.5 bg-[#F2D21A] hover:bg-[#DFC115] text-[#151515] font-bold text-xs uppercase tracking-wider transition cursor-pointer whitespace-nowrap self-start sm:self-auto border border-[#D5D5D2]"
+          >
+            Open Petition Builder Studio →
+          </button>
+        </div>
+
         {/* 6 Drafting Modes Switcher */}
         <div className="mb-6">
           <label className="block text-xs font-bold uppercase tracking-wider text-[#151515] mb-2">
@@ -1502,6 +1544,26 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
           Under the Advocates Act, 1961 and the Bar Council of India standards of professional conduct, this automated assessment, evidentiary ledger, and drafting studio output constitute preliminary litigation intelligence only. No output from this platform may be dispatched, executed, or filed in any court, tribunal, or dispute forum without prior review, independent statutory verification, and settled endorsement by an enrolled advocate or legal counsel.
         </p>
       </div>
+
+      {/* MODAL USER MANUAL VIEWER */}
+      {isManualOpen && (
+        <div className="fixed inset-0 z-50 bg-[#151515]/80 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="max-w-5xl w-full my-8">
+            <UserManualViewer onClose={() => setIsManualOpen(false)} />
+          </div>
+        </div>
+      )}
+
+      {/* PETITION BUILDER STUDIO OVERLAY VIEW */}
+      {isStudioOpen && (
+        <div className="fixed inset-0 z-50 bg-[#F9F9F8] overflow-y-auto">
+          <PetitionBuilderStudio
+            assessmentResult={result}
+            onCloseStudio={() => setIsStudioOpen(false)}
+            onOpenUserManual={() => setIsManualOpen(true)}
+          />
+        </div>
+      )}
     </div>
   );
 }

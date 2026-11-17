@@ -395,3 +395,202 @@ export interface AssessmentResponse {
   message?: string;
   error?: string;
 }
+
+// ============================================================================
+// PETITION BUILDER & EVENT MODELS (MENTOR REQUIREMENTS 1 - 4)
+// ============================================================================
+
+export type DateConfidence = "confirmed" | "approximate" | "unknown";
+
+export type EventVerificationStatus =
+  | "documented"
+  | "user_statement"
+  | "allegation"
+  | "unverified";
+
+export interface PetitionEvent {
+  eventId: string; // e.g. "EVT-001"
+  orderIndex: number; // 1-based chronological index
+  date: string; // Formatted date string or approximate description
+  dateConfidence: DateConfidence;
+
+  // 5 MENTOR REQUIRED FIELDS:
+  eventDescription: string; // 1. Event: What happened and when?
+  otherPartyMistake: string; // 2. Mistake by the other party (or explicit "Not separately identified")
+  applicantResponse: string; // 3. Applicant's response (or explicit "Requires applicant confirmation")
+  reliefSought: string; // 4. Prayer: What relief or action is sought connected to this event?
+  supportingDocumentIds: string[]; // 5. Supporting documents: immutable doc IDs backing this event
+
+  // Source Traceability & Legal Rigor
+  sourceFactIds: string[]; // Linked FactLedgerItem IDs (e.g. ["FACT-001"])
+  verificationStatus: EventVerificationStatus;
+  isDisputed: boolean;
+  disputedDetails?: string;
+  legalIssueTags?: string[];
+  notesForAdvocate?: string;
+}
+
+// ============================================================================
+// COUNTERPARTY ARGUMENT INTELLIGENCE
+// ============================================================================
+
+export interface CounterpartyArgument {
+  argumentId: string; // e.g. "ARG-001"
+  relatedEventIds: string[]; // Linked event IDs (e.g. ["EVT-001"])
+  opposingPartyArgument: string; // ANTICIPATED opposing party argument (clearly marked as anticipated)
+  factualBasis: string; // Factual basis opposing party may rely upon
+  supportingMaterial?: string[]; // Documents or material potentially cited
+  applicableLegalPrinciple?: string; // Contract clause or statutory doctrine
+  applicantRebuttal: string; // Proposed applicant rebuttal
+  supportingEvidence: string[]; // Applicant evidence supporting rebuttal
+  vulnerabilities: string; // Missing info or case vulnerabilities
+  includeInPetition: boolean; // Whether applicant approves including rebuttal in pleading
+  strategyNotes: string; // CONFIDENTIAL strategy notes (EXCLUDED from court pleading & exports)
+}
+
+// ============================================================================
+// ANNEXURE MANAGEMENT & MAPPING
+// ============================================================================
+
+export interface AnnexureItem {
+  annexureNumber: number; // 1, 2, 3...
+  annexureLabel: string; // "Annexure 1", "Annexure 2"
+  documentId: string; // Immutable UUID or unique ID
+  originalFileName: string;
+  documentTitle: string; // Clean display name (e.g. "Purchase Order dated 15 May 2026")
+  documentType: string; // "Purchase Order" | "Delivery Challan" | "Invoice" | "Email" | "Notice"
+  documentDate?: string;
+  pageCount: number;
+  relevantPageRange: string; // e.g. "Pages 1-2"
+  extractionMethod: string;
+  extractionStatus: "completed" | "partially_readable" | "requires_confirmation" | "failed";
+  isExcluded: boolean; // Excluded by user from formal pleading exhibit index
+  relatedEventIds: string[]; // Event IDs supported by this annexure
+  referencedInParagraphs: string[]; // Paragraph citations (e.g. ["Para 3.1", "Para 3.4"])
+}
+
+export interface AnnexureIndex {
+  items: AnnexureItem[];
+  totalAnnexures: number;
+  totalPages: number;
+  unattachedReferencedDocs: string[]; // Documents mentioned in narrative but not uploaded
+}
+
+// ============================================================================
+// FORUM SELECTION & FORMAL PETITION STRUCTURE
+// ============================================================================
+
+export type ForumCategory =
+  | "COMMERCIAL_COURT"
+  | "CONSUMER_COMMISSION"
+  | "CIVIL_COURT"
+  | "HIGH_COURT"
+  | "ARBITRAL_TRIBUNAL"
+  | "NCLT"
+  | "CUSTOM_FORUM";
+
+export interface ForumTemplateInfo {
+  forumCategory: ForumCategory;
+  courtHeading: string;
+  governingStatute: string;
+  proceedingType: string;
+  pecuniaryThresholdNote: string;
+  standardVerificationClause: string;
+}
+
+export interface PetitionParagraph {
+  paragraphNumber: number;
+  heading?: string;
+  text: string;
+  citedFactIds: string[];
+  citedAnnexures: string[];
+  requiresVerification: boolean;
+}
+
+export interface PetitionGroundItem {
+  groundLetter: string; // "A", "B", "C"...
+  statutoryBasis: string;
+  argument: string;
+  isVerifiedStatute: boolean;
+  citedFactIds: string[];
+}
+
+export interface ConsolidatedPrayerItem {
+  prayerId: string; // "(a)", "(b)", "(c)"
+  reliefType: string;
+  prayerText: string;
+  quantifiedAmount?: string;
+  isPrincipal: boolean;
+  sourceEventIds: string[];
+}
+
+export interface GeneratedPetition {
+  petitionId: string;
+  matterTitle: string;
+  dateGenerated: string;
+  forumInfo: ForumTemplateInfo;
+  courtHeading: string;
+  causeTitle: string;
+  partiesBlock: {
+    petitionerName: string;
+    petitionerAddress: string;
+    petitionerRole: string;
+    respondentName: string;
+    respondentAddress: string;
+    respondentRole: string;
+  };
+  natureOfProceeding: string;
+  jurisdictionStatement: string;
+  chronologicalListDates: Array<{
+    date: string;
+    eventSummary: string;
+    annexureRef?: string;
+  }>;
+  statementOfFacts: PetitionParagraph[];
+  eventBreachesAndResponses: PetitionParagraph[];
+  anticipatedObjectionsAndRebuttals: PetitionParagraph[];
+  grounds: PetitionGroundItem[];
+  interimReliefSection?: PetitionParagraph[];
+  consolidatedPrayers: ConsolidatedPrayerItem[];
+  annexureIndex: AnnexureIndex;
+  verificationStatement: {
+    deponentName: string;
+    place: string;
+    verificationText: string;
+  };
+  advocateNotice: string;
+  validationReport: PetitionValidationReport;
+}
+
+export interface PetitionValidationReport {
+  isValid: boolean;
+  missingFacts: string[];
+  unsupportedClaims: string[];
+  unverifiedLegalCitations: string[];
+  missingAnnexures: string[];
+  invalidCrossReferences: string[];
+  missingMandatoryInformation: string[];
+  itemsRequiringAdvocateReview: string[];
+  notes: string[];
+}
+
+// ============================================================================
+// WORKSPACE STATE (PERSISTED IN LOCAL STORAGE)
+// ============================================================================
+
+export interface PetitionWorkspaceState {
+  caseId: string;
+  currentStage: "overview" | "events" | "counterparty" | "annexures" | "preview" | "export";
+  forumCategory: ForumCategory;
+  courtHeading: string;
+  petitionerName: string;
+  petitionerAddress: string;
+  respondentName: string;
+  respondentAddress: string;
+  events: PetitionEvent[];
+  counterpartyArguments: CounterpartyArgument[];
+  annexureIndex: AnnexureIndex;
+  petitionDraft: GeneratedPetition | null;
+  lastSavedTimestamp: string;
+  isDirty: boolean;
+}
