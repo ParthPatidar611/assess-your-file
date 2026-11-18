@@ -29,6 +29,7 @@ import {
   PageNumber,
 } from "docx";
 import type { GeneratedPetition } from "@/components/types";
+import { cleanFactReferences } from "@/lib/sanitization";
 
 /**
  * Builds a binary Buffer / Blob representing a formal Indian Court Pleading.
@@ -91,7 +92,7 @@ export async function generatePetitionDocx(petition: GeneratedPetition): Promise
         new TableRow({
           children: [
             bodyCell(item.date, 25),
-            bodyCell(item.eventSummary, 55),
+            bodyCell(cleanFactReferences(item.eventSummary), 55),
             bodyCell(item.annexureRef || "—", 20),
           ],
         })
@@ -346,7 +347,7 @@ export async function generatePetitionDocx(petition: GeneratedPetition): Promise
                     font: "Times New Roman",
                   }),
                   new TextRun({
-                    text: p.text,
+                    text: cleanFactReferences(p.text),
                     size: 22,
                     font: "Times New Roman",
                   }),
@@ -367,7 +368,7 @@ export async function generatePetitionDocx(petition: GeneratedPetition): Promise
                     font: "Times New Roman",
                   }),
                   new TextRun({
-                    text: p.text,
+                    text: cleanFactReferences(p.text),
                     size: 22,
                     font: "Times New Roman",
                   }),
@@ -388,7 +389,7 @@ export async function generatePetitionDocx(petition: GeneratedPetition): Promise
                     font: "Times New Roman",
                   }),
                   new TextRun({
-                    text: p.text,
+                    text: cleanFactReferences(p.text),
                     size: 22,
                     font: "Times New Roman",
                   }),
@@ -428,7 +429,7 @@ export async function generatePetitionDocx(petition: GeneratedPetition): Promise
                     font: "Times New Roman",
                   }),
                   new TextRun({
-                    text: g.argument,
+                    text: cleanFactReferences(g.argument),
                     size: 22,
                     font: "Times New Roman",
                   }),

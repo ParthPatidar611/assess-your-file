@@ -348,7 +348,7 @@ export function buildMatterSpecificDraft(
     // 2. Factual Chronology
     const chronologicalBullets = factLedger.facts
         .slice(0, 8)
-        .map((f) => `• [${f.id}] ${f.statement} (${f.sourceType === "uploaded_document" ? `Doc: ${f.sourceDocument || "File"}, Page ${f.sourcePageNumber || 1}` : "Client Statement"}${f.isDisputed ? " — Contested" : ""})`)
+        .map((f) => `• ${f.statement} (${f.sourceType === "uploaded_document" ? `Doc: ${f.sourceDocument || "File"}, Page ${f.sourcePageNumber || 1}` : "Client Statement"}${f.isDisputed ? " — Contested" : ""})`)
         .join("\n");
 
     sections.push({

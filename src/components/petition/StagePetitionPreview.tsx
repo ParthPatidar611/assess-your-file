@@ -19,7 +19,6 @@ export default function StagePetitionPreview({
   onRecompileDraft,
 }: StagePetitionPreviewProps) {
   const [highlightedAnnexure, setHighlightedAnnexure] = useState<string | null>(null);
-  const [highlightedFact, setHighlightedFact] = useState<string | null>(null);
 
   const report = petition.validationReport;
   const hasValidationIssues =
@@ -43,7 +42,7 @@ export default function StagePetitionPreview({
               Formal Indian Court Pleading Draft
             </h2>
             <p className="text-xs text-[#686868] mt-1 max-w-3xl">
-              Inspect the compiled draft prior to export. Hover over any <code>[Annexure X]</code> or <code>[FACT-xxx]</code> badge to trace documentary origin.
+              Inspect the compiled draft prior to export. Hover over any <code>[Annexure X]</code> badge to trace documentary origin.
               The right-hand panel provides explicit statutory and cross-reference verification.
             </p>
           </div>
@@ -184,16 +183,6 @@ export default function StagePetitionPreview({
                           className="px-1.5 py-0.2 bg-[#FFF9E6] border border-[#F2D21A] text-[10px] font-bold text-[#806600] cursor-pointer"
                         >
                           {annx}
-                        </span>
-                      ))}
-                      {para.citedFactIds.map((fid) => (
-                        <span
-                          key={fid}
-                          onMouseEnter={() => setHighlightedFact(fid)}
-                          onMouseLeave={() => setHighlightedFact(null)}
-                          className="px-1.5 py-0.2 bg-[#F5F5F3] border border-[#D5D5D2] text-[10px] font-mono text-[#686868] cursor-pointer"
-                        >
-                          {fid}
                         </span>
                       ))}
                     </div>
@@ -384,13 +373,12 @@ export default function StagePetitionPreview({
             </div>
 
             {/* Evidence Quick-Trace */}
-            {(highlightedAnnexure || highlightedFact) && (
+            {highlightedAnnexure && (
               <div className="p-3 bg-[#151515] text-white text-xs font-mono space-y-1 border border-[#2D2D2D]">
                 <span className="text-[10px] text-[#F2D21A] font-bold uppercase block">
                   Evidence Inspector:
                 </span>
-                {highlightedAnnexure && <div>Inspecting: {highlightedAnnexure}</div>}
-                {highlightedFact && <div>Trace: {highlightedFact}</div>}
+                <div>Inspecting: {highlightedAnnexure}</div>
               </div>
             )}
           </div>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import type { CounterpartyArgument } from "@/components/types";
+import { cleanFactReferences } from "@/lib/sanitization";
 
 interface StageCounterpartyProps {
   argumentsList: CounterpartyArgument[];
@@ -157,7 +158,7 @@ export default function StageCounterparty({
                   </p>
                   <div className="mt-2 pt-2 border-t border-[#F2D21A]/30 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-[#686868]">
                     <span>
-                      <strong>Factual Basis:</strong> {arg.factualBasis}
+                      <strong>Anticipated Ground:</strong> {cleanFactReferences(arg.factualBasis)}
                     </span>
                     {arg.applicableLegalPrinciple && (
                       <span>

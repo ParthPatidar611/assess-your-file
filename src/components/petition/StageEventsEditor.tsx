@@ -133,7 +133,7 @@ export default function StageEventsEditor({
       reliefSought: "No event-specific relief identified.",
       supportingDocumentIds: [],
       supportingDocumentPageReferences: {},
-      sourceFactIds: [`FACT-USER-${events.length + 1}`],
+      sourceFactIds: [],
       sourceClassifications: ["applicant_statement"],
       verificationStatus: "applicant_statement",
       approvalStatus: "edited",

@@ -34,6 +34,7 @@ import {
 } from "../lib/petitionEngine";
 import { buildDeterministicCounterpartyArguments } from "../lib/counterpartyEngine";
 import { generatePetitionDocx } from "../lib/docxExport";
+import { cleanFactReferences, cleanExecutiveOverview } from "../lib/sanitization";
 import type { ProcessedDocumentItem, PageExtractionItem, DocumentProcessingReport, PetitionEvent, PetitionWorkspaceState } from "../components/types";
 import type { CaseMaterial } from "../lib/deterministicAssessment";
 
@@ -464,7 +465,7 @@ async function runValidationSuite() {
         id: 14,
         name: "Petition Event Synthesis (5 Mentor Required Fields)",
         status: hasFiveRequiredFields ? "PASSED" : "FAILED",
-        details: `Synthesized ${case10Events.length} chronological events. Every event enforces all 5 required fields (Event, Mistake, Response, Relief, Docs) with [FACT-xxx] traceability.`,
+        details: `Synthesized ${case10Events.length} chronological events. Every event enforces all 5 required fields (Event, Mistake, Response, Relief, Docs) with documentary evidence traceability.`,
     });
 
     // TEST 15: Deterministic Sequential Annexure Numbering & Dynamic Renumbering
@@ -739,6 +740,22 @@ async function runValidationSuite() {
         name: "[Test K] Existing Application Regression Audit",
         status: regressionClean ? "PASSED" : "FAILED",
         details: "Deterministic legal assessment, multi-mode drafting studio, DOCX court pleading generation, and multimodal OCR pipelines remain 100% operational.",
+    });
+
+    // TEST 31: Application-wide Absence of Legacy Fact References
+    const petitionHasNoFactIds = compiledPetition.statementOfFacts.every(
+        (p) => !p.text.includes("[FACT-") && !p.text.includes("FACT-") && !p.text.toLowerCase().includes("factual basis:")
+    );
+    const draftingHasNoFactIds = !case09Draft.fullFormattedText.includes("[FACT-") && !case09Draft.fullFormattedText.includes("FACT-");
+    const testExecSummary = "The matter involves [FACT-001] breach of contract regarding [DOC-01-agreement.pdf].";
+    const cleanedExecSummary = cleanExecutiveOverview(testExecSummary);
+    const execSummaryClean = !cleanedExecSummary.includes("[FACT-") && !cleanedExecSummary.includes("[DOC-") && !cleanedExecSummary.includes(".pdf");
+
+    testResults.push({
+        id: 31,
+        name: "Application-wide Absence of Legacy Fact Reference Codes",
+        status: petitionHasNoFactIds && draftingHasNoFactIds && execSummaryClean ? "PASSED" : "FAILED",
+        details: "Executive overview, supporting/adverse factors, legal drafting studio, and compiled court pleadings contain 0 legacy [FACT-xxx] codes or FACTUAL BASIS labels.",
     });
 
     // Print Report

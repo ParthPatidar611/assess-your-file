@@ -15,6 +15,7 @@ import { GoogleGenAI } from "@google/genai";
 import type { CaseMaterial } from "./deterministicAssessment";
 import type { FactLedger } from "./factLedger";
 import type { PetitionEvent, CounterpartyArgument } from "@/components/types";
+import { cleanFactReferences } from "./sanitization";
 
 const PRIMARY_MODEL =
   process.env.GEMINI_PRIMARY_MODEL ||
@@ -132,11 +133,11 @@ export async function generateCounterpartyIntelligence(
   try {
     const ai = new GoogleGenAI({ apiKey });
     const prompt = `You are a Senior Indian Litigation Counsel conducting an adversarial legal analysis.
-Examine the following transactional events and Fact Ledger. Anticipate the strongest plausible defenses and procedural objections the OPPOSING PARTY will raise.
+Examine the following chronological event timeline and case records. Anticipate the strongest plausible defenses and procedural objections the OPPOSING PARTY will raise.
 
 STRICT CONSTRAINTS (Mandatory):
 1. These are ANTICIPATED arguments only. Never invent fabricated quotes, fictitious meetings, or false communications.
-2. Formulate the applicant's rebuttal strictly using verified facts from the ledger.
+2. Formulate the applicant's rebuttal strictly using verified events and document evidence. Do not include artificial internal codes such as [FACT-xxx].
 3. Distinguish between arguments to address proactively in the plaint (includeInPetition: true) versus strategic defenses kept in reserve (includeInPetition: false).
 4. Provide internal strategyNotes strictly for legal counsel (these will be excluded from the court draft).
 
@@ -196,13 +197,13 @@ Return ONLY valid JSON matching this structure:
       return parsed.counterpartyArguments.map((item: Record<string, unknown>, idx: number) => ({
         argumentId: typeof item.argumentId === "string" ? item.argumentId : `ARG-${String(idx + 1).padStart(3, "0")}`,
         relatedEventIds: Array.isArray(item.relatedEventIds) ? (item.relatedEventIds as string[]) : ["EVT-001"],
-        opposingPartyArgument: String(item.opposingPartyArgument || "Anticipated opposing party defense"),
-        factualBasis: String(item.factualBasis || "Based on transactional documentation"),
+        opposingPartyArgument: cleanFactReferences(String(item.opposingPartyArgument || "Anticipated opposing party defense")),
+        factualBasis: cleanFactReferences(String(item.factualBasis || "Based on transactional documentation")),
         supportingMaterial: Array.isArray(item.supportingMaterial) ? (item.supportingMaterial as string[]) : [],
-        applicableLegalPrinciple: typeof item.applicableLegalPrinciple === "string" ? item.applicableLegalPrinciple : undefined,
-        applicantRebuttal: String(item.applicantRebuttal || "Applicant maintains legal position"),
+        applicableLegalPrinciple: typeof item.applicableLegalPrinciple === "string" ? cleanFactReferences(item.applicableLegalPrinciple) : undefined,
+        applicantRebuttal: cleanFactReferences(String(item.applicantRebuttal || "Applicant maintains legal position")),
         supportingEvidence: Array.isArray(item.supportingEvidence) ? (item.supportingEvidence as string[]) : [],
-        vulnerabilities: String(item.vulnerabilities || "Subject to verification of original records"),
+        vulnerabilities: cleanFactReferences(String(item.vulnerabilities || "Subject to verification of original records")),
         includeInPetition: item.includeInPetition !== false,
         strategyNotes: String(item.strategyNotes || "CONFIDENTIAL COUNSEL NOTE: Review prior to hearing"),
       }));

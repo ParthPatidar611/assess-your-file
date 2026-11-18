@@ -26,6 +26,7 @@ import {
     MAX_DOCUMENTS,
 } from "@/lib/pdfExtractor";
 import { type FactLedger, buildDeterministicFactLedger } from "@/lib/factLedger";
+import { cleanFactReferences, cleanExecutiveOverview, sanitizeAssessmentReport } from "@/lib/sanitization";
 import { type GeneratedLegalDraft, type DraftingMode, buildMatterSpecificDraft } from "@/lib/legalDrafting";
 
 export const maxDuration = 60;
@@ -227,8 +228,8 @@ async function searchPrecedents(
 
 function caseCtx(caseMaterial: CaseMaterial, legalIssues: string[], factLedger?: FactLedger): string {
     const ledgerSnippet = factLedger && factLedger.facts.length > 0
-        ? `\n\nFACT AND EVIDENCE LEDGER (STRICT BASIS FOR ALL FACTUAL ASSERTIONS):
-${factLedger.facts.slice(0, 16).map((f) => `• [${f.id}] (${f.classification}) ${f.statement} [Source: ${f.sourceType}${f.sourcePageNumber ? ` Pg ${f.sourcePageNumber}` : ""}${f.isDisputed ? ", CONTESTED" : ""}]`).join("\n")}
+        ? `\n\nESTABLISHED FACTUAL BACKGROUND & EXTRACTED EVIDENCE (FOR FACTUAL GROUNDING):
+${factLedger.facts.slice(0, 16).map((f) => `• (${f.classification}) ${f.statement} [Source: ${f.sourceType}${f.sourcePageNumber ? ` Pg ${f.sourcePageNumber}` : ""}${f.isDisputed ? ", CONTESTED" : ""}]`).join("\n")}
 ${factLedger.contradictions.length > 0 ? `\nIDENTIFIED DISPUTES & CONTRADICTIONS:\n${factLedger.contradictions.map((c) => `• ${c.issue}: Party A states "${c.partyAPosition.account}" vs Party B states "${c.partyBPosition.account}". Unresolved: ${c.unresolvedPoints}`).join("\n")}` : ""}`
         : "";
 
@@ -244,7 +245,7 @@ STRICT ANTI-EXAGGERATION & FACT PRESERVATION RULES:
 5. Preserve exact amounts, dates, names, model numbers, and terms without embellishment.
 6. Do not call conduct fraudulent, illegal, or criminal without judicial determination.
 7. Do not guarantee recovery, success, or an outcome.
-8. Whenever stating a factual assertion in understood_facts, strengths, weaknesses, or next steps, cite the supporting fact ID in brackets: e.g. "[FACT-001]".
+8. Express all factual assertions naturally in fluent, professional prose. Do NOT include artificial internal reference codes such as "[FACT-001]", "[FACT-xxx]", or "FACTUAL BASIS" labels. Document references (e.g. document name and page) may be included where supported by uploaded files.
 
 CASE MATERIAL:
 ${JSON.stringify({
@@ -264,25 +265,27 @@ async function genOverview(ai: GoogleGenAI, model: string, cm: CaseMaterial, fac
     const prompt = `${caseCtx(cm, [], factLedger)}
 
 Generate the OVERVIEW section of a preliminary Indian legal assessment.
-Every factual assertion in understood_facts must cite its supporting fact ID: e.g. "[FACT-001]".
-If an issue is disputed, state it neutrally.
+CRITICAL FORMATTING RULES:
+1. The executive_summary must be a clean, natural-language professional case assessment. It must contain ABSOLUTELY NO source-reference codes—neither FACT IDs nor DOCUMENT IDs.
+2. understood_facts must be clean, natural factual statements without artificial internal reference codes like [FACT-xxx].
+3. If an issue is disputed, state it neutrally.
 Return ONLY valid JSON:
 {
   "search_queries": ["query one", "query two"],
   "legal_issues": ["Legal issue one", "Legal issue two"],
   "assessment_title": "Descriptive title",
-  "executive_summary": "2-4 paragraph summary using measured phrasing",
-  "understood_facts": ["[FACT-001] Key fact statement"],
+  "executive_summary": "2-4 paragraph natural-language summary without any artificial reference codes",
+  "understood_facts": ["Key factual statement in natural prose"],
   "limitations": "Brief limitations statement"
 }
-Rules: 2-3 search_queries, 5-10 understood_facts (each linked to [FACT-xxx]), 4-8 legal_issues. Do NOT invent case citations.`;
+Rules: 2-3 search_queries, 5-10 understood_facts in natural language, 4-8 legal_issues. Do NOT invent case citations.`;
     const resp = await generateWithRetry(ai, model, prompt, { responseMimeType: "application/json", temperature: 0.15, maxOutputTokens: 2048 });
     const raw = parseGeminiJSON(resp.text, "overview section");
     return {
         searchPlan: { legal_issues: readStringArray(raw.legal_issues, 10), search_queries: readStringArray(raw.search_queries, 3) },
         assessment_title: readString(raw.assessment_title, "Preliminary Legal Assessment"),
-        executive_summary: readString(raw.executive_summary),
-        understood_facts: readStringArray(raw.understood_facts, 15),
+        executive_summary: cleanExecutiveOverview(readString(raw.executive_summary)),
+        understood_facts: readStringArray(raw.understood_facts, 15).map(cleanFactReferences),
         legal_issues: readStringArray(raw.legal_issues, 15),
         limitations: readString(raw.limitations, "This is a preliminary AI-generated assessment. Review of the lawyer is required!"),
     };
@@ -341,23 +344,33 @@ async function genStrengthsWeaknesses(ai: GoogleGenAI, model: string, cm: CaseMa
     const prompt = `${caseCtx(cm, issues, factLedger)}
 
 Analyse STRENGTHS, WEAKNESSES, missing evidence and next steps for this matter.
-Every factual_basis must cite the supporting [FACT-xxx] ID from the Fact and Evidence Ledger.
-Do NOT guarantee recovery or assume breach is conclusively established.
+CRITICAL RULES:
+1. Do NOT include artificial internal reference codes such as "[FACT-001]" or "FACT-xxx" anywhere.
+2. In strengths and weaknesses, describe the underlying factual basis and available document evidence naturally.
+3. Do NOT guarantee recovery or assume breach is conclusively established.
 Return ONLY valid JSON:
 {
-  "strengths": [{ "factor": "Name", "explanation": "Why it helps", "factual_basis": "[FACT-001] Supporting documented fact or admission" }],
-  "weaknesses": [{ "factor": "Name", "explanation": "Why it hurts", "factual_basis": "[FACT-002] Contested issue or evidence gap" }],
+  "strengths": [{ "factor": "Name", "explanation": "Why it helps", "factual_basis": "Natural description of supporting facts or document evidence" }],
+  "weaknesses": [{ "factor": "Name", "explanation": "Why it hurts", "factual_basis": "Natural description of contested points or evidence gaps" }],
   "missing_evidence": [{ "evidence": "Document needed", "why_it_matters": "Significance" }],
-  "recommended_next_steps": ["Action item"]
+  "recommended_next_steps": ["Action item in natural professional language"]
 }
 3-6 strengths, 3-6 weaknesses, 3-6 missing evidence, 4-8 next steps.`;
     const resp = await generateWithRetry(ai, model, prompt, { responseMimeType: "application/json", temperature: 0.15, maxOutputTokens: 2048 });
     const raw = parseGeminiJSON(resp.text, "strengths section");
     return {
-        strengths: readObjectArray(raw.strengths).map((i) => ({ factor: readString(i.factor), explanation: readString(i.explanation), factual_basis: readString(i.factual_basis) })) as AssessmentStrengthItem[],
-        weaknesses: readObjectArray(raw.weaknesses).map((i) => ({ factor: readString(i.factor), explanation: readString(i.explanation), factual_basis: readString(i.factual_basis) })) as AssessmentWeaknessItem[],
+        strengths: readObjectArray(raw.strengths).map((i) => ({
+            factor: cleanFactReferences(readString(i.factor)),
+            explanation: cleanFactReferences(readString(i.explanation)),
+            factual_basis: cleanFactReferences(readString(i.factual_basis)),
+        })) as AssessmentStrengthItem[],
+        weaknesses: readObjectArray(raw.weaknesses).map((i) => ({
+            factor: cleanFactReferences(readString(i.factor)),
+            explanation: cleanFactReferences(readString(i.explanation)),
+            factual_basis: cleanFactReferences(readString(i.factual_basis)),
+        })) as AssessmentWeaknessItem[],
         missing_evidence: readObjectArray(raw.missing_evidence).map((i) => ({ evidence: readString(i.evidence), why_it_matters: readString(i.why_it_matters) })) as AssessmentEvidenceItem[],
-        recommended_next_steps: readStringArray(raw.recommended_next_steps, 10),
+        recommended_next_steps: readStringArray(raw.recommended_next_steps, 10).map(cleanFactReferences),
     };
 }
 
@@ -695,7 +708,7 @@ async function runSectionLevelAssessment(
     console.info(`[assess] Sections - AI: ${aiSucceeded}, deterministic: ${10 - aiSucceeded}, mode: ${analysisMode}, fallbackUsed: ${fallbackUsed}`);
 
     return {
-        assessment: {
+        assessment: sanitizeAssessmentReport({
             assessment_title, executive_summary, understood_facts, legal_issues,
             strengths, weaknesses, missing_evidence, precedent_analysis: precedentAnalysis,
             recommended_next_steps, limitations,
@@ -708,7 +721,7 @@ async function runSectionLevelAssessment(
             contradictions: factLedger.contradictions,
             drafting_studio: draftingStudio,
             draftingStudio: draftingStudio,
-        },
+        }),
         analysisMode, usedModel, precedents, precedentRetrievalFailed,
         identifiedLegalIssues: legal_issues,
         identifiedSearchQueries: searchPlan.search_queries.length > 0 ? searchPlan.search_queries : initialQueries,
@@ -977,7 +990,7 @@ export async function POST(request: Request) {
             errorCategory: "none",
         });
 
-        const assessmentData = {
+        const assessmentData = sanitizeAssessmentReport({
             ...assessment,
             timeline: assessment.case_timeline,
             case_timeline: assessment.case_timeline,
@@ -996,7 +1009,7 @@ export async function POST(request: Request) {
             contradictions: effectiveFactLedger?.contradictions || [],
             draftingStudio: effectiveDraftingStudio,
             drafting_studio: effectiveDraftingStudio,
-        };
+        });
 
         const generationMetadata = {
             assessmentId,

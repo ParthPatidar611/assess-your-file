@@ -14,6 +14,7 @@ import { buildMatterSpecificDraft } from "@/lib/legalDrafting";
 import type { GeneratedLegalDraft } from "@/lib/legalDrafting";
 import PetitionBuilderStudio from "./PetitionBuilderStudio";
 import UserManualViewer from "./UserManualViewer";
+import { cleanFactReferences, cleanExecutiveOverview } from "@/lib/sanitization";
 
 interface ReportViewProps {
   result: AssessmentResponse;
@@ -217,7 +218,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
 
             {/* Strict Anti-Exaggeration Badge */}
             <span className="px-2.5 py-1 bg-neutral-100 text-[#151515] border border-neutral-300 text-[11px] font-mono font-medium">
-              FactLedger Provenance Enforced
+              Evidence Grounding Active
             </span>
           </div>
 
@@ -229,9 +230,6 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
             <span><strong>Jurisdiction:</strong> {caseMeta.jurisdiction || "India"}</span>
             {caseMeta.desiredOutcome && (
               <span><strong>Desired Outcome:</strong> {caseMeta.desiredOutcome}</span>
-            )}
-            {activeFactLedger && (
-              <span><strong>Ledger Size:</strong> {activeFactLedger.facts.length} Structured Facts</span>
             )}
           </div>
         </div>
@@ -511,7 +509,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
         </div>
 
         <div className="text-sm sm:text-[15px] text-[#171717] leading-relaxed space-y-4">
-          <p className="whitespace-pre-wrap">{assessment.executive_summary}</p>
+          <p className="whitespace-pre-wrap">{cleanExecutiveOverview(assessment.executive_summary)}</p>
         </div>
 
         {/* Identified Legal Issues */}
@@ -614,17 +612,17 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
                 <div key={idx} className="p-4 bg-[#FAFAF8] border border-[#EEEEEC] text-xs space-y-2">
                   <div className="flex items-center gap-2 font-bold text-[#151515]">
                     <span className="text-emerald-700">✓</span>
-                    <span>{str.factor}</span>
+                    <span>{cleanFactReferences(str.factor)}</span>
                   </div>
-                  <p className="text-[#444444] leading-relaxed">{str.explanation}</p>
+                  <p className="text-[#444444] leading-relaxed">{cleanFactReferences(str.explanation)}</p>
                   {str.factual_basis && (
                     <div className="pt-2 border-t border-[#EEEEEC] text-[11px] text-[#686868]">
-                      <strong>Factual Basis:</strong> {str.factual_basis}
+                      <strong>Basis:</strong> {cleanFactReferences(str.factual_basis)}
                     </div>
                   )}
                   {str.available_evidence && (
                     <div className="text-[11px] text-emerald-800">
-                      <strong>Supporting Evidence:</strong> {str.available_evidence}
+                      <strong>Supporting Evidence:</strong> {cleanFactReferences(str.available_evidence)}
                     </div>
                   )}
                 </div>
@@ -650,17 +648,17 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
                 <div key={idx} className="p-4 bg-[#FAFAF8] border border-[#EEEEEC] text-xs space-y-2">
                   <div className="flex items-center gap-2 font-bold text-[#151515]">
                     <span className="text-amber-700">!</span>
-                    <span>{w.factor}</span>
+                    <span>{cleanFactReferences(w.factor)}</span>
                   </div>
-                  <p className="text-[#444444] leading-relaxed">{w.explanation}</p>
+                  <p className="text-[#444444] leading-relaxed">{cleanFactReferences(w.explanation)}</p>
                   {w.factual_basis && (
                     <div className="pt-2 border-t border-[#EEEEEC] text-[11px] text-[#686868]">
-                      <strong>Basis:</strong> {w.factual_basis}
+                      <strong>Observation:</strong> {cleanFactReferences(w.factual_basis)}
                     </div>
                   )}
                   {w.opposing_argument && (
                     <div className="text-[11px] text-[#9E3B1B]">
-                      <strong>Anticipated Counter-Argument:</strong> {w.opposing_argument}
+                      <strong>Anticipated Defense:</strong> {cleanFactReferences(w.opposing_argument)}
                     </div>
                   )}
                 </div>
@@ -1318,7 +1316,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
                 </div>
 
                 <p className="text-[#333333] leading-relaxed">
-                  {filing.preliminaryDraftStructure.preliminaryStatement}
+                  {cleanFactReferences(filing.preliminaryDraftStructure.preliminaryStatement)}
                 </p>
 
                 {filing.preliminaryDraftStructure.factualGroundsDraft && (
@@ -1326,7 +1324,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
                     <p className="font-bold text-[#151515] mb-2">FACTUAL GROUNDS:</p>
                     <ol className="list-decimal pl-5 space-y-2 text-[#444444]">
                       {filing.preliminaryDraftStructure.factualGroundsDraft.map((gr, i) => (
-                        <li key={i}>{gr}</li>
+                        <li key={i}>{cleanFactReferences(gr)}</li>
                       ))}
                     </ol>
                   </div>
@@ -1336,7 +1334,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
                   <div className="pt-2 border-t border-[#EEEEEC]">
                     <p className="font-bold text-[#151515] mb-1">PRAYER:</p>
                     <p className="italic text-[#444444] leading-relaxed">
-                      {filing.preliminaryDraftStructure.prayerDraft}
+                      {cleanFactReferences(filing.preliminaryDraftStructure.prayerDraft)}
                     </p>
                   </div>
                 )}
@@ -1370,7 +1368,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
           Review of the lawyer is required!
         </h2>
         <p className="text-xs sm:text-sm text-[#D5D5D2] max-w-3xl mx-auto leading-relaxed">
-          Under the Advocates Act, 1961 and the Bar Council of India standards of professional conduct, this automated assessment, evidentiary ledger, and drafting studio output constitute preliminary litigation intelligence only. No output from this platform may be dispatched, executed, or filed in any court, tribunal, or dispute forum without prior review, independent statutory verification, and settled endorsement by an enrolled advocate or legal counsel.
+          Under the Advocates Act, 1961 and the Bar Council of India standards of professional conduct, this automated assessment, event timeline analysis, and drafting studio output constitute preliminary litigation intelligence only. No output from this platform may be dispatched, executed, or filed in any court, tribunal, or dispute forum without prior review, independent statutory verification, and settled endorsement by an enrolled advocate or legal counsel.
         </p>
       </div>
 

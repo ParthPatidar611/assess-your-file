@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import type { GeneratedPetition } from "@/components/types";
+import { cleanFactReferences } from "@/lib/sanitization";
 
 interface StageExportReviewProps {
   petition: GeneratedPetition;
@@ -87,7 +88,7 @@ export default function StageExportReview({
         fullText += `${a.annexureLabel}: ${a.documentTitle} (${a.relevantPageRange})\n`;
       });
 
-    navigator.clipboard.writeText(fullText);
+    navigator.clipboard.writeText(cleanFactReferences(fullText));
     setCopiedText(true);
     setTimeout(() => setCopiedText(false), 2500);
   };

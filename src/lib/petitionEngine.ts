@@ -35,6 +35,7 @@ import type {
   EventVerificationStatus,
 } from "@/components/types";
 import { VERIFIED_INDIAN_STATUTES } from "./legalDrafting";
+import { cleanFactReferences } from "./sanitization";
 
 // ============================================================================
 // 1. FORUM CONFIGURATIONS & TEMPLATES (NO HARDCODING)
@@ -234,7 +235,7 @@ export function synthesizeEventsFromLedger(
         applicantResponse,
         reliefSought,
         supportingDocumentIds: matchingDocIds,
-        sourceFactIds: matchingFactIds.length > 0 ? matchingFactIds : ["FACT-001"],
+        sourceFactIds: [],
         sourceClassifications: [matchingDocIds.length > 0 ? "document_supported" : "applicant_statement"],
         verificationStatus: matchingDocIds.length > 0 ? "documented" : "applicant_statement",
         approvalStatus: "proposed",
@@ -278,7 +279,7 @@ export function synthesizeEventsFromLedger(
         applicantResponse,
         reliefSought: material.desiredOutcome ? `Relief aligned with: ${material.desiredOutcome}` : "No event-specific relief identified.",
         supportingDocumentIds: matchingDoc ? [matchingDoc.id] : [],
-        sourceFactIds: [fact.id],
+        sourceFactIds: [],
         sourceClassifications: [isDocumented ? "document_supported" : isAllegation ? "opposing_party_statement" : "applicant_statement"],
         verificationStatus: isDocumented ? "documented" : isAllegation ? "allegation" : "applicant_statement",
         approvalStatus: "proposed",
@@ -304,7 +305,7 @@ export function synthesizeEventsFromLedger(
       applicantResponse: "Applicant response not provided.",
       reliefSought: material.desiredOutcome || "No event-specific relief identified.",
       supportingDocumentIds: docRegistry.length > 0 ? [docRegistry[0].id] : [],
-      sourceFactIds: ["FACT-001"],
+      sourceFactIds: [],
       sourceClassifications: ["applicant_statement"],
       verificationStatus: "applicant_statement",
       approvalStatus: "proposed",
@@ -659,10 +660,10 @@ export function validatePetitionConsistency(
       }
     }
 
-    // Check for source fact traceability
-    if (para.citedFactIds.length === 0 && !text.includes("[Plaintiff Statement]") && !text.includes("[User Statement]")) {
+    // Check for documentary traceability
+    if (para.citedAnnexures.length === 0 && para.requiresVerification) {
       unsupportedClaims.push(
-        `Paragraph ${para.paragraphNumber} lacks internal Fact ID attribution.`
+        `Paragraph ${para.paragraphNumber} is based on client assertion without supporting documentary annexures.`
       );
     }
   }
@@ -791,8 +792,8 @@ export function compilePetitionDraft(params: CompilePetitionParams): GeneratedPe
   statementOfFacts.push({
     paragraphNumber: paraNum++,
     heading: "1. The Parties and Business Relationship",
-    text: `That the Petitioner is engaged in lawful business / profession residing/operating at ${pAddr}. The Respondent is operating at ${rAddr}. The parties entered into a commercial / contractual relationship regarding ${matterTitle}.`,
-    citedFactIds: ["FACT-001"],
+    text: cleanFactReferences(`That the Petitioner is engaged in lawful business / profession residing/operating at ${pAddr}. The Respondent is operating at ${rAddr}. The parties entered into a commercial / contractual relationship regarding ${matterTitle}.`),
+    citedFactIds: [],
     citedAnnexures: [],
     requiresVerification: false,
   });
@@ -805,14 +806,13 @@ export function compilePetitionDraft(params: CompilePetitionParams): GeneratedPe
       .map((annx) => annx.annexureLabel);
 
     const annexureCitation = linkedAnnexures.length > 0 ? ` [Marked as ${linkedAnnexures.join(" and ")}]` : "";
-    const factCitation = evt.sourceFactIds.length > 0 ? ` [${evt.sourceFactIds.join(", ")}]` : " [Applicant Statement]";
 
     // Factual statement
     statementOfFacts.push({
       paragraphNumber: paraNum++,
       heading: idx === 0 ? "2. Chronological Matrix of Facts" : undefined,
-      text: `That on or about ${evt.date}, ${evt.eventDescription}.${factCitation}${annexureCitation}`,
-      citedFactIds: evt.sourceFactIds,
+      text: cleanFactReferences(`That on or about ${evt.date}, ${evt.eventDescription}.${annexureCitation}`),
+      citedFactIds: [],
       citedAnnexures: linkedAnnexures,
       requiresVerification: evt.verificationStatus === "unverified" || evt.dateConfidence === "unknown",
     });
@@ -822,8 +822,8 @@ export function compilePetitionDraft(params: CompilePetitionParams): GeneratedPe
       eventBreachesAndResponses.push({
         paragraphNumber: paraNum++,
         heading: `Breach regarding Event ${idx + 1} (${evt.date})`,
-        text: `That regarding the event of ${evt.date}, the Respondent allegedly defaulted / failed in that: "${evt.otherPartyMistake}". In response, the Applicant maintained that: "${evt.applicantResponse}".${factCitation}${annexureCitation}`,
-        citedFactIds: evt.sourceFactIds,
+        text: cleanFactReferences(`That regarding the event of ${evt.date}, the Respondent allegedly defaulted / failed in that: "${evt.otherPartyMistake}". In response, the Applicant maintained that: "${evt.applicantResponse}".${annexureCitation}`),
+        citedFactIds: [],
         citedAnnexures: linkedAnnexures,
         requiresVerification: evt.isDisputed,
       });
@@ -858,7 +858,7 @@ export function compilePetitionDraft(params: CompilePetitionParams): GeneratedPe
       statutoryBasis: "Section 73, Indian Contract Act, 1872",
       argument: "FOR THAT the Respondent has committed breach of express terms and is liable to compensate the Applicant for loss or damage naturally arising in the usual course of things.",
       isVerifiedStatute: true,
-      citedFactIds: ["FACT-001"],
+      citedFactIds: [],
     });
     grounds.push({
       groundLetter: letters[groundIdx++],
@@ -873,7 +873,7 @@ export function compilePetitionDraft(params: CompilePetitionParams): GeneratedPe
       statutoryBasis: "Section 2(11) read with Section 35, Consumer Protection Act, 2019",
       argument: "FOR THAT the Respondent is guilty of 'deficiency in service' and supply of defective goods, rendering them liable to replace the product and refund consideration.",
       isVerifiedStatute: true,
-      citedFactIds: ["FACT-001"],
+      citedFactIds: [],
     });
     grounds.push({
       groundLetter: letters[groundIdx++],
@@ -888,7 +888,7 @@ export function compilePetitionDraft(params: CompilePetitionParams): GeneratedPe
       statutoryBasis: "Section 28, Arbitration and Conciliation Act, 1996",
       argument: "FOR THAT the Arbitral Tribunal is bound to decide the dispute in accordance with the substantive law of India and terms of the underlying agreement.",
       isVerifiedStatute: true,
-      citedFactIds: ["FACT-001"],
+      citedFactIds: [],
     });
   } else {
     grounds.push({
