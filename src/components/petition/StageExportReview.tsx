@@ -7,12 +7,16 @@ interface StageExportReviewProps {
   petition: GeneratedPetition;
   onBackToPreview: () => void;
   onOpenUserManual: () => void;
+  isTimelineStale?: boolean;
+  onRecompileDraft?: () => void;
 }
 
 export default function StageExportReview({
   petition,
   onBackToPreview,
   onOpenUserManual,
+  isTimelineStale = false,
+  onRecompileDraft,
 }: StageExportReviewProps) {
   const [isExportingDocx, setIsExportingDocx] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
@@ -106,6 +110,29 @@ export default function StageExportReview({
           or render a clean, high-resolution PDF with the browser print engine.
         </p>
       </div>
+
+      {/* Stale Timeline Warning Banner */}
+      {isTimelineStale && (
+        <div className="p-4 bg-amber-50 border-2 border-amber-400 text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-start sm:items-center gap-2.5">
+            <span className="font-bold text-[11px] uppercase tracking-wider bg-amber-200 text-amber-950 px-2 py-0.5 border border-amber-400 shrink-0">
+              Review Required — Source Timeline Changed
+            </span>
+            <span className="text-xs text-amber-900 leading-tight">
+              The underlying chronological event timeline was modified after this petition export was prepared. Recompile to ensure exported documents reflect verified dates and facts.
+            </span>
+          </div>
+          {onRecompileDraft && (
+            <button
+              type="button"
+              onClick={onRecompileDraft}
+              className="px-3.5 py-1.5 bg-[#151515] hover:bg-[#333333] text-white text-xs font-bold uppercase tracking-wider transition shrink-0 cursor-pointer"
+            >
+              Recompile Petition Draft ↻
+            </button>
+          )}
+        </div>
+      )}
 
       {exportError && (
         <div className="p-4 bg-red-50 border-l-4 border-red-600 text-xs text-red-800">

@@ -226,16 +226,21 @@ export function synthesizeEventsFromLedger(
       events.push({
         eventId: `EVT-${String(eventCounter++).padStart(3, "0")}`,
         orderIndex: events.length + 1,
-        date: item.date || "Date not specified",
+        date: item.date || "DATE NOT ESTABLISHED",
         dateConfidence,
+        originalDateText: item.date || "DATE NOT ESTABLISHED",
         eventDescription: desc,
         otherPartyMistake,
         applicantResponse,
         reliefSought,
         supportingDocumentIds: matchingDocIds,
         sourceFactIds: matchingFactIds.length > 0 ? matchingFactIds : ["FACT-001"],
-        verificationStatus: matchingDocIds.length > 0 ? "documented" : "user_statement",
+        sourceClassifications: [matchingDocIds.length > 0 ? "document_supported" : "applicant_statement"],
+        verificationStatus: matchingDocIds.length > 0 ? "documented" : "applicant_statement",
+        approvalStatus: "proposed",
         isDisputed: /dispute|contest|denied|refused/i.test(desc),
+        updatedAt: new Date().toISOString(),
+        timelineVersion: 1,
       });
     }
   }
@@ -250,29 +255,36 @@ export function synthesizeEventsFromLedger(
       const isAllegation = fact.classification === "PARTY_ALLEGATION";
       const isOpposing = fact.classification === "OPPOSING_PARTY_POSITION";
 
-      let otherPartyMistake = "Not separately identified from available material; subject to advocate verification";
+      let otherPartyMistake = "No separate alleged mistake identified.";
       if (isAllegation || isOpposing) {
         otherPartyMistake = fact.statement;
       }
 
-      let applicantResponse = "Not documented in provided records; requires applicant confirmation";
+      let applicantResponse = "Applicant response not provided.";
       if (!isOpposing && fact.classification === "USER_PROVIDED_FACT") {
         applicantResponse = fact.statement;
       }
 
+      const extractedDate = fact.statement.match(/\b\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}\b|\b\d{1,2}\s+[A-Za-z]+\s+\d{4}\b/)?.[0] || "";
+
       events.push({
         eventId: `EVT-${String(eventCounter++).padStart(3, "0")}`,
         orderIndex: events.length + 1,
-        date: fact.statement.match(/\b\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}\b|\b\d{1,2}\s+[A-Za-z]+\s+\d{4}\b/)?.[0] || "Date approximate from transactional chronology",
-        dateConfidence: fact.statement.match(/\b\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}\b/)?.[0] ? "confirmed" : "approximate",
+        date: extractedDate || "DATE NOT ESTABLISHED",
+        dateConfidence: extractedDate ? "confirmed" : "unknown",
+        originalDateText: extractedDate || "DATE NOT ESTABLISHED",
         eventDescription: fact.statement,
         otherPartyMistake,
         applicantResponse,
-        reliefSought: material.desiredOutcome ? `Relief aligned with: ${material.desiredOutcome}` : "Relief claimed in consolidated prayer",
+        reliefSought: material.desiredOutcome ? `Relief aligned with: ${material.desiredOutcome}` : "No event-specific relief identified.",
         supportingDocumentIds: matchingDoc ? [matchingDoc.id] : [],
         sourceFactIds: [fact.id],
-        verificationStatus: isDocumented ? "documented" : isAllegation ? "allegation" : "user_statement",
-        isDisputed: fact.isDisputed,
+        sourceClassifications: [isDocumented ? "document_supported" : isAllegation ? "opposing_party_statement" : "applicant_statement"],
+        verificationStatus: isDocumented ? "documented" : isAllegation ? "allegation" : "applicant_statement",
+        approvalStatus: "proposed",
+        isDisputed: Boolean(fact.isDisputed),
+        updatedAt: new Date().toISOString(),
+        timelineVersion: 1,
       });
 
       if (events.length >= 7) break;
@@ -284,20 +296,167 @@ export function synthesizeEventsFromLedger(
     events.push({
       eventId: "EVT-001",
       orderIndex: 1,
-      date: "Date to be confirmed by advocate",
+      date: "DATE NOT ESTABLISHED",
       dateConfidence: "unknown",
+      originalDateText: "DATE NOT ESTABLISHED",
       eventDescription: material.title ? `Transaction entered into regarding ${material.title}` : "Parties entered into commercial relationship.",
-      otherPartyMistake: "Breach of contractual / statutory obligations as detailed in statement of claim.",
-      applicantResponse: "Applicant issued demand and sought defect cure / refund.",
-      reliefSought: material.desiredOutcome || "Relief claimed in consolidated prayer.",
+      otherPartyMistake: "No separate alleged mistake identified.",
+      applicantResponse: "Applicant response not provided.",
+      reliefSought: material.desiredOutcome || "No event-specific relief identified.",
       supportingDocumentIds: docRegistry.length > 0 ? [docRegistry[0].id] : [],
       sourceFactIds: ["FACT-001"],
-      verificationStatus: "user_statement",
+      sourceClassifications: ["applicant_statement"],
+      verificationStatus: "applicant_statement",
+      approvalStatus: "proposed",
       isDisputed: false,
+      updatedAt: new Date().toISOString(),
+      timelineVersion: 1,
     });
   }
 
   return events;
+}
+
+/**
+ * Sorts events chronologically by default.
+ * Events with recognized dates appear first in chronological order.
+ * Events with unknown dates ("DATE NOT ESTABLISHED" or unknown confidence) appear in a dedicated section.
+ */
+export function sortEventsChronologically(events: PetitionEvent[]): PetitionEvent[] {
+  const parseDateForSorting = (dateStr: string): number => {
+    if (
+      !dateStr ||
+      dateStr.toLowerCase().includes("unknown") ||
+      dateStr.toLowerCase().includes("not established") ||
+      dateStr === "Date not specified"
+    ) {
+      return Number.MAX_SAFE_INTEGER;
+    }
+    const dmy = dateStr.match(/^(\d{1,2})[/.-](\d{1,2})[/.-](\d{2,4})$/);
+    if (dmy) {
+      const year = dmy[3].length === 2 ? 2000 + parseInt(dmy[3], 10) : parseInt(dmy[3], 10);
+      return new Date(year, parseInt(dmy[2], 10) - 1, parseInt(dmy[1], 10)).getTime();
+    }
+    const parsed = Date.parse(dateStr);
+    return isNaN(parsed) ? Number.MAX_SAFE_INTEGER : parsed;
+  };
+
+  const copy = [...events];
+  copy.sort((a, b) => {
+    const timeA = parseDateForSorting(a.date);
+    const timeB = parseDateForSorting(b.date);
+    if (timeA !== timeB) return timeA - timeB;
+    return a.orderIndex - b.orderIndex;
+  });
+
+  return copy.map((e, idx) => ({ ...e, orderIndex: idx + 1 }));
+}
+
+/**
+ * Safely and idempotently migrates legacy saved workspace state (including older Fact Ledger records)
+ * into the canonical Chronological Event Timeline workspace.
+ */
+export function migrateLegacyWorkspaceState(
+  savedState: unknown,
+  caseMaterial: CaseMaterial,
+  factLedger?: FactLedger,
+  docReport?: DocumentProcessingReport
+): import("@/components/types").PetitionWorkspaceState {
+  const forumCat = detectForumCategory(caseMaterial.caseType);
+  const defaultHeading = FORUM_TEMPLATES[forumCat]?.courtHeading || "";
+
+  if (!savedState || typeof savedState !== "object") {
+    const initialEvents = synthesizeEventsFromLedger(caseMaterial, factLedger, docReport);
+    const initialAnnexures = buildDeterministicAnnexureIndex(docReport, initialEvents, `${caseMaterial.title} ${caseMaterial.facts}`);
+    return {
+      caseId: caseMaterial.title,
+      currentStage: "events",
+      forumCategory: forumCat,
+      courtHeading: defaultHeading,
+      petitionerName: "",
+      petitionerAddress: "",
+      respondentName: "",
+      respondentAddress: "",
+      events: initialEvents,
+      counterpartyArguments: [],
+      annexureIndex: initialAnnexures,
+      petitionDraft: null,
+      timelineVersion: 1,
+      generatedWithTimelineVersion: { counterparty: 1, petition: 1, annexures: 1 },
+      isMigrated: true,
+      lastSavedTimestamp: new Date().toISOString(),
+      isDirty: false,
+    };
+  }
+
+  const s = savedState as Record<string, unknown>;
+
+  // If already migrated and has events, return intact
+  if (s.isMigrated && Array.isArray(s.events) && s.events.length > 0) {
+    return s as unknown as import("@/components/types").PetitionWorkspaceState;
+  }
+
+  // Backup legacy state
+  const legacyFactLedgerBackup = s.factLedger || factLedger || null;
+
+  let migratedEvents: PetitionEvent[] = [];
+  if (Array.isArray(s.events) && s.events.length > 0) {
+    migratedEvents = (s.events as Array<Record<string, unknown>>).map((e, idx) => ({
+      eventId: typeof e.eventId === "string" ? e.eventId : `EVT-${String(idx + 1).padStart(3, "0")}`,
+      orderIndex: idx + 1,
+      date: typeof e.date === "string" ? e.date : "DATE NOT ESTABLISHED",
+      dateConfidence: (["confirmed", "approximate", "unknown"] as const).includes(e.dateConfidence as any)
+        ? (e.dateConfidence as DateConfidence)
+        : "approximate",
+      originalDateText: typeof e.originalDateText === "string" ? e.originalDateText : (typeof e.date === "string" ? e.date : "DATE NOT ESTABLISHED"),
+      normalisedDate: typeof e.normalisedDate === "string" ? e.normalisedDate : undefined,
+      eventDescription: typeof e.eventDescription === "string" ? e.eventDescription : "",
+      otherPartyMistake: typeof e.otherPartyMistake === "string" ? e.otherPartyMistake : "No separate alleged mistake identified.",
+      applicantResponse: typeof e.applicantResponse === "string" ? e.applicantResponse : "Applicant response not provided.",
+      reliefSought: typeof e.reliefSought === "string" ? e.reliefSought : "No event-specific relief identified.",
+      supportingDocumentIds: Array.isArray(e.supportingDocumentIds) ? (e.supportingDocumentIds as string[]) : [],
+      supportingDocumentPageReferences: (typeof e.supportingDocumentPageReferences === "object" && e.supportingDocumentPageReferences !== null)
+        ? (e.supportingDocumentPageReferences as Record<string, string>)
+        : {},
+      sourceClassifications: Array.isArray(e.sourceClassifications) ? (e.sourceClassifications as string[]) : ["applicant_statement"],
+      sourceReferences: Array.isArray(e.sourceReferences) ? (e.sourceReferences as string[]) : [],
+      sourceFactIds: Array.isArray(e.sourceFactIds) ? (e.sourceFactIds as string[]) : [],
+      verificationStatus: typeof e.verificationStatus === "string" ? (e.verificationStatus as any) : "applicant_statement",
+      approvalStatus: typeof e.approvalStatus === "string" ? (e.approvalStatus as any) : "proposed",
+      isDisputed: Boolean(e.isDisputed),
+      disputedDetails: typeof e.disputedDetails === "string" ? e.disputedDetails : undefined,
+      notesForAdvocate: typeof e.notesForAdvocate === "string" ? e.notesForAdvocate : undefined,
+      updatedAt: typeof e.updatedAt === "string" ? e.updatedAt : new Date().toISOString(),
+      timelineVersion: typeof e.timelineVersion === "number" ? e.timelineVersion : 1,
+    }));
+  } else {
+    migratedEvents = synthesizeEventsFromLedger(caseMaterial, factLedger, docReport);
+  }
+
+  const initialAnnexures = (s.annexureIndex as AnnexureIndex) || buildDeterministicAnnexureIndex(docReport, migratedEvents, `${caseMaterial.title} ${caseMaterial.facts}`);
+
+  return {
+    caseId: typeof s.caseId === "string" ? s.caseId : caseMaterial.title,
+    currentStage: (s.currentStage as any) || "events",
+    forumCategory: (s.forumCategory as ForumCategory) || forumCat,
+    courtHeading: typeof s.courtHeading === "string" ? s.courtHeading : defaultHeading,
+    petitionerName: typeof s.petitionerName === "string" ? s.petitionerName : "",
+    petitionerAddress: typeof s.petitionerAddress === "string" ? s.petitionerAddress : "",
+    respondentName: typeof s.respondentName === "string" ? s.respondentName : "",
+    respondentAddress: typeof s.respondentAddress === "string" ? s.respondentAddress : "",
+    events: migratedEvents,
+    counterpartyArguments: Array.isArray(s.counterpartyArguments) ? (s.counterpartyArguments as CounterpartyArgument[]) : [],
+    annexureIndex: initialAnnexures,
+    petitionDraft: (s.petitionDraft as GeneratedPetition) || null,
+    timelineVersion: typeof s.timelineVersion === "number" ? s.timelineVersion : 1,
+    generatedWithTimelineVersion: (typeof s.generatedWithTimelineVersion === "object" && s.generatedWithTimelineVersion !== null)
+      ? (s.generatedWithTimelineVersion as any)
+      : { counterparty: 1, petition: 1, annexures: 1 },
+    isMigrated: true,
+    legacyFactLedgerBackup,
+    lastSavedTimestamp: new Date().toISOString(),
+    isDirty: false,
+  };
 }
 
 // ============================================================================

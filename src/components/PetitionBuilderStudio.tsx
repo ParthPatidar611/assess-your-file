@@ -16,6 +16,7 @@ import {
   compilePetitionDraft,
   synthesizeEventsFromLedger,
   buildDeterministicAnnexureIndex,
+  migrateLegacyWorkspaceState,
 } from "@/lib/petitionEngine";
 import { buildDeterministicCounterpartyArguments } from "@/lib/counterpartyEngine";
 import WorkspaceNav, { type WorkspaceStage } from "./petition/WorkspaceNav";
@@ -72,34 +73,21 @@ export default function PetitionBuilderStudio({
     unattachedReferencedDocs: [],
   });
   const [petitionDraft, setPetitionDraft] = useState<GeneratedPetition | null>(null);
+  const [timelineVersion, setTimelineVersion] = useState<number>(1);
+  const [generatedWithTimelineVersion, setGeneratedWithTimelineVersion] = useState<{
+    counterparty: number;
+    petition: number;
+    annexures: number;
+  }>({
+    counterparty: 1,
+    petition: 1,
+    annexures: 1,
+  });
   const [isGeneratingAI, setIsGeneratingAI] = useState<boolean>(false);
   const [saveStatus, setSaveStatus] = useState<string>("Synced Locally");
 
-  // Initial State Loading from LocalStorage or Synthesis
+  // Initial State Loading from LocalStorage or Synthesis (with idempotent migration)
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed: PetitionWorkspaceState = JSON.parse(saved);
-        if (parsed.events && parsed.events.length > 0) {
-          setForumCategory(parsed.forumCategory || detectForumCategory(caseMeta.caseType));
-          setCourtHeading(parsed.courtHeading || FORUM_TEMPLATES.COMMERCIAL_COURT.courtHeading);
-          setPetitionerName(parsed.petitionerName || "");
-          setPetitionerAddress(parsed.petitionerAddress || "");
-          setRespondentName(parsed.respondentName || "");
-          setRespondentAddress(parsed.respondentAddress || "");
-          setEvents(parsed.events);
-          setCounterpartyArguments(parsed.counterpartyArguments || []);
-          setAnnexureIndex(parsed.annexureIndex || { items: [], totalAnnexures: 0, totalPages: 0, unattachedReferencedDocs: [] });
-          setPetitionDraft(parsed.petitionDraft || null);
-          return;
-        }
-      }
-    } catch {
-      // LocalStorage private context fallback
-    }
-
-    // First-time synthesis
     const caseMaterial = {
       caseType: caseMeta.caseType,
       title: caseMeta.title,
@@ -110,6 +98,38 @@ export default function PetitionBuilderStudio({
       documentReport: documentProcessing,
     };
 
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const migrated = migrateLegacyWorkspaceState(parsed, caseMaterial, factLedger, documentProcessing);
+        if (migrated.events && migrated.events.length > 0) {
+          setForumCategory(migrated.forumCategory || detectForumCategory(caseMeta.caseType));
+          setCourtHeading(migrated.courtHeading || FORUM_TEMPLATES.COMMERCIAL_COURT.courtHeading);
+          setPetitionerName(migrated.petitionerName || "");
+          setPetitionerAddress(migrated.petitionerAddress || "");
+          setRespondentName(migrated.respondentName || "");
+          setRespondentAddress(migrated.respondentAddress || "");
+          setEvents(migrated.events);
+          setCounterpartyArguments(migrated.counterpartyArguments || []);
+          setAnnexureIndex(migrated.annexureIndex || { items: [], totalAnnexures: 0, totalPages: 0, unattachedReferencedDocs: [] });
+          setPetitionDraft(migrated.petitionDraft || null);
+          setTimelineVersion(migrated.timelineVersion || 1);
+          if (migrated.generatedWithTimelineVersion) {
+            setGeneratedWithTimelineVersion({
+              counterparty: migrated.generatedWithTimelineVersion.counterparty ?? 1,
+              petition: migrated.generatedWithTimelineVersion.petition ?? 1,
+              annexures: migrated.generatedWithTimelineVersion.annexures ?? 1,
+            });
+          }
+          return;
+        }
+      }
+    } catch {
+      // LocalStorage private context fallback
+    }
+
+    // First-time synthesis
     const initialEvents = synthesizeEventsFromLedger(caseMaterial, factLedger, documentProcessing);
     const initialAnnexures = buildDeterministicAnnexureIndex(
       documentProcessing,
@@ -121,6 +141,8 @@ export default function PetitionBuilderStudio({
     setEvents(initialEvents);
     setAnnexureIndex(initialAnnexures);
     setCounterpartyArguments(initialCounterparty);
+    setTimelineVersion(1);
+    setGeneratedWithTimelineVersion({ counterparty: 1, petition: 1, annexures: 1 });
 
     // Initial draft compile
     const initialDraft = compilePetitionDraft({
@@ -138,6 +160,15 @@ export default function PetitionBuilderStudio({
     });
     setPetitionDraft(initialDraft);
   }, []);
+
+  // Track timeline modifications and bump timelineVersion
+  const handleEventsUpdate = (updater: PetitionEvent[] | ((prev: PetitionEvent[]) => PetitionEvent[])) => {
+    setEvents((prev) => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
+      setTimelineVersion((v) => v + 1);
+      return next;
+    });
+  };
 
   // Save changes to LocalStorage securely (Rule 1: No insecure anonymous Supabase leak)
   useEffect(() => {
@@ -157,6 +188,9 @@ export default function PetitionBuilderStudio({
         counterpartyArguments,
         annexureIndex,
         petitionDraft,
+        timelineVersion,
+        generatedWithTimelineVersion,
+        isMigrated: true,
         lastSavedTimestamp: new Date().toISOString(),
         isDirty: false,
       };
@@ -177,9 +211,11 @@ export default function PetitionBuilderStudio({
     counterpartyArguments,
     annexureIndex,
     petitionDraft,
+    timelineVersion,
+    generatedWithTimelineVersion,
   ]);
 
-  // Re-compile petition draft when transitioning to preview or export
+  // Re-compile petition draft when transitioning to preview or export, or on explicit request
   const ensureRecompiledDraft = () => {
     const caseMaterial = {
       caseType: caseMeta.caseType,
@@ -205,6 +241,7 @@ export default function PetitionBuilderStudio({
       factLedger,
     });
     setPetitionDraft(compiled);
+    setGeneratedWithTimelineVersion((prev) => ({ ...prev, petition: timelineVersion }));
     return compiled;
   };
 
@@ -241,7 +278,8 @@ export default function PetitionBuilderStudio({
         data = null;
       }
       if (data && data.success && Array.isArray(data.counterpartyArguments)) {
-        setCounterpartyArguments(data.counterpartyArguments);
+        setCounterpartyArguments(data.counterpartyArguments as CounterpartyArgument[]);
+        setGeneratedWithTimelineVersion((prev) => ({ ...prev, counterparty: timelineVersion }));
       }
     } catch (err) {
       console.warn("AI counterparty refresh fallback:", err);
@@ -249,6 +287,9 @@ export default function PetitionBuilderStudio({
       setIsGeneratingAI(false);
     }
   };
+
+  const isCounterpartyStale = timelineVersion > (generatedWithTimelineVersion.counterparty || 1);
+  const isPetitionStale = timelineVersion > (generatedWithTimelineVersion.petition || 1);
 
   const validationIssuesCount = petitionDraft?.validationReport
     ? petitionDraft.validationReport.missingMandatoryInformation.length +
@@ -323,7 +364,7 @@ export default function PetitionBuilderStudio({
         {currentStage === "events" && (
           <StageEventsEditor
             events={events}
-            setEvents={setEvents}
+            setEvents={handleEventsUpdate}
             annexureIndex={annexureIndex}
             onProceedToCounterparty={() => handleStageChange("counterparty")}
             onBackToOverview={() => handleStageChange("overview")}
@@ -338,6 +379,9 @@ export default function PetitionBuilderStudio({
             onBackToEvents={() => handleStageChange("events")}
             onRefreshAI={handleRefreshAI}
             isGeneratingAI={isGeneratingAI}
+            isTimelineStale={isCounterpartyStale}
+            timelineVersion={timelineVersion}
+            generatedVersion={generatedWithTimelineVersion.counterparty || 1}
           />
         )}
 
@@ -355,6 +399,8 @@ export default function PetitionBuilderStudio({
             petition={petitionDraft}
             onProceedToExport={() => handleStageChange("export")}
             onBackToAnnexures={() => handleStageChange("annexures")}
+            isTimelineStale={isPetitionStale}
+            onRecompileDraft={ensureRecompiledDraft}
           />
         )}
 
@@ -363,6 +409,8 @@ export default function PetitionBuilderStudio({
             petition={petitionDraft}
             onBackToPreview={() => handleStageChange("preview")}
             onOpenUserManual={onOpenUserManual}
+            isTimelineStale={isPetitionStale}
+            onRecompileDraft={ensureRecompiledDraft}
           />
         )}
       </div>

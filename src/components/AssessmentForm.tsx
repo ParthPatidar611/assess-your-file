@@ -73,8 +73,8 @@ export default function AssessmentForm({
     }
   };
 
-  const validateAndProceed = (e: React.FormEvent) => {
-    e.preventDefault();
+  const validateAndProceed = (e?: React.SyntheticEvent) => {
+    if (e) e.preventDefault();
     setFormError(null);
 
     if (!caseType) {
@@ -94,7 +94,7 @@ export default function AssessmentForm({
   };
 
   return (
-    <form onSubmit={validateAndProceed} className="space-y-8">
+    <div className="space-y-8">
       {/* Form Card Header */}
       <div className="bg-white border border-[#D5D5D2] p-6 sm:p-8">
         <div className="border-b border-[#EEEEEC] pb-5 mb-6">
@@ -306,13 +306,14 @@ export default function AssessmentForm({
         </div>
 
         <button
-          type="submit"
+          type="button"
+          onClick={validateAndProceed}
           className="w-full sm:w-auto px-8 py-3.5 bg-[#F2D21A] hover:bg-[#DFC115] text-[#151515] font-bold text-xs sm:text-sm uppercase tracking-wider transition border border-[#D5D5D2] shadow-xs flex items-center justify-center gap-2"
         >
           <span>Next: Review & Submit</span>
           <span className="text-base font-normal">→</span>
         </button>
       </div>
-    </form>
+    </div>
   );
 }

@@ -20,8 +20,8 @@ interface WorkspaceNavProps {
 }
 
 const STAGES: Array<{ id: WorkspaceStage; code: string; label: string; sub: string }> = [
-  { id: "overview", code: "A", label: "Forum & Parties", sub: "Jurisdiction" },
-  { id: "events", code: "B", label: "Event-Wise Facts", sub: "5 Required Fields" },
+  { id: "overview", code: "A", label: "Forum & Parties", sub: "Jurisdiction & Parties" },
+  { id: "events", code: "B", label: "Event Timeline", sub: "Central Factual Workspace" },
   { id: "counterparty", code: "C", label: "Counterparty Intel", sub: "Anticipated Defenses" },
   { id: "annexures", code: "D", label: "Annexure Registry", sub: "Sequential Index" },
   { id: "preview", code: "E", label: "Petition Draft", sub: "Evidence-Linked" },

@@ -7,12 +7,16 @@ interface StagePetitionPreviewProps {
   petition: GeneratedPetition;
   onProceedToExport: () => void;
   onBackToAnnexures: () => void;
+  isTimelineStale?: boolean;
+  onRecompileDraft?: () => void;
 }
 
 export default function StagePetitionPreview({
   petition,
   onProceedToExport,
   onBackToAnnexures,
+  isTimelineStale = false,
+  onRecompileDraft,
 }: StagePetitionPreviewProps) {
   const [highlightedAnnexure, setHighlightedAnnexure] = useState<string | null>(null);
   const [highlightedFact, setHighlightedFact] = useState<string | null>(null);
@@ -54,6 +58,29 @@ export default function StagePetitionPreview({
           </button>
         </div>
       </div>
+
+      {/* Stale Timeline Warning Banner */}
+      {isTimelineStale && (
+        <div className="p-4 bg-amber-50 border-2 border-amber-400 text-amber-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="flex items-start sm:items-center gap-2.5">
+            <span className="font-bold text-[11px] uppercase tracking-wider bg-amber-200 text-amber-950 px-2 py-0.5 border border-amber-400 shrink-0">
+              Review Required — Source Timeline Changed
+            </span>
+            <span className="text-xs text-amber-900 leading-tight">
+              The underlying chronological event timeline was modified after this petition was compiled. Recompile the draft to incorporate latest events and prayers.
+            </span>
+          </div>
+          {onRecompileDraft && (
+            <button
+              type="button"
+              onClick={onRecompileDraft}
+              className="px-3.5 py-1.5 bg-[#151515] hover:bg-[#333333] text-white text-xs font-bold uppercase tracking-wider transition shrink-0 cursor-pointer"
+            >
+              Recompile Petition Draft ↻
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Split Screen Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

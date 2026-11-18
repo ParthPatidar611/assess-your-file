@@ -436,15 +436,24 @@ export type DateConfidence = "confirmed" | "approximate" | "unknown";
 
 export type EventVerificationStatus =
   | "documented"
+  | "applicant_statement"
+  | "opposing_party_statement"
+  | "inference"
+  | "disputed"
+  | "unknown"
+  | "unverified"
   | "user_statement"
-  | "allegation"
-  | "unverified";
+  | "allegation";
+
+export type EventApprovalStatus = "proposed" | "confirmed" | "edited" | "disputed";
 
 export interface PetitionEvent {
   eventId: string; // e.g. "EVT-001"
   orderIndex: number; // 1-based chronological index
-  date: string; // Formatted date string or approximate description
+  date: string; // Formatted date string or approximate description (or "DATE NOT ESTABLISHED")
   dateConfidence: DateConfidence;
+  originalDateText?: string;
+  normalisedDate?: string;
 
   // 5 MENTOR REQUIRED FIELDS:
   eventDescription: string; // 1. Event: What happened and when?
@@ -454,13 +463,21 @@ export interface PetitionEvent {
   supportingDocumentIds: string[]; // 5. Supporting documents: immutable doc IDs backing this event
 
   // Source Traceability & Legal Rigor
-  sourceFactIds: string[]; // Linked FactLedgerItem IDs (e.g. ["FACT-001"])
+  supportingDocumentPageReferences?: Record<string, string>; // e.g. { "DOC-001": "Page 1-2" }
+  sourceClassifications?: string[]; // ["document_supported", "applicant_statement", etc.]
+  sourceReferences?: string[]; // Extracted text excerpts
+  sourceFactIds: string[]; // Linked internal fact IDs (e.g. ["FACT-001"])
   verificationStatus: EventVerificationStatus;
+  approvalStatus: EventApprovalStatus;
   isDisputed: boolean;
   disputedDetails?: string;
   legalIssueTags?: string[];
   notesForAdvocate?: string;
+  updatedAt?: string;
+  timelineVersion?: number;
 }
+
+export type TimelineEventModel = PetitionEvent;
 
 // ============================================================================
 // COUNTERPARTY ARGUMENT INTELLIGENCE
@@ -623,6 +640,14 @@ export interface PetitionWorkspaceState {
   counterpartyArguments: CounterpartyArgument[];
   annexureIndex: AnnexureIndex;
   petitionDraft: GeneratedPetition | null;
+  timelineVersion?: number;
+  generatedWithTimelineVersion?: {
+    counterparty?: number;
+    petition?: number;
+    annexures?: number;
+  };
+  isMigrated?: boolean;
+  legacyFactLedgerBackup?: unknown;
   lastSavedTimestamp: string;
   isDirty: boolean;
 }

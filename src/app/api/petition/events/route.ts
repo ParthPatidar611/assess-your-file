@@ -34,10 +34,37 @@ export async function POST(request: Request) {
     // Build initial deterministic annexure index
     const annexureIndex = buildDeterministicAnnexureIndex(documentReport, events, `${title} ${facts} ${documentText}`);
 
+    // Uncertainty warnings (undated or unverified events)
+    const uncertaintyWarnings = events
+      .filter((e) => e.dateConfidence === "unknown" || e.verificationStatus === "unverified" || e.verificationStatus === "unknown")
+      .map((e) => ({
+        eventId: e.eventId,
+        originalDateText: e.originalDateText,
+        warning: !e.normalisedDate ? "Date not established — requires client confirmation" : "Verification unconfirmed",
+      }));
+
+    // Document relationships
+    const documentRelationships = events.map((e) => ({
+      eventId: e.eventId,
+      supportingDocumentIds: e.supportingDocumentIds,
+      supportingDocumentCount: e.supportingDocumentIds.length,
+    }));
+
+    // Contradiction indicators from internal fact tracking
+    const contradictionIndicators = factLedger?.contradictions || [];
+
+    // All distinct source classifications
+    const sourceClassifications = Array.from(new Set(events.flatMap((e) => e.sourceClassifications || [])));
+
     return NextResponse.json({
       success: true,
       events,
       annexureIndex,
+      uncertaintyWarnings,
+      documentRelationships,
+      contradictionIndicators,
+      sourceClassifications,
+      timelineVersion: 1,
       message: `Successfully synthesized ${events.length} chronological events and indexed ${annexureIndex.totalAnnexures} annexures.`,
     });
   } catch (error: unknown) {

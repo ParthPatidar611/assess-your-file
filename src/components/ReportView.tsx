@@ -4,8 +4,6 @@ import React, { useState, useMemo } from "react";
 import type {
   AssessmentResponse,
   FactLedger,
-  FactLedgerItem,
-  FactClassification,
   ContradictionItem,
   DraftingMode,
   PageExtractionItem,
@@ -22,51 +20,6 @@ interface ReportViewProps {
   onReset: () => void;
   onPrint?: () => void;
 }
-
-const CLASSIFICATION_LABELS: Record<FactClassification, { label: string; bg: string; text: string; border: string }> = {
-  DOCUMENTED_FACT: {
-    label: "Documented Fact",
-    bg: "bg-emerald-50",
-    text: "text-emerald-900",
-    border: "border-emerald-300",
-  },
-  USER_PROVIDED_FACT: {
-    label: "User Statement",
-    bg: "bg-blue-50",
-    text: "text-blue-900",
-    border: "border-blue-300",
-  },
-  PARTY_ALLEGATION: {
-    label: "Party Allegation",
-    bg: "bg-amber-50",
-    text: "text-amber-900",
-    border: "border-amber-300",
-  },
-  OPPOSING_PARTY_POSITION: {
-    label: "Opposing Position",
-    bg: "bg-purple-50",
-    text: "text-purple-900",
-    border: "border-purple-300",
-  },
-  INFERENCE: {
-    label: "Inference",
-    bg: "bg-sky-50",
-    text: "text-sky-900",
-    border: "border-sky-300",
-  },
-  DISPUTED_FACT: {
-    label: "Disputed Matter",
-    bg: "bg-rose-50",
-    text: "text-rose-900",
-    border: "border-rose-300",
-  },
-  UNKNOWN: {
-    label: "Unknown / Unverified",
-    bg: "bg-stone-100",
-    text: "text-stone-800",
-    border: "border-stone-300",
-  },
-};
 
 const DRAFT_MODE_LABELS: Record<DraftingMode, { title: string; short: string; desc: string }> = {
   initial_legal_notice: {
@@ -103,7 +56,6 @@ const DRAFT_MODE_LABELS: Record<DraftingMode, { title: string; short: string; de
 
 export default function ReportView({ result, onReset, onPrint }: ReportViewProps) {
   const [expandedPrecedent, setExpandedPrecedent] = useState<string | null>(null);
-  const [factFilter, setFactFilter] = useState<FactClassification | "ALL">("ALL");
   const [activeDraftMode, setActiveDraftMode] = useState<DraftingMode>("initial_legal_notice");
   const [confirmedFields, setConfirmedFields] = useState<Record<string, string>>({});
   const [copiedDraft, setCopiedDraft] = useState(false);
@@ -131,7 +83,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
   const filing = assessment.filingAssistance || assessment.filing_assistance;
   const precedentsAnalyzed = assessment.precedent_analysis || [];
 
-  // Fact Ledger and Contradictions
+  // Fact Ledger and Contradictions (retained internally for provenance)
   const activeFactLedger: FactLedger | undefined = result.factLedger || assessment.fact_ledger || assessment.factLedger;
   const activeContradictions: ContradictionItem[] =
     result.contradictions || assessment.contradictions || activeFactLedger?.contradictions || [];
@@ -149,12 +101,6 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
     };
     return buildMatterSpecificDraft(activeDraftMode, material, activeFactLedger);
   }, [activeDraftMode, activeFactLedger, caseMeta, assessment, result.draftingStudio]);
-
-  const filteredFacts: FactLedgerItem[] = useMemo(() => {
-    if (!activeFactLedger) return [];
-    if (factFilter === "ALL") return activeFactLedger.facts;
-    return activeFactLedger.facts.filter((item: FactLedgerItem) => item.classification === factFilter);
-  }, [activeFactLedger, factFilter]);
 
   const allPagesList: Array<{ fileName: string; page: PageExtractionItem }> = useMemo(() => {
     if (!documentProcessing?.items) return [];
@@ -208,7 +154,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 bg-[#F2D21A]" />
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#686868]">
-                Confidential Legal Assessment Report & Fact Ledger
+                Confidential Preliminary Legal Assessment Report
               </span>
             </div>
             <p className="text-xs text-[#8E8E8A]">
@@ -479,124 +425,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
       )}
 
       {/* -------------------------------------------------------- */}
-      {/* PART 1 — FACT AND EVIDENCE LEDGER                        */}
-      {/* -------------------------------------------------------- */}
-      {activeFactLedger && (
-        <section className="bg-white border border-[#D5D5D2] p-6 sm:p-10 shadow-xs">
-          <div className="border-b border-[#EEEEEC] pb-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 bg-[#F2D21A]" />
-                <h2 className="text-xs font-bold uppercase tracking-widest text-[#686868]">
-                  Part 1 — Fact and Evidence Ledger
-                </h2>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#151515] tracking-tight mt-1">
-                Structured Evidence Representation & Provenance
-              </h3>
-            </div>
-
-            <div className="text-xs text-[#8E8E8A]">
-              Showing {filteredFacts.length} of {activeFactLedger.facts.length} Facts
-            </div>
-          </div>
-
-          {/* Classification Filter Badges */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            <button
-              onClick={() => setFactFilter("ALL")}
-              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition ${
-                factFilter === "ALL"
-                  ? "bg-[#151515] text-white"
-                  : "bg-[#FAFAF8] text-[#151515] border border-[#D5D5D2] hover:bg-[#EEEEEC]"
-              }`}
-            >
-              All Facts ({activeFactLedger.facts.length})
-            </button>
-
-            {(Object.keys(CLASSIFICATION_LABELS) as FactClassification[]).map((cls: FactClassification) => {
-              const count = activeFactLedger.facts.filter((f: FactLedgerItem) => f.classification === cls).length;
-              if (count === 0 && factFilter !== cls) return null;
-              const meta = CLASSIFICATION_LABELS[cls];
-              const isSelected = factFilter === cls;
-
-              return (
-                <button
-                  key={cls}
-                  onClick={() => setFactFilter(cls)}
-                  className={`px-3 py-1.5 text-xs font-medium transition flex items-center gap-1.5 border ${
-                    isSelected
-                      ? "bg-[#151515] text-white border-[#151515]"
-                      : `${meta.bg} ${meta.text} ${meta.border} hover:opacity-80`
-                  }`}
-                >
-                  <span>{meta.label}</span>
-                  <span className="font-mono text-[10px] font-bold">({count})</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Facts List */}
-          <div className="space-y-3">
-            {filteredFacts.map((fact: FactLedgerItem) => {
-              const meta = CLASSIFICATION_LABELS[fact.classification] || CLASSIFICATION_LABELS.DOCUMENTED_FACT;
-
-              return (
-                <div
-                  key={fact.id}
-                  className="p-4 bg-[#FAFAF8] border border-[#EEEEEC] hover:border-[#D5D5D2] transition space-y-2 text-xs"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-[#151515] bg-white px-2 py-0.5 border border-[#D5D5D2]">
-                        {fact.id}
-                      </span>
-                      <span className={`px-2 py-0.5 text-[10px] font-bold border uppercase ${meta.bg} ${meta.text} ${meta.border}`}>
-                        {meta.label}
-                      </span>
-                      {fact.isDisputed && (
-                        <span className="px-2 py-0.5 text-[10px] font-bold bg-rose-50 text-rose-800 border border-rose-300 uppercase">
-                          Disputed Issue
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-3 text-[11px] text-[#8E8E8A]">
-                      {fact.partyAttribution && (
-                        <span><strong>Attribution:</strong> {fact.partyAttribution}</span>
-                      )}
-                      <span><strong>Verification:</strong> {fact.verificationStatus}</span>
-                    </div>
-                  </div>
-
-                  <p className="text-[#171717] text-sm leading-relaxed font-medium">
-                    {fact.statement}
-                  </p>
-
-                  {/* Supporting Extracted Quotation & Provenance */}
-                  <div className="pt-2 border-t border-[#EEEEEC] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-[#686868]">
-                    {fact.extractedQuotation ? (
-                      <div className="italic text-[#444444] bg-white p-2 border border-[#EEEEEC] flex-1">
-                        "{fact.extractedQuotation}"
-                      </div>
-                    ) : (
-                      <div className="text-[#8E8E8A]">No direct verbatim quote; synthesis from party submission.</div>
-                    )}
-
-                    <div className="font-mono text-[10px] text-[#151515] bg-[#EEEEEC] px-2 py-1 shrink-0">
-                      Source: {fact.sourceDocument || "User Intake"}{fact.sourcePageNumber ? ` (p.${fact.sourcePageNumber})` : ""}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* -------------------------------------------------------- */}
-      {/* 1.4 CONTRADICTION & DISPUTE RESOLUTION PANEL             */}
+      {/* EVIDENTIARY CONTRADICTIONS & DISPUTED FACTS              */}
       {/* -------------------------------------------------------- */}
       {activeContradictions.length > 0 && (
         <section className="bg-white border-2 border-rose-200 p-6 sm:p-10 shadow-xs">
@@ -604,7 +433,7 @@ export default function ReportView({ result, onReset, onPrint }: ReportViewProps
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 bg-rose-600" />
               <h2 className="text-xs font-bold uppercase tracking-widest text-rose-800">
-                1.4 — Evidentiary Contradictions & Disputed Facts
+                Evidentiary Contradictions & Disputed Facts
               </h2>
             </div>
             <h3 className="text-xl sm:text-2xl font-bold text-[#151515] tracking-tight mt-1">
